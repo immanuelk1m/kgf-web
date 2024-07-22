@@ -9,8 +9,8 @@ interface MarketData {
 }
 
 const containerStyle = `
-  @apply max-w-[1440px] mx-auto p-2 pt-8;
-  @media (max-width: 1440px) {
+  @apply max-w-[1280px] mx-auto p-2 pt-8;
+  @media (max-width: 1280px) {
     @apply px-0;
   }
 `;
@@ -31,9 +31,9 @@ const MarketDataComponent = () => {
     const fetchData = async () => {
         try {
             const [kospiRes, kosdaqRes, wondRes] = await Promise.all([
-                fetch('https://cors-anywhere.herokuapp.com/https://query1.finance.yahoo.com/v8/finance/chart/%5EKS11?range=2d&interval=1d'),
-                fetch('https://cors-anywhere.herokuapp.com/https://query1.finance.yahoo.com/v8/finance/chart/%5EKQ11?range=2d&interval=1d'),
-                fetch('https://cors-anywhere.herokuapp.com/https://query1.finance.yahoo.com/v8/finance/chart/KRW=X?range=2d&interval=1d')
+                fetch('https://query1.finance.yahoo.com/v8/finance/chart/%5EKS11?range=2d&interval=1d'),
+                fetch('https://query1.finance.yahoo.com/v8/finance/chart/%5EKQ11?range=2d&interval=1d'),
+                fetch('https://query1.finance.yahoo.com/v8/finance/chart/KRW=X?range=2d&interval=1d')
             ]);
             
             const [kospiData, kosdaqData, wondData] = await Promise.all([

@@ -6,8 +6,8 @@ import PreviousIndexes from "@/components/component/prev";
 import MarketDataComponent from "@/components/component/markettab";
 
 const containerStyle = `
-  @apply max-w-[1440px] mx-auto p-2;
-  @media (max-width: 1440px) {
+  @apply max-w-[1280px] mx-auto p-2;
+  @media (max-width: 1280px) {
     @apply px-0;
   }
 `;

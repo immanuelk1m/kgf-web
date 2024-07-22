@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 
 const Ad = () => (
-  <div className="bg-purple-700 text-white h-full transition-all duration-300">
+  <div className="bg-green-700 text-white h-full transition-all duration-300">
     <div className="max-w-7xl mx-auto h-full flex justify-between items-center px-4">
       <div className="flex items-center">
         {/* Ad content */}
@@ -12,7 +12,7 @@ const Ad = () => (
 );
 
 const Header: React.FC = () => {
-  const [adHeight, setAdHeight] = useState(320);
+  const [adHeight, setAdHeight] = useState(280);
   const [lastScrollY, setLastScrollY] = useState(0);
 
   const handleScroll = useCallback(() => {
@@ -20,7 +20,7 @@ const Header: React.FC = () => {
     if (scrollPosition === lastScrollY) return; // Scroll이 변하지 않았으면 무시
     setLastScrollY(scrollPosition);
 
-    const newHeight = Math.max(0, 320 - scrollPosition);
+    const newHeight = Math.max(0, 280 - scrollPosition);
     if (newHeight !== adHeight) {
       setAdHeight(newHeight);
     }
