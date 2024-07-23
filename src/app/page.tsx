@@ -38,11 +38,10 @@ function App() {
 
           <div className="flex flex-col md:flex-row mt-4">
             <div className="md:w-2/3 p-4">
-              <GaugeChart />
-              <p className="mt-4 text-lg font-semibold">{formattedDate} 오늘의 코스피 공포탐욕 지수는??</p>
-              <div className="block md:hidden mt-4">
-                <PreviousIndexes />
-              </div>
+              <div className="flex flex-col items-center">
+                <GaugeChart />
+                <p className="mt-2 text-lg font-semibold text-center">{formattedDate} 오늘의 코스피 공포탐욕 지수는??</p>
+              </div> 
             </div>
             <div className="md:w-1/3 hidden md:block pt-32 md:ml-4 p-4">
               <PreviousIndexes />
