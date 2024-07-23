@@ -53,7 +53,8 @@ function App() {
           </div>
 
           <hr className="my-8 border-t border-gray-300" />
-          <div className="mt-4 border-2 border-gray-300 p-4">
+          
+          <div className="mt-4 border-2 border-gray-300">
             <AdsenseOnfooter/>
           </div>
 
