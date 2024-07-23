@@ -16,6 +16,8 @@ const containerStyle = `
 `;
 
 function App() {
+  const today = new Date();
+  const formattedDate = `${today.getMonth() + 1}월 ${today.getDate()}일`;
   return (
     <>
       <Header />
@@ -37,6 +39,7 @@ function App() {
           <div className="flex flex-col md:flex-row mt-4">
             <div className="md:w-2/3 p-4">
               <GaugeChart />
+              <p className="mt-4 text-lg font-semibold">{formattedDate} 오늘의 코스피 공포탐욕 지수는??</p>
               <div className="block md:hidden mt-4">
                 <PreviousIndexes />
               </div>
