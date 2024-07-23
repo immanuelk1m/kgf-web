@@ -111,7 +111,7 @@ const MarketDataComponent = () => {
               <div className="index flex justify-center items-center h-full">
                 <span className="text-6xl font-bold">{fearGreedIndex !== null ? fearGreedIndex : 'Loading...'}</span>
               </div>
-              <div className="text-center mt-4 font-pretendard">Neutral sentiment is driving the US market</div>
+              <div className="text-center mt-4 font-pretendard">Neutral sentiment is driving the KOSPI market</div>
             </div>
         
             <div className="flex flex-col w-full md:w-1/3 p-2">
