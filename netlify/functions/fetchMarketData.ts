@@ -6,7 +6,7 @@ interface MarketData {
   change: number;
 }
 
-const handler: Handler = async (event, context) => {
+export const handler: Handler = async (event, context) => {
   try {
     const [kospiRes, kosdaqRes, wondRes] = await Promise.all([
       fetch('https://query1.finance.yahoo.com/v8/finance/chart/%5EKS11?range=2d&interval=1d'),
@@ -58,5 +58,3 @@ const handler: Handler = async (event, context) => {
     };
   }
 };
-
-export { handler };
