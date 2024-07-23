@@ -8,9 +8,10 @@
     "forceConsistentCasingInFileNames": true,
     "lib": ["es2017", "dom"],
     "moduleResolution": "node",
-    "outDir": "netlify/functions",
-    "rootDir": "src/functions",
+    "outDir": "./netlify/functions",
+    "rootDir": "./netlify/functions",
     "sourceMap": true
   },
-  "include": ["src/functions/**/*"]
+  "include": ["netlify/functions/**/*"],
+  "exclude": ["node_modules"]
 }
