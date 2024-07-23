@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "target": "es2017",
+    "module": "commonjs",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "lib": ["es2017", "dom"],
+    "moduleResolution": "node",
+    "outDir": "netlify/functions",
+    "rootDir": "src/functions",
+    "sourceMap": true
+  },
+  "include": ["src/functions/**/*"]
+}

@@ -22,14 +22,5 @@
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
-  "exclude": ["node_modules"],
-
-  "compilerOptions": {
-    "target": "es2017",
-    "outDir": "netlify/functions",
-    "sourceMap": true
-  },
-  "include": [
-    "src/functions/**/*"
-  ]
+  "exclude": ["node_modules"]
 }

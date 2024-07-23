@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "build:functions": "tsc"
+    "build:functions": "tsc -p tsconfig.netlify-functions.json"
   },
   "dependencies": {
     "@amcharts/amcharts4": "^4.10.39",
