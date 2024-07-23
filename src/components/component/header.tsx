@@ -4,7 +4,7 @@ import React from 'react';
 import AdsenseOnheader from '@/components/component/adsensehd';
 
 const Ad = () => (
-  <div className="bg-[#F2FBF7] h-full flex justify-center">
+  <div className="bg-[#F2FBF7] h-full justify-center">
     <AdsenseOnheader/>
   </div>
 );
