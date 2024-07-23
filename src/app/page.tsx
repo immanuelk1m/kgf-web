@@ -54,13 +54,18 @@ function App() {
 
           <hr className="my-8 border-t border-gray-300" />
           
-          <div className="mt-4 border-2 border-gray-300">
-            <AdsenseOnfooter/>
+
+
+          <div style={{ height: 'auto', minHeight: '300px' }}>
+            <div className="h-full justify-center">
+              <AdsenseOnfooter/>
+            </div>
           </div>
+          
 
         </div>
         
-        
+
 
         <div className="hidden md:block md:w-1/5 bg-white border-2 border-gray-300 p-4 md:ml-4">
           <AdsenseSide/>

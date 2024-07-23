@@ -21,9 +21,7 @@ const KospiVsFearGreedIndex: React.FC = () => {
     fetch('https://raw.githubusercontent.com/immanuelk1m/kospi-feargreedindex/main/assets/js/json/index.json')
       .then(response => response.json())
       .then((jsonData) => {
-        console.log("Fetched data:", jsonData);
 
-        // 데이터가 객체인 경우 배열로 변환
         const dataArray = Array.isArray(jsonData) ? jsonData : jsonData.data;
 
         if (Array.isArray(dataArray)) {
