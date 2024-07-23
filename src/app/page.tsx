@@ -5,6 +5,7 @@ import KospiVsFearGreedIndex from "@/components/component/kospivsindex";
 import PreviousIndexes from "@/components/component/prev";
 import MarketDataComponent from "@/components/component/markettab";
 import AdsenseSide from '@/components/component/adsenseside';
+import AdsenseOnfooter from '@/components/component/adsenseft';
 import "@/styles/fonts.css";
 
 const containerStyle = `
@@ -57,6 +58,12 @@ function App() {
         <div className="hidden md:block md:w-1/5 bg-white border-2 border-gray-300 p-4 md:ml-4">
           <AdsenseSide/>
         </div>
+      </div>
+
+      <div className="h-10"></div>
+      
+      <div>
+        <AdsenseOnfooter/>
       </div>
     </>
   );
