@@ -1,7 +1,6 @@
 'use client';
 
 import BuyCoffee from '@/components/component/buycoff';
-
 import React, { useState, useEffect } from 'react';
 
 interface MarketData {
@@ -31,36 +30,12 @@ const MarketDataComponent = () => {
 
     const fetchData = async () => {
         try {
-            const [kospiRes, kosdaqRes, wondRes] = await Promise.all([
-                fetch('https://query1.finance.yahoo.com/v8/finance/chart/%5EKS11?range=2d&interval=1d'),
-                fetch('https://query1.finance.yahoo.com/v8/finance/chart/%5EKQ11?range=2d&interval=1d'),
-                fetch('https://query1.finance.yahoo.com/v8/finance/chart/KRW=X?range=2d&interval=1d')
-            ]);
-            
-            const [kospiData, kosdaqData, wondData] = await Promise.all([
-                kospiRes.json(),
-                kosdaqRes.json(),
-                wondRes.json()
-            ]);
-
-            const getLatestData = (data: any): MarketData => {
-                const quote = data.chart.result[0].indicators.quote[0];
-                const latestIndex = quote.close.length - 1;
-                const previousClose = data.chart.result[0].meta.chartPreviousClose;
-                const latestClose = quote.close[latestIndex];
-                const change = ((latestClose - previousClose) / previousClose) * 100;
-
-                return {
-                    value: latestClose,
-                    change: change
-                };
-            };
-
-            setMarketData({
-                kospi: getLatestData(kospiData),
-                kosdaq: getLatestData(kosdaqData),
-                wond: getLatestData(wondData)
-            });
+            const response = await fetch('/.netlify/functions/fetchMarketData');
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            const data = await response.json();
+            setMarketData(data);
         } catch (error) {
             console.error("Error fetching data:", error);
         }
