@@ -54,14 +54,7 @@ function App() {
 
           <hr className="my-8 border-t border-gray-300" />
           
-
-
-          <div style={{ height: 'auto', minHeight: '300px' }}>
-            <div className="h-full justify-center">
-              <AdsenseOnfooter/>
-            </div>
-          </div>
-          
+         
 
         </div>
         
@@ -72,6 +65,12 @@ function App() {
         </div>
       </div>
        
+       
+      <div style={{ height: 'auto', minHeight: '300px' }}>
+            <div className="h-full justify-center">
+              <AdsenseOnfooter/>
+            </div>
+          </div>
     </>
   );
 }
