@@ -4,6 +4,7 @@ import GaugeChart from '@/components/component/gauge';
 import KospiVsFearGreedIndex from "@/components/component/kospivsindex";
 import PreviousIndexes from "@/components/component/prev";
 import MarketDataComponent from "@/components/component/markettab";
+import AdsenseSide from '@/components/component/adsenseside';
 import "@/styles/fonts.css";
 
 const containerStyle = `
@@ -54,7 +55,7 @@ function App() {
         <hr className="my-8 border-t border-gray-300" />
 
         <div className="hidden md:block md:w-1/5 bg-white border-2 border-gray-300 p-4 md:ml-4">
-          <div className="mt-4"></div>
+          <AdsenseSide/>
         </div>
       </div>
     </>
