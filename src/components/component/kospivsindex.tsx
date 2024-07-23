@@ -34,7 +34,6 @@ const KospiVsFearGreedIndex: React.FC = () => {
           }));
 
           const recentData = formattedData.slice(-60);
-          console.log("Recent data:", recentData);
           setData(recentData);
         } else {
           console.error('Fetched data is not an array or does not contain an array:', jsonData);
