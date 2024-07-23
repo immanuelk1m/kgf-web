@@ -4,6 +4,7 @@ import GaugeChart from '@/components/component/gauge';
 import KospiVsFearGreedIndex from "@/components/component/kospivsindex";
 import PreviousIndexes from "@/components/component/prev";
 import MarketDataComponent from "@/components/component/markettab";
+import "@/styles/fonts.css";
 
 const containerStyle = `
   @apply max-w-[1280px] mx-auto p-2;

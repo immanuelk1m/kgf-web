@@ -1,6 +1,7 @@
 'use client';
 
 import BuyCoffee from '@/components/component/buycoff';
+
 import React, { useState, useEffect } from 'react';
 
 interface MarketData {
@@ -108,7 +109,7 @@ const MarketDataComponent = () => {
           <div className="flex flex-col md:flex-row flex-wrap md:flex-nowrap">
             
             <div className="markets mb-4 flex flex-col w-full md:w-1/3 p-2 md:border-r md:border-gray-300">
-              <h3 className="text-xl font-semibold mb-2">Markets</h3>
+              <h3 className="text-xl font-semibold mb-2 font-pretendard">Markets</h3>
               <table className="min-w-full bg-white rounded-md">
                 <tbody>
                   <tr className="border-b">
@@ -131,15 +132,15 @@ const MarketDataComponent = () => {
             </div>
             
             <div className="fear-greed-index flex flex-col w-full md:w-1/3 p-2 hidden md:flex md:border-r md:border-gray-300">
-              <h3 className="text-xl font-semibold mb-2">Fear & Greed Index</h3>
+              <h3 className="text-xl font-semibold mb-2 font-pretendard">Fear & Greed Index</h3>
               <div className="index flex justify-center items-center h-full">
                 <span className="text-6xl font-bold">{fearGreedIndex !== null ? fearGreedIndex : 'Loading...'}</span>
               </div>
-              <div className="text-center mt-4">Neutral sentiment is driving the US market</div>
+              <div className="text-center mt-4 font-pretendard">Neutral sentiment is driving the US market</div>
             </div>
         
             <div className="flex flex-col w-full md:w-1/3 p-2">
-              <h3 className="text-xl font-semibold mb-2">커피 한 잔 후원하기!</h3>
+              <h3 className="text-xl font-semibold mb-2 font-pretendard">커피 한 잔 후원하기!</h3>
               <div className="bg-[#FEE500] rounded-lg p-4 flex items-center justify-center min-h-[150px]">
                 <BuyCoffee/>
               </div>

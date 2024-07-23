@@ -35,7 +35,7 @@ export function BuyCoffee() {
       onClick={openImageWindow}
     >
       <CreditCardIcon className="h-6 w-6" />
-      <span className="font-bold text-lg">카카오페이로 커피 선물하기!</span>
+      <span className="font-bold text-lg font-pretendard">카카오페이로 커피 선물하기!</span>
     </Button>
   );
 }
