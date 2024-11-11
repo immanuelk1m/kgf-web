@@ -9,10 +9,17 @@ import AdsenseOnfooter from '@/components/component/adsenseft';
 import "@/styles/fonts.css";
 
 const containerStyle = `
-  @apply max-w-[1280px] mx-auto p-2;
+  max-w-[1280px] mx-auto p-4 
+  @apply bg-white shadow-lg rounded-lg 
+  transition-transform transform hover:scale-105;
   @media (max-width: 1280px) {
-    @apply px-0;
+    px-2;
   }
+`;
+
+const cardStyle = `
+  border-2 border-gray-300 rounded-lg shadow-sm 
+  p-6 transition hover:shadow-md;
 `;
 
 function App() {
@@ -26,52 +33,49 @@ function App() {
   return (
     <>
       <Header />
-      
-      <div className="h-10"></div>
 
-      <div className={`border-2 border-gray-300 ${containerStyle}`}>
+      <div className="h-8"></div>
+
+      <div className={`${containerStyle} bg-gray-100`}>
         <MarketDataComponent />
       </div>
-      
-      <div className={`flex flex-col md:flex-row items-start justify-start min-h-screen ${containerStyle}`}>
-        <div className="flex flex-col w-full md:w-4/5 p-8 border-2 border-gray-300">
+
+      <div className={`flex flex-col md:flex-row items-start justify-start ${containerStyle}`}>
+        <div className={`flex flex-col w-full md:w-4/5 ${cardStyle} p-4`}>
           
-          <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">코스피 공포 & 탐욕 지수</h1>
-          <p className="mt-4 text-muted-foreground md:text-xl">
-          CNN FEAR & GREED INDEX를 코스피 시장에 맞게 재구성하였습니다
+          <h1 className="text-3xl font-bold tracking-tight sm:text-4xl text-gray-800">코스피 공포 & 탐욕 지수</h1>
+          <p className="mt-4 text-gray-600 md:text-xl">
+            CNN FEAR & GREED INDEX를 코스피 시장에 맞게 재구성하였습니다
           </p>
 
-          <div className="flex flex-col md:flex-row mt-4">
+          <div className="flex flex-col md:flex-row mt-6">
             <div className="md:w-2/3 p-4">
-              <div className="flex flex-col items-center">
+              <div className="flex flex-col items-center bg-gray-50 rounded-lg shadow p-4 transition transform hover:scale-105">
                 <GaugeChart />
-                <p className="mt-2 text-lg font-semibold text-center">{formattedDate} 오늘의 코스피 공포탐욕 지수는??</p>
-              </div> 
+                <p className="mt-4 text-lg font-semibold text-gray-700">{formattedDate} - 오늘의 코스피 공포탐욕 지수는?</p>
+              </div>
             </div>
-            <div className="md:w-1/3 hidden md:block pt-32 md:ml-4 p-4">
+            <div className="md:w-1/3 hidden md:block p-4">
               <PreviousIndexes />
             </div>
           </div>
-          
-          <hr className="my-4 border-t-2 border-gray-300" />
 
-          <div className="mt-4 border-2 border-gray-300 p-4">
+          <hr className="my-6 border-t-2 border-gray-300" />
+
+          <div className="border-2 border-gray-200 p-6 bg-gray-50 rounded-lg shadow transition hover:shadow-lg">
             <KospiVsFearGreedIndex />
           </div>
 
           <hr className="my-8 border-t border-gray-300" />
-          
         </div>
 
-        <div className="hidden md:block md:w-1/5 bg-white border-2 border-gray-300 p-4 md:ml-4">
-          <AdsenseSide/>
+        <div className="hidden md:block md:w-1/5 bg-white border-2 border-gray-300 rounded-lg p-4 ml-4 sticky top-20">
+          <AdsenseSide />
         </div>
       </div>
-       
-      <div style={{ height: 'auto', minHeight: '300px' }}>
-        <div className="h-full justify-center">
-          <AdsenseOnfooter/>
-        </div>
+
+      <div className="mt-6 flex items-center justify-center p-4 bg-gray-100 min-h-[300px] rounded-lg">
+        <AdsenseOnfooter />
       </div>
     </>
   );
