@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Header from '@/components/component/header';
 import GaugeChart from '@/components/component/gauge';
 import KospiVsFearGreedIndex from "@/components/component/kospivsindex";
@@ -16,8 +16,13 @@ const containerStyle = `
 `;
 
 function App() {
-  const today = new Date();
-  const formattedDate = `${today.getMonth() + 1}월 ${today.getDate()}일`;
+  const [formattedDate, setFormattedDate] = useState("");
+
+  useEffect(() => {
+    const today = new Date();
+    setFormattedDate(`${today.getMonth() + 1}월 ${today.getDate()}일`);
+  }, []);
+
   return (
     <>
       <Header />
@@ -56,28 +61,20 @@ function App() {
 
           <hr className="my-8 border-t border-gray-300" />
           
-         
-
         </div>
-        
-
 
         <div className="hidden md:block md:w-1/5 bg-white border-2 border-gray-300 p-4 md:ml-4">
           <AdsenseSide/>
         </div>
       </div>
        
-       
       <div style={{ height: 'auto', minHeight: '300px' }}>
-            <div className="h-full justify-center">
-              <AdsenseOnfooter/>
-            </div>
-          </div>
+        <div className="h-full justify-center">
+          <AdsenseOnfooter/>
+        </div>
+      </div>
     </>
   );
 }
 
 export default App;
-
-
-
