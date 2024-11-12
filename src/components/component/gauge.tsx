@@ -87,6 +87,7 @@ const GaugeChart: React.FC = () => {
       range.label.text = grading.title.toUpperCase();
       range.label.location = 0.5;
       // range.label.radius = am4core.percent(15);
+      range.label.verticalCenter = "middle"; // 수직으로 중앙 정렬
       range.label.paddingBottom = -30;
       range.label.fontSize = '3.6em';
     }
