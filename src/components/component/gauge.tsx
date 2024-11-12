@@ -123,6 +123,7 @@ const GaugeChart: React.FC = () => {
 
     hand.events.on('positionchanged', function () {
       label.text = axis2.positionToValue(hand.currentPosition).toFixed(1);
+      label.fill = am4core.color('#000000');
       const value2 = axis.positionToValue(hand.currentPosition);
       const matchingGrade = lookUpGrade(value2, data.gradingData);
       label2.text = matchingGrade.title.toUpperCase();
