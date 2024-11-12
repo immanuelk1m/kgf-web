@@ -129,7 +129,7 @@ const GaugeChart: React.FC = () => {
       label2.text = matchingGrade.title.toUpperCase();
       label2.fill = am4core.color(matchingGrade.color);
       label2.stroke = am4core.color(matchingGrade.color);
-      label.fill = am4core.color(matchingGrade.color);
+      // label.fill = am4core.color(matchingGrade.color);
     });
 
     let current_value: number;
