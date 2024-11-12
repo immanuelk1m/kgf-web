@@ -24,13 +24,13 @@ const GaugeChart: React.FC = () => {
         }
         return false;
       },
-      state: function(target, stateId) {
+      state: function(target: am4core.Sprite, stateId: string): am4core.Optional<am4core.SpriteState<am4core.ISpriteProperties, am4core.ISpriteAdapters>> {
         if (target instanceof am4charts.GaugeChart) {
           const state = target.states.create(stateId);
           state.properties.fontSize = 7;
           return state;
         }
-        return null;
+        return undefined;
       }
     });
 
@@ -50,7 +50,12 @@ const GaugeChart: React.FC = () => {
       ]
     };
 
-    function lookUpGrade(lookupScore: number, grades: any[]) {
+    function lookUpGrade(lookupScore: number, grades: Array<{
+      title: string;
+      color: string;
+      lowScore: number;
+      highScore: number;
+    }>) {
       for (let i = 0; i < grades.length; i++) {
         if (grades[i].lowScore < lookupScore && grades[i].highScore >= lookupScore) {
           return grades[i];
@@ -110,6 +115,7 @@ const GaugeChart: React.FC = () => {
     }
 
     const matchingGrade = lookUpGrade(data.score, data.gradingData);
+    if (!matchingGrade) return;
 
     // 수치 레이블
     const label = chart.radarContainer.createChild(am4core.Label);
@@ -145,11 +151,13 @@ const GaugeChart: React.FC = () => {
       label.text = axis2.positionToValue(hand.currentPosition).toFixed(1);
       const value2 = axis.positionToValue(hand.currentPosition);
       const matchingGrade = lookUpGrade(value2, data.gradingData);
-      label2.text = matchingGrade.title;
-      label2.fill = am4core.color(matchingGrade.color);
+      if (matchingGrade) {
+        label2.text = matchingGrade.title;
+        label2.fill = am4core.color(matchingGrade.color);
+      }
     });
 
-    let current_value: number;
+    let current_value: number = 50; // Default value
 
     fetch('https://immanuelk1m.github.io/kospi-feargreedindex/assets/js/json/value.json')
       .then(response => response.json())
