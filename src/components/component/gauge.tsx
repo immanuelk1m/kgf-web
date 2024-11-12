@@ -59,7 +59,7 @@ const GaugeChart: React.FC = () => {
     axis.renderer.ticks.template.length = 10;
     axis.renderer.grid.template.disabled = true;
     axis.renderer.labels.template.radius = am4core.percent(25);
-    axis.renderer.labels.template.fontSize = '1.5em';
+    axis.renderer.labels.template.fontSize = window.innerWidth > 768 ? '1.5em' : '1em';
 
     const axis2 = chart.xAxes.push(new am4charts.ValueAxis<am4charts.AxisRendererCircular>());
     axis2.min = chartMin;
@@ -148,7 +148,7 @@ const GaugeChart: React.FC = () => {
     };
   }, []);
 
-  return <div id="chartdiv" style={{ width: '100%', height: '460px' }} />;
+  return <div id="chartdiv" style={{ width: '100%', height: '40vh' }} />
 };
 
 export default GaugeChart;
