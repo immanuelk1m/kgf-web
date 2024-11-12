@@ -15,6 +15,25 @@ const GaugeChart: React.FC = () => {
       chart.logo.disabled = true;
     }
 
+    // 차트 반응형 설정
+    chart.responsive.enabled = true;
+    chart.responsive.rules.push({
+      relevant: function(target) {
+        if (target.pixelWidth <= 400) {
+          return true;
+        }
+        return false;
+      },
+      state: function(target, stateId) {
+        if (target instanceof am4charts.GaugeChart) {
+          const state = target.states.create(stateId);
+          state.properties.fontSize = 7;
+          return state;
+        }
+        return null;
+      }
+    });
+
     am4core.addLicense('ch-custom-attribution');
 
     const chartMin = 0;
@@ -42,9 +61,8 @@ const GaugeChart: React.FC = () => {
 
     chart.hiddenState.properties.opacity = 0;
     chart.fontSize = 7;
-    chart.innerRadius = am4core.percent(80); // 게이지 내부 반경 증가
-    chart.resizable = true;
-
+    chart.innerRadius = am4core.percent(80);
+    
     // 반응형 설정
     const isSmallScreen = window.innerWidth <= 768;
     const labelFontSize = isSmallScreen ? '2.5em' : '4em';
@@ -88,7 +106,6 @@ const GaugeChart: React.FC = () => {
       range.label.location = 0.5;
       range.label.verticalCenter = "middle";
       range.label.fontSize = emojiSize;
-      // 모바일에서 이모티콘 위치 조정
       range.label.paddingBottom = isSmallScreen ? -5 : -30;
     }
 
@@ -113,7 +130,6 @@ const GaugeChart: React.FC = () => {
     label2.verticalCenter = 'bottom';
     label2.text = matchingGrade.title;
     label2.fill = am4core.color('#000000');
-    // 모바일에서 이모티콘과 수치 간격 조정
     label2.dy = isSmallScreen ? 20 : 40;
 
     const hand = chart.hands.push(new am4charts.ClockHand());
@@ -146,15 +162,7 @@ const GaugeChart: React.FC = () => {
       hand.showValue(value, 1000, am4core.ease.cubicOut);
     }, 2000);
 
-    // 창 크기 변경 시 차트 크기 조정
-    const resizeChart = () => {
-      chart.setSize(chart.divWidth, chart.divHeight);
-    };
-
-    window.addEventListener('resize', resizeChart);
-
     return () => {
-      window.removeEventListener('resize', resizeChart);
       chart.dispose();
     };
   }, []);
@@ -165,8 +173,8 @@ const GaugeChart: React.FC = () => {
       style={{ 
         width: '100%', 
         height: '40vh',
-        minHeight: '300px', // 최소 높이 설정
-        maxHeight: '500px'  // 최대 높이 설정
+        minHeight: '300px',
+        maxHeight: '500px'
       }} 
     />
   );
