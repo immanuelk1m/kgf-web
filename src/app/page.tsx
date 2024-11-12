@@ -42,8 +42,8 @@ function App() {
         <MarketDataComponent />
       </div>
 
-      <div className={`flex flex-col md:flex-row items-start justify-start ${containerStyle}`}>
-        <div className={`flex flex-col w-full md:w-4/5 ${cardStyle} p-4`}>
+      <div className="flex flex-col w-full md:flex-row items-start justify-start ${containerStyle}">
+        <div className="flex flex-col w-full md:w-4/5 ${cardStyle} p-4">
           
           <h1 className="text-3xl font-bold tracking-tight sm:text-4xl text-gray-800">코스피 공포 & 탐욕 지수</h1>
           <p className="mt-4 text-gray-600 md:text-xl">
@@ -51,7 +51,7 @@ function App() {
           </p>
 
           <div className="flex flex-col md:flex-row mt-6">
-            <div className="md:w-2/3 p-4">
+            <div className="w-full md:w-2/3 p-4">
               <div className="flex flex-col items-center bg-gray-50 rounded-lg shadow p-4 transition transform hover:scale-105">
                 <GaugeChart />
                 <p className="mt-4 text-lg font-semibold text-gray-700">{formattedDate} - 오늘의 코스피 공포탐욕 지수는?</p>
