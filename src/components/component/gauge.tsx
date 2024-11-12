@@ -101,7 +101,7 @@ const GaugeChart: React.FC = () => {
     label.horizontalCenter = 'middle';
     label.verticalCenter = 'bottom';
     label.text = data.score.toFixed(1);
-    label.fill = am4core.color(matchingGrade.color);
+    label.fill = am4core.color('#000000');
 
     const label2 = chart.radarContainer.createChild(am4core.Label);
     label2.isMeasured = false;
@@ -109,7 +109,7 @@ const GaugeChart: React.FC = () => {
     label2.horizontalCenter = 'middle';
     label2.verticalCenter = 'bottom';
     label2.text = matchingGrade.title.toUpperCase();
-    label2.fill = am4core.color(matchingGrade.color);
+    label2.fill = am4core.color('#000000');
 
     const hand = chart.hands.push(new am4charts.ClockHand());
     hand.axis = axis2;
