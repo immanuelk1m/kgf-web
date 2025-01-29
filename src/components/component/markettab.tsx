@@ -43,7 +43,7 @@ const MarketDataComponent = () => {
 
     const fetchFearGreedIndex = async () => {
         try {
-            const response = await fetch('https://immanuelk1m.github.io/kospi-feargreedindex/assets/js/json/value.json');
+            const response = await fetch('https://raw.githubusercontent.com/immanuelk1m/kospi-feargreedindex/refs/heads/main/assets/js/json/value.json');
             const data = await response.json();
             setFearGreedIndex(data.current);
         } catch (error) {
