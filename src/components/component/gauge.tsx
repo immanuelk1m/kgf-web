@@ -159,7 +159,7 @@ const GaugeChart: React.FC = () => {
 
     let current_value: number = 50; // Default value
 
-    fetch('https://immanuelk1m.github.io/kospi-feargreedindex/assets/js/json/value.json')
+    fetch('https://raw.githubusercontent.com/immanuelk1m/kospi-feargreedindex/refs/heads/main/assets/js/json/value.json')
       .then(response => response.json())
       .then(json => {
         current_value = json.current;
