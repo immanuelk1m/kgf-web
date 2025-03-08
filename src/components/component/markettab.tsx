@@ -115,7 +115,6 @@ const MarketDataComponent = () => {
             </div>
         
             <div className="flex flex-col w-full md:w-1/3 p-2">
-              <h3 className="text-xl font-semibold mb-2 font-pretendard">커피 한 잔 후원하기!</h3>
               <div className="rounded-lg p-4 flex items-center justify-center min-h-[100px]">
                 <BuyCoffee/>
               </div>
