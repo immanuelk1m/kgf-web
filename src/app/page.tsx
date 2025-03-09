@@ -115,6 +115,7 @@ function App() {
               <AdsenseOnfooter />
             </div>
           </div>
+        </div>
 
         {/* 우측 광고: xl 이상에서 표시, 세로 가운데 정렬, 가로 가운데 정렬 */}
         <div className="hidden xl:flex xl:items-center xl:justify-center flex-1 sticky top-0 h-screen">
