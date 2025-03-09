@@ -148,4 +148,4 @@ const Vixema: React.FC = () => {
   );
 };
 
-export default KospiVsFearGreedIndex;
+export default Vixema;
