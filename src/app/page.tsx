@@ -9,6 +9,8 @@ import AdsenseSide from '@/components/component/adsenseside';
 import AdsenseOnfooter from '@/components/component/adsenseft';
 
 import KospiVsFearGreedIndex from "@/components/component/linechart/kospivsindex";
+import Kospiema from "@/components/component/linechart/kospiema";
+import Vixema from "@/components/component/linechart/vixema";
 
 
 import "@/styles/fonts.css";
@@ -109,6 +111,17 @@ function App() {
                   </div>
                 )}
               </div>
+              <div className="w-full p-4">
+                <div className="border-2 border-gray-200 p-6 bg-gray-50 rounded-lg shadow transition hover:shadow-lg">
+                  <Kospiema />
+                </div>
+              </div>
+              <div className="w-full p-4">
+                <div className="border-2 border-gray-200 p-6 bg-gray-50 rounded-lg shadow transition hover:shadow-lg">
+                  <Vixema />
+                </div>
+              </div>
+              
 
               <hr className="my-8 border-t border-gray-300" />
             </div>
