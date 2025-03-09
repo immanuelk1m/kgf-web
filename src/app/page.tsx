@@ -114,7 +114,10 @@ function App() {
               </div>
 
               
-              <div className="w-full p-4">
+              <hr className="my-8 border-t border-gray-300" />
+            </div>
+
+            <div className="w-full p-4">
                 <div className="border-2 border-gray-200 p-6 bg-gray-50 rounded-lg shadow transition hover:shadow-lg">
                   <Kospiema />
                 </div>
@@ -131,9 +134,6 @@ function App() {
                 </div>
               </div>
               */}
-              
-              <hr className="my-8 border-t border-gray-300" />
-            </div>
           </div>
 
           {/* 푸터 광고를 하단에 붙이기 */}
