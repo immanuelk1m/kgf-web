@@ -18,6 +18,7 @@ interface FormattedDataItem {
 
 const Kospiema: React.FC = () => {
   const [data, setData] = useState<FormattedDataItem[]>([]);
+  const [yDomain, setYDomain] = useState<[number, number]>([0, 0]);
 
   useEffect(() => {
     fetch('https://raw.githubusercontent.com/immanuelk1m/kospi-feargreedindex/main/assets/js/json/kospi.json')
@@ -62,6 +63,19 @@ const Kospiema: React.FC = () => {
 
           // 최근 50개 데이터 포인트 가져오기
           const recentData = formattedData.slice(-50);
+          
+          // 데이터의 최소값과 최대값 계산
+          if (recentData.length > 0) {
+            const kospiValues = recentData.map(item => item.kospi);
+            const fgiValues = recentData.map(item => item.fgi);
+            const allValues = [...kospiValues, ...fgiValues];
+            
+            const min = Math.floor(Math.min(...allValues) * 0.99); // 최소값보다 약간 낮게 설정
+            const max = Math.ceil(Math.max(...allValues) * 1.01); // 최대값보다 약간 높게 설정
+            
+            setYDomain([min, max]);
+          }
+          
           setData(recentData);
         } else {
           console.error('가져온 데이터가 배열이 아니거나 배열을 포함하지 않습니다:', jsonData);
@@ -88,15 +102,6 @@ const Kospiema: React.FC = () => {
     return null;
   };
 
-  // X축 틱 포매터 - 월이 바뀌는 지점에만 레이블 표시
-  const xAxisTickFormatter = (value: string, index: number) => {
-    const item = data[index];
-    if (item && item.isMonthStart) {
-      return item.month;
-    }
-    return '';
-  };
-
   return (
     <ResponsiveContainer width="100%" height={300}>
       <LineChart
@@ -120,13 +125,15 @@ const Kospiema: React.FC = () => {
         />
         <YAxis 
           yAxisId="left" 
-          orientation="left" 
-          tickFormatter={(value) => value.toFixed(0)} 
+          orientation="left"
+          domain={yDomain}
+          hide={true} // 왼쪽 Y축 숨기기
         />
         <YAxis 
           yAxisId="right" 
-          orientation="right" 
-          tickFormatter={(value) => value.toFixed(0)} 
+          orientation="right"
+          domain={yDomain}
+          tickFormatter={(value) => value.toFixed(0)}
         />
         <Tooltip content={customTooltip} />
         <Legend />
