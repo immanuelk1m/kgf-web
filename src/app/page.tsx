@@ -34,7 +34,7 @@ function App() {
 
   return (
     <>
-      <div className="flex w-full">
+      <div className="flex w-full min-h-screen">
         {/* 좌측 광고: xl 이상에서 표시, 세로 가운데 정렬, sticky */}
         <div className="hidden xl:flex xl:items-center xl:justify-end flex-1 sticky top-0 h-screen">
           <div className="w-64">
@@ -42,8 +42,8 @@ function App() {
           </div>
         </div>
 
-        {/* 메인 콘텐츠: 최대 너비 1280px로 중앙 정렬 */}
-        <div className="w-full max-w-[1280px]">
+        {/* 메인 콘텐츠: 최대 너비 1280px로 중앙 정렬, 최소 높이 화면 높이 */}
+        <div className="w-full max-w-[1280px] min-h-screen flex flex-col">
           <Header />
           <div className="h-8"></div>
 
@@ -80,7 +80,8 @@ function App() {
             </div>
           </div>
 
-          <div className="mt-6 flex items-center justify-center p-4 bg-gray-100 min-h-[300px] rounded-lg">
+          {/* 푸터 광고를 하단에 붙이기 */}
+          <div className="mt-auto flex items-center justify-center p-4 bg-gray-100 min-h-[300px] rounded-lg">
             <AdsenseOnfooter />
           </div>
         </div>
