@@ -16,7 +16,6 @@ interface FormattedDataItem {
 
 const Pcema: React.FC = () => {
   const [data, setData] = useState<FormattedDataItem[]>([]);
-  const [yDomain, setYDomain] = useState<[number, number]>([0, 0]);
 
   useEffect(() => {
     fetch('https://raw.githubusercontent.com/immanuelk1m/kospi-feargreedindex/main/assets/js/json/p_c_ema.json')
@@ -54,15 +53,8 @@ const Pcema: React.FC = () => {
             };
           });
 
+          // 최근 50개 데이터 포인트만 사용
           const recentData = formattedData.slice(-50);
-
-          if (recentData.length > 0) {
-            const pcmValues = recentData.map(item => item.pcm);
-            const min = Math.floor(Math.min(...pcmValues) * 0.99);
-            const max = Math.ceil(Math.max(...pcmValues) * 1.01);
-            setYDomain([min, max]);
-          }
-
           setData(recentData);
         } else {
           console.error('가져온 데이터가 배열이 아니거나 배열을 포함하지 않습니다:', jsonData);
@@ -100,14 +92,14 @@ const Pcema: React.FC = () => {
         <YAxis 
           yAxisId="left" 
           orientation="left"
-          domain={yDomain}
+          domain={[0, 1]}
           hide={true}
         />
         <YAxis 
           yAxisId="right" 
           orientation="right"
-          domain={yDomain}
-          tickFormatter={(value) => value.toFixed(0)}
+          domain={[0, 1]}
+          tickFormatter={(value) => value.toFixed(2)}
         />
         <Tooltip content={customTooltip} />
         <Legend />
