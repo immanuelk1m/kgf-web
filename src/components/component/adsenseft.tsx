@@ -1,19 +1,18 @@
 'use client';
 
-import React from 'react'
+import React from 'react';
 import { Adsense } from '@ctrl/react-adsense';
 
 function AdsenseOnfooter() {
-        return (
-            <Adsense               
-                client="ca-pub-7656508177587264"
-                slot="4411714536"
-                format="autorelaxed"
-                responsive="true"
-                style={{ display: 'block' }}
-            />
-        )
+  return (
+    <Adsense
+      client="ca-pub-7656508177587264"
+      slot="4411714536"
+      format="auto" // 'autorelaxed' 대신 'auto'로 변경
+      responsive="true"
+      style={{ display: 'block' }}
+    />
+  );
 }
 
-
-export default AdsenseOnfooter
+export default AdsenseOnfooter;
