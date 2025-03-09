@@ -15,11 +15,11 @@ const GaugeChart: React.FC = () => {
       chart.logo.disabled = true;
     }
 
-    // 차트 반응형 설정
+    // 차트 반응형 설정 개선
     chart.responsive.enabled = true;
     chart.responsive.rules.push({
       relevant: function(target) {
-        if (target.pixelWidth <= 400) {
+        if (target.pixelWidth <= 600) {
           return true;
         }
         return false;
@@ -27,7 +27,8 @@ const GaugeChart: React.FC = () => {
       state: function(target: am4core.Sprite, stateId: string): am4core.Optional<am4core.SpriteState<am4core.ISpriteProperties, am4core.ISpriteAdapters>> {
         if (target instanceof am4charts.GaugeChart) {
           const state = target.states.create(stateId);
-          state.properties.fontSize = 7;
+          state.properties.fontSize = 9;
+          state.properties.innerRadius = am4core.percent(75);
           return state;
         }
         return undefined;
@@ -65,20 +66,23 @@ const GaugeChart: React.FC = () => {
     }
 
     chart.hiddenState.properties.opacity = 0;
-    chart.fontSize = 7;
+    chart.fontSize = 12;
     chart.innerRadius = am4core.percent(80);
     
-    // 반응형 설정
+    // 반응형 설정 개선
     const isSmallScreen = window.innerWidth <= 768;
-    const labelFontSize = isSmallScreen ? '2.5em' : '4em';
-    const emojiSize = isSmallScreen ? '2em' : '3.6em';
-    const labelOffset = isSmallScreen ? 15 : 25;
+    const isMobileScreen = window.innerWidth <= 480;
+    
+    // 화면 크기에 따른 폰트 크기 조정
+    const labelFontSize = isMobileScreen ? '2em' : (isSmallScreen ? '3em' : '4em');
+    const emojiSize = isMobileScreen ? '1.8em' : (isSmallScreen ? '2.5em' : '3.6em');
+    const labelOffset = isMobileScreen ? 10 : (isSmallScreen ? 15 : 25);
 
     const axis = chart.xAxes.push(new am4charts.ValueAxis<am4charts.AxisRendererCircular>());
     axis.min = chartMin;
     axis.max = chartMax;
     axis.strictMinMax = true;
-    axis.renderer.radius = am4core.percent(68);
+    axis.renderer.radius = am4core.percent(70);
     axis.renderer.inside = true;
     axis.renderer.line.strokeOpacity = 0.2;
     axis.renderer.ticks.template.disabled = false;
@@ -87,7 +91,7 @@ const GaugeChart: React.FC = () => {
     axis.renderer.ticks.template.length = 10;
     axis.renderer.grid.template.disabled = true;
     axis.renderer.labels.template.radius = am4core.percent(35);
-    axis.renderer.labels.template.fontSize = isSmallScreen ? '1em' : '1.5em';
+    axis.renderer.labels.template.fontSize = isMobileScreen ? '0.9em' : (isSmallScreen ? '1.2em' : '1.5em');
 
     const axis2 = chart.xAxes.push(new am4charts.ValueAxis<am4charts.AxisRendererCircular>());
     axis2.min = chartMin;
@@ -98,6 +102,7 @@ const GaugeChart: React.FC = () => {
     axis2.renderer.grid.template.disabled = false;
     axis2.renderer.grid.template.opacity = 0.5;
 
+    // 이모티콘이 게이지 중앙을 향하도록 설정
     for (let grading of data.gradingData) {
       const range = axis2.axisRanges.create();
       range.axisFill.fill = am4core.color(grading.color);
@@ -111,7 +116,22 @@ const GaugeChart: React.FC = () => {
       range.label.location = 0.5;
       range.label.verticalCenter = "middle";
       range.label.fontSize = emojiSize;
-      range.label.paddingBottom = isSmallScreen ? -5 : -30;
+      range.label.paddingBottom = isMobileScreen ? 0 : -15;
+      
+      // 이모티콘이 게이지 중앙을 향하도록 회전 - 타입 문제 해결
+      range.label.rotation = 0;
+      range.label.adapter.add("rotation", function(rotation, target) {
+        const rangeValue = (range.value + range.endValue) / 2;
+        // valueToAngle 메서드에 대한 타입 문제 해결
+        const angleInDegrees = (axis2 as any).valueToAngle(rangeValue);
+        // 중앙을 향하도록 회전각 계산
+        return 90 - angleInDegrees;
+      });
+      
+      // 이모티콘 위치 조정 - 타입 문제 해결
+      (range.label.adapter as any).add("radius", function(radius: any, target: any) {
+        return am4core.percent(isMobileScreen ? 45 : 50);
+      });
     }
 
     const matchingGrade = lookUpGrade(data.score, data.gradingData);
@@ -136,7 +156,7 @@ const GaugeChart: React.FC = () => {
     label2.verticalCenter = 'bottom';
     label2.text = matchingGrade.title;
     label2.fill = am4core.color('#000000');
-    label2.dy = isSmallScreen ? 20 : 40;
+    label2.dy = isMobileScreen ? 15 : (isSmallScreen ? 25 : 40);
 
     const hand = chart.hands.push(new am4charts.ClockHand());
     hand.axis = axis2;
@@ -163,6 +183,9 @@ const GaugeChart: React.FC = () => {
       .then(response => response.json())
       .then(json => {
         current_value = json.current;
+      })
+      .catch(error => {
+        console.error("API 호출 오류:", error);
       });
 
     setInterval(function () {
@@ -170,7 +193,27 @@ const GaugeChart: React.FC = () => {
       hand.showValue(value, 1000, am4core.ease.cubicOut);
     }, 2000);
 
+    // 윈도우 리사이즈 이벤트에 반응하도록 추가
+    const resizeHandler = () => {
+      const isSmallScreen = window.innerWidth <= 768;
+      const isMobileScreen = window.innerWidth <= 480;
+      
+      // 라벨 크기 조정
+      label.fontSize = isMobileScreen ? '2em' : (isSmallScreen ? '3em' : '4em');
+      label2.fontSize = isMobileScreen ? '1.8em' : (isSmallScreen ? '2.5em' : '3.6em');
+      
+      // 라벨 위치 조정
+      label.paddingBottom = isMobileScreen ? 10 : (isSmallScreen ? 15 : 25);
+      label2.dy = isMobileScreen ? 15 : (isSmallScreen ? 25 : 40);
+      
+      // 차트 크기 재조정 트리거
+      (chart as any).invalidateSize();
+    };
+
+    window.addEventListener('resize', resizeHandler);
+
     return () => {
+      window.removeEventListener('resize', resizeHandler);
       chart.dispose();
     };
   }, []);
@@ -181,8 +224,8 @@ const GaugeChart: React.FC = () => {
       style={{ 
         width: '100%', 
         height: '40vh',
-        minHeight: '300px',
-        maxHeight: '500px'
+        minHeight: '280px',
+        maxHeight: '450px'
       }} 
     />
   );
