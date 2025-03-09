@@ -35,9 +35,11 @@ function App() {
   return (
     <>
       <div className="flex w-full">
-        {/* 좌측 광고: xl 이상에서 표시 */}
-        <div className="hidden xl:block flex-1">
-          <AdsenseSide />
+        {/* 좌측 광고: xl 이상에서 표시, 세로 가운데 정렬, sticky */}
+        <div className="hidden xl:flex xl:items-center xl:justify-end flex-1 sticky top-0 h-screen">
+          <div className="w-64">
+            <AdsenseSide />
+          </div>
         </div>
 
         {/* 메인 콘텐츠: 최대 너비 1280px로 중앙 정렬 */}
@@ -76,8 +78,6 @@ function App() {
 
               <hr className="my-8 border-t border-gray-300" />
             </div>
-
-
           </div>
 
           <div className="mt-6 flex items-center justify-center p-4 bg-gray-100 min-h-[300px] rounded-lg">
@@ -85,9 +85,11 @@ function App() {
           </div>
         </div>
 
-        {/* 우측 광고: xl 이상에서 표시 */}
-        <div className="hidden xl:block flex-1">
-          <AdsenseSide />
+        {/* 우측 광고: xl 이상에서 표시, 세로 가운데 정렬, sticky */}
+        <div className="hidden xl:flex xl:items-center xl:justify-start flex-1 sticky top-0 h-screen">
+          <div className="w-64">
+            <AdsenseSide />
+          </div>
         </div>
       </div>
     </>
