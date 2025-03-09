@@ -20,9 +20,6 @@ export const metadata: Metadata = {
     images: [
       {
         url: "https://raw.githubusercontent.com/immanuelk1m/kgf-web/main/public/ogimage.jpg", 
-        width: 1200,
-        height: 630,
-        alt: "코스피 공포 탐욕 지수 미리보기 이미지",
       },
     ],
   },
@@ -41,7 +38,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko">
+      
       <head>
+      <meta property="og:image" content="https://raw.githubusercontent.com/immanuelk1m/kgf-web/main/public/ogimage.jpg" />
+      <meta property="og:image:width" content="1200" />
+      <meta property="og:image:height" content="630" />
+
         <Script
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7656508177587264"
