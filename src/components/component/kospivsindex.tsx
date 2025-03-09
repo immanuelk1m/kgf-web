@@ -12,7 +12,7 @@ interface FormattedDataItem {
   date: string;
   kospi: number;
   fgi: number;
-  month: string; // New field for month display
+  month: string; // 월 표시용 필드
 }
 
 const KospiVsFearGreedIndex: React.FC = () => {
@@ -26,20 +26,18 @@ const KospiVsFearGreedIndex: React.FC = () => {
 
         if (Array.isArray(dataArray)) {
           const formattedData: FormattedDataItem[] = dataArray.map((item: DataItem) => {
-            // Parse the date to extract month
+            // 날짜에서 월 추출
             let monthStr = '';
             try {
-              // Assuming format is YYYY-MM-DD
+              // YYYY-MM-DD 형식 가정
               const parts = item.x.split('-');
               if (parts.length >= 2) {
-                // Get month name (Korean)
-                const monthNames = ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'];
-                const monthIndex = parseInt(parts[1], 10) - 1;
-                monthStr = monthNames[monthIndex];
+                // 월 이름 (한국어)
+                monthStr = `${parts[1]}월`;
               }
             } catch (e) {
-              console.error('Error parsing date:', item.x, e);
-              monthStr = item.x; // Fallback to original string
+              console.error('날짜 파싱 오류:', item.x, e);
+              monthStr = item.x; // 원래 문자열로 폴백
             }
 
             return {
@@ -50,34 +48,17 @@ const KospiVsFearGreedIndex: React.FC = () => {
             };
           });
 
-          // Get the last 50 data points
+          // 최근 50개 데이터 포인트 가져오기
           const recentData = formattedData.slice(-50);
-          
-          // Filter data to show only one entry per month
-          // This prevents duplicate month labels on the x-axis
-          const monthsShown = new Set();
-          const filteredData = recentData.filter((item, index) => {
-            // Always keep the first and last data point
-            if (index === 0 || index === recentData.length - 1) return true;
-            
-            // For others, only keep if we haven't seen this month yet
-            if (!monthsShown.has(item.month)) {
-              monthsShown.add(item.month);
-              return true;
-            }
-            
-            return false;
-          });
-          
           setData(recentData);
         } else {
-          console.error('Fetched data is not an array or does not contain an array:', jsonData);
+          console.error('가져온 데이터가 배열이 아니거나 배열을 포함하지 않습니다:', jsonData);
         }
       })
-      .catch(error => console.error('Error fetching data:', error));
+      .catch(error => console.error('데이터 가져오기 오류:', error));
   }, []);
 
-  // Custom tooltip formatter to show the full date when hovering
+  // 호버 시 전체 날짜를 표시하는 사용자 정의 툴팁
   const customTooltip = ({ active, payload, label }: any) => {
     if (active && payload && payload.length) {
       return (
@@ -103,20 +84,7 @@ const KospiVsFearGreedIndex: React.FC = () => {
       >
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis 
-          dataKey="date" 
-          tickFormatter={(value) => {
-            // Extract month from date string (format: YYYY-MM-DD)
-            try {
-              const parts = value.split('-');
-              if (parts.length >= 2) {
-                return `${parts[1]}월`;
-              }
-              return value;
-            } catch (e) {
-              return value;
-            }
-          }}
-          // Show fewer ticks to avoid overcrowding
+          dataKey="month" // date 대신 month를 사용
           interval="preserveStartEnd"
           minTickGap={30}
         />
