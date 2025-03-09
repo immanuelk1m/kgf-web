@@ -119,6 +119,11 @@ const Kospiema: React.FC = () => {
           interval={0}
         />
         <YAxis 
+          yAxisId="left" 
+          orientation="left" 
+          tickFormatter={(value) => value.toFixed(0)} 
+        />
+        <YAxis 
           yAxisId="right" 
           orientation="right" 
           tickFormatter={(value) => value.toFixed(0)} 
