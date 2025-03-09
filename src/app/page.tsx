@@ -141,7 +141,7 @@ function App() {
           {/* 시장 변동성 차트 (Vixema) */}
           <div className="flex flex-col md:flex-row w-full p-4">
             <h2 className="text-lg font-semibold text-gray-800">시장 변동성 (Market Volatility)</h2>
-            <h3 className="text-lg font-semibold text-gray-800">VIX와 VIX 50일 이동평균선</h2>
+            <h3 className="text-lg font-semibold text-gray-800">VIX와 VIX 50일 이동평균선</h3>
             <div className="w-full md:w-3/5 border-2 border-gray-200 p-6 bg-gray-50 rounded-lg shadow transition hover:shadow-lg">
               <Vixema />
             </div>
