@@ -98,7 +98,7 @@ const Pcema: React.FC = () => {
         <YAxis 
           yAxisId="right" 
           orientation="right"
-          domain={[0, 1]}
+          domain={[0.5, 1.5]}
           tickFormatter={(value) => value.toFixed(2)}
         />
         <Tooltip content={customTooltip} />
