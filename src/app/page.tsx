@@ -35,8 +35,8 @@ function App() {
   return (
     <>
       <div className="flex w-full min-h-screen">
-        {/* 좌측 광고: xl 이상에서 표시, 세로 가운데 정렬, sticky */}
-        <div className="hidden xl:flex xl:items-center xl:justify-end flex-1 sticky top-0 h-screen">
+        {/* 좌측 광고: xl 이상에서 표시, 세로 가운데 정렬, 가로 가운데 정렬 */}
+        <div className="hidden xl:flex xl:items-center xl:justify-center flex-1 sticky top-0 h-screen">
           <div className="w-64">
             <AdsenseSide />
           </div>
@@ -88,8 +88,8 @@ function App() {
           </div>
         </div>
 
-        {/* 우측 광고: xl 이상에서 표시, 세로 가운데 정렬, sticky */}
-        <div className="hidden xl:flex xl:items-center xl:justify-start flex-1 sticky top-0 h-screen">
+        {/* 우측 광고: xl 이상에서 표시, 세로 가운데 정렬, 가로 가운데 정렬 */}
+        <div className="hidden xl:flex xl:items-center xl:justify-center flex-1 sticky top-0 h-screen">
           <div className="w-64">
             <AdsenseSide />
           </div>
