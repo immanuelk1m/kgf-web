@@ -55,7 +55,7 @@ const KospiVsFearGreedIndex: React.FC = () => {
         <YAxis 
           yAxisId="right" 
           orientation="right" 
-          domain={[25, 80]} 
+          domain={[30, 90]} 
           tickFormatter={(value) => value.toFixed(0)} 
         />
         <Tooltip />
