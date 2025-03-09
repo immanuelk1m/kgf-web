@@ -12,7 +12,8 @@ interface FormattedDataItem {
   date: string;
   kospi: number;
   fgi: number;
-  month: string; // 월 표시용 필드
+  month: string;
+  isMonthStart: boolean; // 월의 첫 데이터인지 표시
 }
 
 const KospiVsFearGreedIndex: React.FC = () => {
@@ -25,26 +26,37 @@ const KospiVsFearGreedIndex: React.FC = () => {
         const dataArray = Array.isArray(jsonData) ? jsonData : jsonData.data;
 
         if (Array.isArray(dataArray)) {
-          const formattedData: FormattedDataItem[] = dataArray.map((item: DataItem) => {
-            // 날짜에서 월 추출
+          let currentMonth = '';
+          
+          const formattedData: FormattedDataItem[] = dataArray.map((item: DataItem, index: number) => {
+            // 날짜 파싱
             let monthStr = '';
+            let isMonthStart = false;
+            
             try {
               // YYYY-MM-DD 형식 가정
               const parts = item.x.split('-');
               if (parts.length >= 2) {
-                // 월 이름 (한국어)
+                const yearMonth = `${parts[0]}-${parts[1]}`;
                 monthStr = `${parts[1]}월`;
+                
+                // 월이 바뀌면 표시
+                if (yearMonth !== currentMonth) {
+                  currentMonth = yearMonth;
+                  isMonthStart = true;
+                }
               }
             } catch (e) {
               console.error('날짜 파싱 오류:', item.x, e);
-              monthStr = item.x; // 원래 문자열로 폴백
+              monthStr = item.x;
             }
 
             return {
               date: item.x,
               kospi: item.y,
               fgi: item.z,
-              month: monthStr
+              month: monthStr,
+              isMonthStart: isMonthStart
             };
           });
 
@@ -76,6 +88,15 @@ const KospiVsFearGreedIndex: React.FC = () => {
     return null;
   };
 
+  // X축 틱 포매터 - 월이 바뀌는 지점에만 레이블 표시
+  const xAxisTickFormatter = (value: string, index: number) => {
+    const item = data[index];
+    if (item && item.isMonthStart) {
+      return item.month;
+    }
+    return '';
+  };
+
   return (
     <ResponsiveContainer width="100%" height={300}>
       <LineChart
@@ -84,9 +105,18 @@ const KospiVsFearGreedIndex: React.FC = () => {
       >
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis 
-          dataKey="month" // date 대신 month를 사용
-          interval="preserveStartEnd"
-          minTickGap={30}
+          dataKey="date"
+          tickFormatter={(value, index) => {
+            // 각 데이터 포인트의 인덱스에 해당하는 항목 찾기
+            const dataPoint = data.find(item => item.date === value);
+            
+            // 월의 시작인 경우에만 레이블 표시
+            if (dataPoint?.isMonthStart) {
+              return dataPoint.month;
+            }
+            return '';
+          }}
+          interval={0}
         />
         <YAxis 
           yAxisId="left" 
