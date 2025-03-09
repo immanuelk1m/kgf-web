@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     url: "https://kospi-fear-greed-index.co.kr/",
     images: [
       {
-        url: "/og-image.jpg", // 로컬에 저장된 이미지 사용
+        url: "https://github.com/immanuelk1m/kgf-web/blob/main/public/og-image.jpg?raw=true", // 로컬에 저장된 이미지 사용
         width: 1200,
         height: 630,
         alt: "코스피 공포 탐욕 지수 미리보기 이미지",
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     card: "summary",
     title: "코스피 공포 탐욕 지수 - 코스피 공포 탐욕 지수",
     description: "코스피 공포 탐욕 지수",
-    images: ["/og-image.jpg"], // Twitter 카드 이미지
+    images: ["https://github.com/immanuelk1m/kgf-web/blob/main/public/og-image.jpg?raw=true"], // Twitter 카드 이미지
   },
 };
 
