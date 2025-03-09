@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     url: "https://kospi-fear-greed-index.co.kr/",
     images: [
       {
-        url: "https://raw.githubusercontent.com/immanuelk1m/kgf-web/main/public/ogimage.jpg", 
+        url: "https://raw.githubusercontent.com/immanuelk1m/kgf-web/master/public/ogimage.jpg", 
       },
     ],
   },
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     card: "summary",
     title: "코스피 공포 탐욕 지수 - 코스피 공포 탐욕 지수",
     description: "코스피 공포 탐욕 지수",
-    images: ["https://raw.githubusercontent.com/immanuelk1m/kgf-web/main/public/ogimage.jpg"], 
+    images: ["https://raw.githubusercontent.com/immanuelk1m/kgf-web/master/public/ogimage.jpg"], 
   },
 };
 
@@ -40,7 +40,7 @@ export default function RootLayout({
     <html lang="ko">
       
       <head>
-      <meta property="og:image" content="https://raw.githubusercontent.com/immanuelk1m/kgf-web/main/public/ogimage.jpg" />
+      <meta property="og:image" content="https://raw.githubusercontent.com/immanuelk1m/kgf-web/master/public/ogimage.jpg" />
       <meta property="og:image:width" content="1200" />
       <meta property="og:image:height" content="630" />
 
