@@ -92,7 +92,7 @@ const Pcema: React.FC = () => {
         <YAxis 
           yAxisId="left" 
           orientation="left"
-          domain={[0, 1]}
+          domain={[0.5, 1.5]}
           hide={true}
         />
         <YAxis 
