@@ -16,6 +16,7 @@ interface FormattedDataItem {
 
 const Mccl: React.FC = () => {
   const [data, setData] = useState<FormattedDataItem[]>([]);
+  const [yDomain, setYDomain] = useState<[number, number]>([0, 0]);
 
   useEffect(() => {
     fetch('https://raw.githubusercontent.com/immanuelk1m/kospi-feargreedindex/main/assets/js/json/mcclenllan.json')
@@ -59,6 +60,17 @@ const Mccl: React.FC = () => {
 
           // 최근 50개 데이터 포인트 가져오기
           const recentData = formattedData.slice(-50);
+          
+          // 데이터의 최소값과 최대값 계산
+          if (recentData.length > 0) {
+            const mcclValues = recentData.map(item => item.mccl);
+            
+            const min = Math.floor(Math.min(...mcclValues) * 0.99); // 최소값보다 약간 낮게 설정
+            const max = Math.ceil(Math.max(...mcclValues) * 1.01); // 최대값보다 약간 높게 설정
+            
+            setYDomain([min, max]);
+          }
+          
           setData(recentData);
         } else {
           console.error('가져온 데이터가 배열이 아니거나 배열을 포함하지 않습니다:', jsonData);
@@ -80,15 +92,6 @@ const Mccl: React.FC = () => {
       );
     }
     return null;
-  };
-
-  // X축 틱 포매터 - 월이 바뀌는 지점에만 레이블 표시
-  const xAxisTickFormatter = (value: string, index: number) => {
-    const item = data[index];
-    if (item && item.isMonthStart) {
-      return item.month;
-    }
-    return '';
   };
 
   return (
@@ -113,8 +116,15 @@ const Mccl: React.FC = () => {
           interval={0}
         />
         <YAxis 
+          yAxisId="left" 
+          orientation="left"
+          domain={yDomain}
+          hide={true} // 왼쪽 Y축 숨기기
+        />
+        <YAxis 
           yAxisId="right" 
-          orientation="right" 
+          orientation="right"
+          domain={yDomain}
           tickFormatter={(value) => value.toFixed(0)} 
         />
         <Tooltip content={customTooltip} />
@@ -128,7 +138,6 @@ const Mccl: React.FC = () => {
           strokeWidth={3} 
           dot={false} 
         />
-
       </LineChart>
     </ResponsiveContainer>
   );
