@@ -100,13 +100,13 @@ const Junks: React.FC = () => {
         <YAxis 
           yAxisId="left" 
           orientation="left"
-          domain={yDomain}
+          domain={[0.5, 1.5]}
           hide={true}
         />
         <YAxis 
           yAxisId="right" 
           orientation="right"
-          domain={yDomain}
+          domain={[0.6, 1.1]}
           tickFormatter={(value) => value.toFixed(0)}
         />
         <Tooltip content={customTooltip} />
