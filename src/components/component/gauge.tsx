@@ -19,10 +19,7 @@ const GaugeChart: React.FC = () => {
     chart.responsive.enabled = true;
     chart.responsive.rules.push({
       relevant: function (target) {
-        if (target.pixelWidth <= 600) {
-          return true;
-        }
-        return false;
+        return target.pixelWidth <= 600;
       },
       state: function (
         target: am4core.Sprite,
@@ -112,7 +109,7 @@ const GaugeChart: React.FC = () => {
     axis2.renderer.grid.template.disabled = false;
     axis2.renderer.grid.template.opacity = 0.5;
 
-    // 이모티콘이 게이지 중앙을 향하도록 설정
+    // 이모티콘 배치 설정 (회전 및 반경 어댑터 제거)
     for (let grading of data.gradingData) {
       const range = axis2.axisRanges.create();
       range.axisFill.fill = am4core.color(grading.color);
@@ -126,24 +123,7 @@ const GaugeChart: React.FC = () => {
       range.label.location = 0.5;
       range.label.verticalCenter = 'middle';
       range.label.fontSize = emojiSize;
-      range.label.paddingBottom = isMobileScreen ? 0 : -15;
-
-      // 이모티콘이 게이지 중앙을 향하도록 회전
-      range.label.rotation = 0;
-      range.label.adapter.add('rotation', function (rotation, target) {
-        const rangeValue = (range.value + range.endValue) / 2;
-        // 수동으로 각도 계산
-        const startAngle = chart.startAngle || -90; // 기본값 -90도
-        const endAngle = chart.endAngle || 90; // 기본값 90도
-        const angleInDegrees = startAngle + (rangeValue / 100) * (endAngle - startAngle);
-        // 중앙을 향하도록 회전각 계산
-        return 90 - angleInDegrees;
-      });
-
-      // 이모티콘 위치 조정 (타입 오류 해결)
-      (range.label.adapter as any).add('radius', function (radius: any, target: any) {
-        return am4core.percent(isMobileScreen ? 45 : 50);
-      });
+      range.label.paddingBottom = isSmallScreen ? -5 : -30;
     }
 
     const matchingGrade = lookUpGrade(data.score, data.gradingData);
@@ -203,7 +183,7 @@ const GaugeChart: React.FC = () => {
       });
 
     setInterval(function () {
-      const value = 0 + (current_value / 10) * (10 - 0);
+      const value = 0 + (current_value / 10) * 10;
       hand.showValue(value, 1000, am4core.ease.cubicOut);
     }, 2000);
 
@@ -220,7 +200,7 @@ const GaugeChart: React.FC = () => {
       label.paddingBottom = isMobileScreen ? 10 : isSmallScreen ? 15 : 25;
       label2.dy = isMobileScreen ? 15 : isSmallScreen ? 25 : 40;
 
-      // 차트 크기 재조정 트리거 (타입 오류 해결)
+      // 차트 크기 재조정 트리거
       (chart as am4core.Container).invalidateLayout();
     };
 
