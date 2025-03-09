@@ -50,10 +50,10 @@ const PreviousIndexes: React.FC = () => {
         const data: JsonData = await response.json();
        
         const newIndexHistory: IndexData[] = [
-          { time: 'Previous close', value: data.current, status: data.current_s },
-          { time: '1 week ago', value: data.week, status: data.week_s },
-          { time: '1 month ago', value: data.month, status: data.month_s },
-          { time: '1 year ago', value: data.year, status: data.year_s }
+          { time: '이전', value: data.current, status: data.current_s },
+          { time: '1주 전', value: data.week, status: data.week_s },
+          { time: '1달 전', value: data.month, status: data.month_s },
+          { time: '1년 전', value: data.year, status: data.year_s }
         ];
        
         setIndexHistory(newIndexHistory);
