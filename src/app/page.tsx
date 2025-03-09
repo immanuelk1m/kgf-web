@@ -110,8 +110,8 @@ function App() {
           </div>
 
           {/* 푸터 광고를 하단에 붙이기 */}
-          <div className="mt-auto flex items-center justify-center p-4 bg-gray-100 min-h-[300px] rounded-lg">
-            <div style={{ width: '100%', maxWidth: '1280px', position: 'relative' }}>
+          <div className="mt-auto w-full bg-gray-100 rounded-lg overflow-hidden">
+            <div className="w-full h-full min-h-[300px]">
               <AdsenseOnfooter />
             </div>
           </div>
