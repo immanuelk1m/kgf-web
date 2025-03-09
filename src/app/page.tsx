@@ -53,26 +53,32 @@ function App() {
           </div>
 
           <div className="flex flex-col w-full md:flex-row items-start justify-start ${containerStyle}">
-            <div className="flex flex-col w-full ${cardStyle} p-4">
+            <div className="flex flex-col w-full ${cardStyle} p-4 relative"> {/* relative 클래스 추가 */}
               <h1 className="text-3xl font-bold tracking-tight sm:text-4xl text-gray-800">코스피 공포 & 탐욕 지수</h1>
               <p className="mt-4 text-gray-600 md:text-xl">
                 CNN FEAR & GREED INDEX를 코스피 시장에 맞게 재구성하였습니다
               </p>
 
-              {/* 버튼 스위치 */}
-              <div className="flex justify-center mt-4">
-                <button
-                  className={`px-4 py-2 mx-2 rounded ${activeComponent === 'gauge' ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}
-                  onClick={() => setActiveComponent('gauge')}
-                >
-                  지수 게이지
-                </button>
-                <button
-                  className={`px-4 py-2 mx-2 rounded ${activeComponent === 'timeline' ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}
-                  onClick={() => setActiveComponent('timeline')}
-                >
-                  타임라인
-                </button>
+              {/* 버튼 스위치: 우측 상단에 배치 */}
+              <div className="absolute top-4 right-4">
+                <div className="flex items-center justify-center bg-[#f0f0f0] rounded-full border border-[#d1d5db] shadow-[0_2px_4px_rgba(0,0,0,0.1)] overflow-hidden">
+                  <div
+                    className={`px-4 py-2 font-sans text-base cursor-pointer transition-all duration-300 ${
+                      activeComponent === 'gauge' ? 'bg-white text-[#374151] font-bold' : 'bg-[#e5e7eb] text-[#9ca3af]'
+                    }`}
+                    onClick={() => setActiveComponent('gauge')}
+                  >
+                    지수 게이지
+                  </div>
+                  <div
+                    className={`px-4 py-2 font-sans text-base cursor-pointer transition-all duration-300 ${
+                      activeComponent === 'timeline' ? 'bg-white text-[#374151] font-bold' : 'bg-[#e5e7eb] text-[#9ca3af]'
+                    }`}
+                    onClick={() => setActiveComponent('timeline')}
+                  >
+                    타임라인
+                  </div>
+                </div>
               </div>
 
               {/* 조건부 렌더링 */}
