@@ -8,7 +8,7 @@ function AdsenseOnfooter() {
     <Adsense
       client="ca-pub-7656508177587264"
       slot="4411714536"
-      format="auto" // 'autorelaxed' 대신 'auto'로 변경
+      format="auto"
       responsive="true"
       style={{ display: 'block' }}
     />
