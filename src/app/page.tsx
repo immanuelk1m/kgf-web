@@ -12,7 +12,8 @@ import KospiVsFearGreedIndex from "@/components/component/linechart/kospivsindex
 import Kospiema from "@/components/component/linechart/kospiema";
 import Vixema from "@/components/component/linechart/vixema";
 import Mccl from "@/components/component/linechart/mcclenllan";
-
+import Pcema from "@/components/component/linechart/pcema";
+import Safeb from "@/components/component/linechart/safebond";
 
 import "@/styles/fonts.css";
 
@@ -135,6 +136,17 @@ function App() {
                 <Mccl />
               </div>
             </div>
+            <div className="w-full p-4">
+              <div className="border-2 border-gray-200 p-6 bg-gray-50 rounded-lg shadow transition hover:shadow-lg">
+                <Pcema />
+              </div>
+            </div>
+            <div className="w-full p-4">
+              <div className="border-2 border-gray-200 p-6 bg-gray-50 rounded-lg shadow transition hover:shadow-lg">
+                <Safeb />
+              </div>
+            </div>
+            
             
           {/* 푸터 광고를 하단에 붙이기 */}
           <div className="mt-auto w-full bg-gray-100 rounded-lg p-0">
