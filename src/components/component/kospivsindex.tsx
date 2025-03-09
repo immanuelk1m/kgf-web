@@ -21,7 +21,6 @@ const KospiVsFearGreedIndex: React.FC = () => {
     fetch('https://raw.githubusercontent.com/immanuelk1m/kospi-feargreedindex/main/assets/js/json/index.json')
       .then(response => response.json())
       .then((jsonData) => {
-
         const dataArray = Array.isArray(jsonData) ? jsonData : jsonData.data;
 
         if (Array.isArray(dataArray)) {
@@ -48,12 +47,37 @@ const KospiVsFearGreedIndex: React.FC = () => {
       >
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey="date" />
-        <YAxis yAxisId="left" domain={[2500, 3000]} />
-        <YAxis yAxisId="right" orientation="right" domain={[30, 80]}/>
+        <YAxis 
+          yAxisId="left" 
+          domain={[2300, 2800]} 
+          tickFormatter={(value) => value.toFixed(0)} 
+        />
+        <YAxis 
+          yAxisId="right" 
+          orientation="right" 
+          domain={[25, 80]} 
+          tickFormatter={(value) => value.toFixed(0)} 
+        />
         <Tooltip />
         <Legend />
-        <Line yAxisId="left" type="monotone" dataKey="kospi" name="KOSPI" stroke="#667BC6" strokeWidth={3} />
-        <Line yAxisId="right" type="monotone" dataKey="fgi" name="Fear & Greed Index" stroke="#F4A261" strokeWidth={3} />
+        <Line 
+          yAxisId="left" 
+          type="monotone" 
+          dataKey="kospi" 
+          name="KOSPI" 
+          stroke="#667BC6" 
+          strokeWidth={3} 
+          dot={false} 
+        />
+        <Line 
+          yAxisId="right" 
+          type="monotone" 
+          dataKey="fgi" 
+          name="Fear & Greed Index" 
+          stroke="#F4A261" 
+          strokeWidth={3} 
+          dot={false} 
+        />
       </LineChart>
     </ResponsiveContainer>
   );
