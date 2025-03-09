@@ -113,23 +113,24 @@ function App() {
                 )}
               </div>
 
-              {/*
+              
               <div className="w-full p-4">
                 <div className="border-2 border-gray-200 p-6 bg-gray-50 rounded-lg shadow transition hover:shadow-lg">
                   <Kospiema />
                 </div>
               </div>
+              {/*
               <div className="w-full p-4">
                 <div className="border-2 border-gray-200 p-6 bg-gray-50 rounded-lg shadow transition hover:shadow-lg">
                   <Vixema />
                 </div>
-              </div>*/}
+              </div>
               <div className="w-full p-4">
                 <div className="border-2 border-gray-200 p-6 bg-gray-50 rounded-lg shadow transition hover:shadow-lg">
                   <Mccl />
                 </div>
               </div>
-
+              */}
               
               <hr className="my-8 border-t border-gray-300" />
             </div>
