@@ -14,6 +14,7 @@ import Vixema from "@/components/component/linechart/vixema";
 import Mccl from "@/components/component/linechart/mcclenllan";
 import Pcema from "@/components/component/linechart/pcema";
 import Safeb from "@/components/component/linechart/safebond";
+import Junks from "@/components/component/linechart/junk";
 
 import "@/styles/fonts.css";
 
@@ -144,6 +145,11 @@ function App() {
             <div className="w-full p-4">
               <div className="border-2 border-gray-200 p-6 bg-gray-50 rounded-lg shadow transition hover:shadow-lg">
                 <Safeb />
+              </div>
+            </div>
+            <div className="w-full p-4">
+              <div className="border-2 border-gray-200 p-6 bg-gray-50 rounded-lg shadow transition hover:shadow-lg">
+                <Junks />
               </div>
             </div>
             
