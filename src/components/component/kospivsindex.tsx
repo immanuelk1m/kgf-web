@@ -12,6 +12,7 @@ interface FormattedDataItem {
   date: string;
   kospi: number;
   fgi: number;
+  month: string; // New field for month display
 }
 
 const KospiVsFearGreedIndex: React.FC = () => {
@@ -24,13 +25,50 @@ const KospiVsFearGreedIndex: React.FC = () => {
         const dataArray = Array.isArray(jsonData) ? jsonData : jsonData.data;
 
         if (Array.isArray(dataArray)) {
-          const formattedData: FormattedDataItem[] = dataArray.map((item: DataItem) => ({
-            date: item.x,
-            kospi: item.y,
-            fgi: item.z
-          }));
+          const formattedData: FormattedDataItem[] = dataArray.map((item: DataItem) => {
+            // Parse the date to extract month
+            let monthStr = '';
+            try {
+              // Assuming format is YYYY-MM-DD
+              const parts = item.x.split('-');
+              if (parts.length >= 2) {
+                // Get month name (Korean)
+                const monthNames = ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'];
+                const monthIndex = parseInt(parts[1], 10) - 1;
+                monthStr = monthNames[monthIndex];
+              }
+            } catch (e) {
+              console.error('Error parsing date:', item.x, e);
+              monthStr = item.x; // Fallback to original string
+            }
 
+            return {
+              date: item.x,
+              kospi: item.y,
+              fgi: item.z,
+              month: monthStr
+            };
+          });
+
+          // Get the last 50 data points
           const recentData = formattedData.slice(-50);
+          
+          // Filter data to show only one entry per month
+          // This prevents duplicate month labels on the x-axis
+          const monthsShown = new Set();
+          const filteredData = recentData.filter((item, index) => {
+            // Always keep the first and last data point
+            if (index === 0 || index === recentData.length - 1) return true;
+            
+            // For others, only keep if we haven't seen this month yet
+            if (!monthsShown.has(item.month)) {
+              monthsShown.add(item.month);
+              return true;
+            }
+            
+            return false;
+          });
+          
           setData(recentData);
         } else {
           console.error('Fetched data is not an array or does not contain an array:', jsonData);
@@ -39,6 +77,24 @@ const KospiVsFearGreedIndex: React.FC = () => {
       .catch(error => console.error('Error fetching data:', error));
   }, []);
 
+  // Custom tooltip formatter to show the full date when hovering
+  const customTooltip = ({ active, payload, label }: any) => {
+    if (active && payload && payload.length) {
+      return (
+        <div className="custom-tooltip bg-white p-2 border border-gray-300 rounded shadow">
+          <p className="font-semibold">{payload[0]?.payload.date}</p>
+          <p className="text-[#667BC6]">
+            코스피: {payload[0]?.value.toFixed(2)}
+          </p>
+          <p className="text-[#F4A261]">
+            공포&탐욕지수: {payload[1]?.value.toFixed(0)}
+          </p>
+        </div>
+      );
+    }
+    return null;
+  };
+
   return (
     <ResponsiveContainer width="100%" height={300}>
       <LineChart
@@ -46,7 +102,24 @@ const KospiVsFearGreedIndex: React.FC = () => {
         margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
       >
         <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="date" />
+        <XAxis 
+          dataKey="date" 
+          tickFormatter={(value) => {
+            // Extract month from date string (format: YYYY-MM-DD)
+            try {
+              const parts = value.split('-');
+              if (parts.length >= 2) {
+                return `${parts[1]}월`;
+              }
+              return value;
+            } catch (e) {
+              return value;
+            }
+          }}
+          // Show fewer ticks to avoid overcrowding
+          interval="preserveStartEnd"
+          minTickGap={30}
+        />
         <YAxis 
           yAxisId="left" 
           domain={[2300, 2800]} 
@@ -58,7 +131,7 @@ const KospiVsFearGreedIndex: React.FC = () => {
           domain={[30, 90]} 
           tickFormatter={(value) => value.toFixed(0)} 
         />
-        <Tooltip />
+        <Tooltip content={customTooltip} />
         <Legend />
         <Line 
           yAxisId="left" 
