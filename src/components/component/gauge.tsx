@@ -74,6 +74,10 @@ const GaugeChart: React.FC = () => {
     chart.hiddenState.properties.opacity = 0;
     chart.fontSize = 12;
     chart.innerRadius = am4core.percent(80);
+    
+    // Set chart angles for a semi-circle gauge
+    chart.startAngle = -90;
+    chart.endAngle = 90;
 
     // 반응형 설정 개선
     const isSmallScreen = window.innerWidth <= 768;
@@ -112,7 +116,7 @@ const GaugeChart: React.FC = () => {
     axis2.renderer.grid.template.disabled = false;
     axis2.renderer.grid.template.opacity = 0.5;
 
-    // 이모티콘이 게이지 중앙을 향하도록 설정
+    // 이모티콘을 각 색상 구간에 맞게 배치
     for (let grading of data.gradingData) {
       const range = axis2.axisRanges.create();
       range.axisFill.fill = am4core.color(grading.color);
@@ -121,29 +125,36 @@ const GaugeChart: React.FC = () => {
       range.value = grading.lowScore > chartMin ? grading.lowScore : chartMin;
       range.endValue = grading.highScore < chartMax ? grading.highScore : chartMax;
       range.grid.strokeOpacity = 0;
-      range.label.inside = true;
-      range.label.text = grading.title;
-      range.label.location = 0.5;
-      range.label.verticalCenter = 'middle';
-      range.label.fontSize = emojiSize;
-      range.label.paddingBottom = isMobileScreen ? 0 : -15;
-
-      // 이모티콘이 게이지 중앙을 향하도록 회전
-      range.label.rotation = 0;
-      range.label.adapter.add('rotation', function (rotation, target) {
-        const rangeValue = (range.value + range.endValue) / 2;
-        // 수동으로 각도 계산
-        const startAngle = chart.startAngle || -90; // 기본값 -90도
-        const endAngle = chart.endAngle || 90; // 기본값 90도
-        const angleInDegrees = startAngle + (rangeValue / 100) * (endAngle - startAngle);
-        // 중앙을 향하도록 회전각 계산
-        return 90 - angleInDegrees;
-      });
-
-      // 이모티콘 위치 조정 (타입 오류 해결)
-      (range.label.adapter as any).add('radius', function (radius: any, target: any) {
-        return am4core.percent(isMobileScreen ? 45 : 50);
-      });
+      
+      // 각 구간의 중앙값 계산
+      const centerValue = (range.value + range.endValue) / 2;
+      
+      // 이모티콘 라벨 생성 및 위치 설정
+      const emoji = chart.radarContainer.createChild(am4core.Label);
+      emoji.isMeasured = false;
+      emoji.fontSize = emojiSize;
+      emoji.text = grading.title;
+      emoji.fill = am4core.color("#000000");
+      
+      // 이모티콘 위치 계산
+      const angle = chart.startAngle + (centerValue / chartMax) * (chart.endAngle - chart.startAngle);
+      const angleRad = angle * Math.PI / 180;
+      
+      // 반지름 계산 (게이지 내부에 위치하도록)
+      const radius = isMobileScreen ? 35 : 45;
+      
+      // 이모티콘 위치 설정
+      emoji.x = radius * Math.cos(angleRad);
+      emoji.y = radius * Math.sin(angleRad);
+      
+      // 차트의 중심점을 기준으로 위치 조정
+      emoji.dx = chart.pixelWidth / 2;
+      emoji.dy = chart.pixelHeight / 2;
+      
+      // 이모티콘이 중심을 향하도록 회전
+      emoji.rotation = angle;
+      emoji.horizontalCenter = "middle";
+      emoji.verticalCenter = "middle";
     }
 
     const matchingGrade = lookUpGrade(data.score, data.gradingData);

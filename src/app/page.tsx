@@ -3,11 +3,14 @@
 import React, { useEffect, useState } from 'react';
 import Header from '@/components/component/header';
 import GaugeChart from '@/components/component/gauge';
-import KospiVsFearGreedIndex from "@/components/component/kospivsindex";
 import PreviousIndexes from "@/components/component/prev";
 import MarketDataComponent from "@/components/component/markettab";
 import AdsenseSide from '@/components/component/adsenseside';
 import AdsenseOnfooter from '@/components/component/adsenseft';
+
+import KospiVsFearGreedIndex from "@/components/component/linechart/kospivsindex";
+
+
 import "@/styles/fonts.css";
 
 const containerStyle = `
