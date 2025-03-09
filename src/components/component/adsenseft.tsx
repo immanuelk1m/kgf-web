@@ -5,7 +5,7 @@ import { Adsense } from '@ctrl/react-adsense';
 
 function AdsenseOnfooter() {
   return (
-    <div className="w-full h-full">
+    <div className="w-full h-full flex items-center justify-center">
       <Adsense
         client="ca-pub-7656508177587264"
         slot="4411714536"
@@ -15,7 +15,8 @@ function AdsenseOnfooter() {
           display: 'block',
           width: '100%',
           height: '100%',
-          minHeight: '300px'
+          margin: 0,
+          padding: 0
         }}
       />
     </div>
