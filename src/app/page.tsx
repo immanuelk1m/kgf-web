@@ -149,7 +149,7 @@ function App() {
           </div>
 
           {/* Kospiema 차트 */}
-          <div className="w-full p-4">
+          <div className="w-full p-4 md:p-4">
             <div className="mb-4">
               
               <h1 className="text-lg font-semibold text-gray-800">시장 모멘텀 (Market Momentum)</h1>
@@ -176,7 +176,7 @@ function App() {
           </div>
 
           {/* Vixema 차트 */}
-          <div className="w-full p-4">
+          <div className="w-full p-4 md:p-4">
             <div className="mb-4">
 
                 <h1 className="text-lg font-semibold text-gray-800">시장 변동성 (Market Volatility)</h1>
@@ -203,7 +203,7 @@ function App() {
           </div>
 
           {/* Mccl 차트 */}
-          <div className="w-full p-4">
+          <div className="w-full p-4 md:p-4">
             <div className="mb-4">
 
               <h1 className="text-lg font-semibold text-gray-800">주가 폭 (Stock Price Breadth)</h1>
@@ -230,7 +230,7 @@ function App() {
           </div>
 
           {/* Pcema 차트 */}
-          <div className="w-full p-4">
+          <div className="w-full p-4 md:p-4">
             <div className="mb-4">
 
               <h1 className="text-lg font-semibold text-gray-800">풋 & 콜 옵션 (Put & Call Options)</h1>
@@ -257,7 +257,7 @@ function App() {
           </div>
 
           {/* Safeb 차트 */}
-          <div className="w-full p-4">
+          <div className="w-full p-4 md:p-4">
             <div className="mb-4">
 
               <h1 className="text-lg font-semibold text-gray-800">안전 자산 선호도 (Safe Haven Demand)</h1>
@@ -284,7 +284,7 @@ function App() {
           </div>
 
           {/* Junks 차트 */}
-          <div className="w-full p-4">
+          <div className="w-full p-4 md:p-4">
             <div className="mb-4">
 
               <h1 className="text-lg font-semibold text-gray-800">정크본드 수요 (Junk Bond Demand)</h1>
