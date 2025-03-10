@@ -70,10 +70,10 @@ function App() {
               </p>
 
               {/* 버튼 스위치: 우측 상단에 배치 */}
-              <div className="absolute top-4 right-4">
+              <div className="absolute top-2 right-2 md:top-4 md:right-4">
                 <div className="flex items-center justify-center bg-[#f0f0f0] rounded-full border border-[#d1d5db] shadow-[0_2px_4px_rgba(0,0,0,0.1)] overflow-hidden">
                   <div
-                    className={`px-4 py-2 font-sans text-base cursor-pointer transition-all duration-300 ${
+                    className={`px-2 py-1 md:px-4 md:py-2 text-sm md:text-base font-sans cursor-pointer transition-all duration-300 ${
                       activeComponent === 'gauge' ? 'bg-white text-[#374151] font-bold' : 'bg-[#e5e7eb] text-[#9ca3af]'
                     }`}
                     onClick={() => setActiveComponent('gauge')}
@@ -81,7 +81,7 @@ function App() {
                     지수 게이지
                   </div>
                   <div
-                    className={`px-4 py-2 font-sans text-base cursor-pointer transition-all duration-300 ${
+                    className={`px-2 py-1 md:px-4 md:py-2 text-sm md:text-base font-sans cursor-pointer transition-all duration-300 ${
                       activeComponent === 'timeline' ? 'bg-white text-[#374151] font-bold' : 'bg-[#e5e7eb] text-[#9ca3af]'
                     }`}
                     onClick={() => setActiveComponent('timeline')}
