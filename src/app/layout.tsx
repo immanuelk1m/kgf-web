@@ -30,6 +30,9 @@ export const metadata: Metadata = {
     description: "코스피 공포 탐욕 지수",
     images: ["https://raw.githubusercontent.com/immanuelk1m/kgf-web/master/public/ogimage.jpg"],
   },
+  other: {
+    'og:logo': 'https://raw.githubusercontent.com/immanuelk1m/kgf-web/master/public/ogimage.jpg',
+  },
 };
 
 export default function RootLayout({
