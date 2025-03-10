@@ -43,6 +43,12 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <head>
+        <link 
+          rel="preload" 
+          as="image" 
+          href="https://raw.githubusercontent.com/immanuelk1m/kgf-web/master/public/ogimage.jpg" 
+        />
+
         <Script
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7656508177587264"
