@@ -150,11 +150,11 @@ function App() {
 
           {/* Kospiema 차트 */}
           <div className="w-full p-4">
-            <div className="mb-4 flex items-center justify-between">
-              <div>
-                <h1 className="text-lg font-semibold text-gray-800">시장 모멘텀 (Market Momentum)</h1>
-                <h3 className="text-lg text-gray-800">KOSPI와 125일 이동평균선</h3>
-              </div>
+            <div className="mb-4">
+              
+              <h1 className="text-lg font-semibold text-gray-800">시장 모멘텀 (Market Momentum)</h1>
+              <h3 className="text-lg text-gray-800">KOSPI와 125일 이동평균선</h3>
+            
               {factorStatus && (
                 <div className="px-0 py-1 rounded" style={{ backgroundColor: getStatus(factorStatus.ema_spread_scaled).color }}>
                   <span className="text-white font-bold">{getStatus(factorStatus.ema_spread_scaled).text}</span>
@@ -258,11 +258,11 @@ function App() {
 
           {/* Safeb 차트 */}
           <div className="w-full p-4">
-            <div className="mb-4 flex items-center justify-between">
-              <div>
-                <h1 className="text-lg font-semibold text-gray-800">안전 자산 선호도 (Safe Haven Demand)</h1>
-                <h3 className="text-lg text-gray-800">채권 수익률과 주식 수익률의 차이</h3>
-              </div>
+            <div className="mb-4">
+
+              <h1 className="text-lg font-semibold text-gray-800">안전 자산 선호도 (Safe Haven Demand)</h1>
+              <h3 className="text-lg text-gray-800">채권 수익률과 주식 수익률의 차이</h3>
+
               {factorStatus && (
                 <div className="px-0 py-1 rounded" style={{ backgroundColor: getStatus(factorStatus.safe_spread_scaled).color }}>
                   <span className="text-white font-bold">{getStatus(factorStatus.safe_spread_scaled).text}</span>
@@ -276,7 +276,7 @@ function App() {
               <div className="w-full md:w-2/5 p-4">
                 <div className="border-2 border-gray-200 p-4 bg-white rounded-lg shadow text-sm">
                   <p className="mt-2 text-gray-600">
-                    투자자들이 불안할수록 채권 수익률이 상대적으로 높아지며, 공포 & 탐욕 지수는 이를 &apos;공포&apos; 신호로 해석합니다.
+                  주식은 채권보다 위험하지만, 장기적으로 높은 수익을 기대할 수 있습니다. 하지만 단기적으로는 채권이 주식을 능가할 수도 있습니다. 안전 자산 선호도 지표는 최근 20거래일 동안의 국채와 주식의 수익률 차이를 측정합니다. 투자자들이 불안할수록 채권 수익률이 상대적으로 높아지며, 공포 & 탐욕 지수는 이러한 현상을 &apos;공포&apos;  신호로 해석합니다.
                   </p>
                 </div>
               </div>
@@ -285,11 +285,11 @@ function App() {
 
           {/* Junks 차트 */}
           <div className="w-full p-4">
-            <div className="mb-4 flex items-center justify-between">
-              <div>
-                <h1 className="text-lg font-semibold text-gray-800">정크본드 수요 (Junk Bond Demand)</h1>
-                <h3 className="text-lg text-gray-800">정크본드와 투자등급 채권 간의 수익률 차이</h3>
-              </div>
+            <div className="mb-4">
+
+              <h1 className="text-lg font-semibold text-gray-800">정크본드 수요 (Junk Bond Demand)</h1>
+              <h3 className="text-lg text-gray-800">정크본드와 투자등급 채권 간의 수익률 차이</h3>
+
               {factorStatus && (
                 <div className="px-0 py-1 rounded" style={{ backgroundColor: getStatus(factorStatus.junk_spread_scaled).color }}>
                   <span className="text-white font-bold">{getStatus(factorStatus.junk_spread_scaled).text}</span>
@@ -303,7 +303,7 @@ function App() {
               <div className="w-full md:w-2/5 p-4">
                 <div className="border-2 border-gray-200 p-4 bg-white rounded-lg shadow text-sm">
                   <p className="mt-2 text-gray-600">
-                    정크본드와 투자등급 채권 간의 수익률 차이가 좁아질수록 투자자들이 더 많은 위험을 감수하고 있다는 의미입니다.
+                  정크본드는 신용도가 낮아 디폴트(부도) 위험이 높은 채권입니다. 일반적으로 정크본드 가격이 오르면 수익률(금리)이 하락하고, 가격이 하락하면 수익률이 상승합니다. 정크본드와 투자등급 채권 간의 수익률 차이가 좁아질수록 투자자들이 더 많은 위험을 감수하고 있다는 의미이며, 공포 & 탐욕 지수는 이를 ‘탐욕’ 신호로 봅니다.
                   </p>
                 </div>
               </div>
