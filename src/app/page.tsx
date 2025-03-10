@@ -149,8 +149,8 @@ function App() {
           </div>
 
           {/* Kospiema 차트 */}
-          <div className="w-full p-4 md:p-4">
-            <div className="mb-4">
+          <div className="w-full p-2 md:p-4">
+            <div className="mb-4 overflow-x-hidden">
               
               <h1 className="text-lg font-semibold text-gray-800">시장 모멘텀 (Market Momentum)</h1>
               <h3 className="text-lg text-gray-800">KOSPI와 125일 이동평균선</h3>
@@ -176,8 +176,8 @@ function App() {
           </div>
 
           {/* Vixema 차트 */}
-          <div className="w-full p-4 md:p-4">
-            <div className="mb-4">
+          <div className="w-full p-2 md:p-4">
+            <div className="mb-4 overflow-x-hidden">
 
                 <h1 className="text-lg font-semibold text-gray-800">시장 변동성 (Market Volatility)</h1>
                 <h3 className="text-lg text-gray-800">VIX와 VIX 50일 이동평균선</h3>
@@ -203,8 +203,8 @@ function App() {
           </div>
 
           {/* Mccl 차트 */}
-          <div className="w-full p-4 md:p-4">
-            <div className="mb-4">
+          <div className="w-full p-2 md:p-4">
+            <div className="mb-4 overflow-x-hidden">
 
               <h1 className="text-lg font-semibold text-gray-800">주가 폭 (Stock Price Breadth)</h1>
               <h3 className="text-lg text-gray-800">McClellan Volume Summation Index</h3>
@@ -230,8 +230,8 @@ function App() {
           </div>
 
           {/* Pcema 차트 */}
-          <div className="w-full p-4 md:p-4">
-            <div className="mb-4">
+          <div className="w-full p-2 md:p-4">
+            <div className="mb-4 overflow-x-hidden">
 
               <h1 className="text-lg font-semibold text-gray-800">풋 & 콜 옵션 (Put & Call Options)</h1>
               <h3 className="text-lg text-gray-800">5일 이동평균선</h3>
@@ -257,8 +257,8 @@ function App() {
           </div>
 
           {/* Safeb 차트 */}
-          <div className="w-full p-4 md:p-4">
-            <div className="mb-4">
+          <div className="w-full p-2 md:p-4">
+            <div className="mb-4 overflow-x-hidden">
 
               <h1 className="text-lg font-semibold text-gray-800">안전 자산 선호도 (Safe Haven Demand)</h1>
               <h3 className="text-lg text-gray-800">채권 수익률과 주식 수익률의 차이</h3>
@@ -284,8 +284,8 @@ function App() {
           </div>
 
           {/* Junks 차트 */}
-          <div className="w-full p-4 md:p-4">
-            <div className="mb-4">
+          <div className="w-full p-2 md:p-4">
+            <div className="mb-4 overflow-x-hidden">
 
               <h1 className="text-lg font-semibold text-gray-800">정크본드 수요 (Junk Bond Demand)</h1>
               <h3 className="text-lg text-gray-800">정크본드와 투자등급 채권 간의 수익률 차이</h3>
