@@ -276,7 +276,7 @@ function App() {
               <div className="w-full md:w-2/5 p-4">
                 <div className="border-2 border-gray-200 p-4 bg-white rounded-lg shadow text-sm">
                   <p className="mt-2 text-gray-600">
-                    투자자들이 불안할수록 채권 수익률이 상대적으로 높아지며, 공포 & 탐욕 지수는 이를 '공포' 신호로 해석합니다.
+                    투자자들이 불안할수록 채권 수익률이 상대적으로 높아지며, 공포 & 탐욕 지수는 이를 &apos;공포&apos; 신호로 해석합니다.
                   </p>
                 </div>
               </div>
