@@ -150,17 +150,19 @@ function App() {
 
           {/* Kospiema 차트 */}
           <div className="w-full p-4">
-            <div className="mb-4">
-              <h1 className="text-lg font-semibold text-gray-800">시장 모멘텀 (Market Momentum)</h1>
-              <h3 className="text-lg font-semibold text-gray-800">KOSPI와 125일 이동평균선</h3>
+            <div className="mb-4 flex items-center justify-between">
+              <div>
+                <h1 className="text-lg font-semibold text-gray-800">시장 모멘텀 (Market Momentum)</h1>
+                <h3 className="text-lg font-semibold text-gray-800">KOSPI와 125일 이동평균선</h3>
+              </div>
+              {factorStatus && (
+                <div className="px-2 py-1 rounded" style={{ backgroundColor: getStatus(factorStatus.ema_spread_scaled).color }}>
+                  <span className="text-white font-bold">{getStatus(factorStatus.ema_spread_scaled).text}</span>
+                </div>
+              )}
             </div>
             <div className="flex flex-col md:flex-row">
-              <div className="w-full md:w-3/5 border-2 border-gray-200 p-6 bg-gray-50 rounded-lg shadow transition hover:shadow-lg relative">
-                {factorStatus && (
-                  <div className="absolute top-2 right-2 px-2 py-1 rounded" style={{ backgroundColor: getStatus(factorStatus.ema_spread_scaled).color }}>
-                    <span className="text-white font-bold">{getStatus(factorStatus.ema_spread_scaled).text}</span>
-                  </div>
-                )}
+              <div className="w-full md:w-3/5 border-2 border-gray-200 p-6 bg-gray-50 rounded-lg shadow transition hover:shadow-lg">
                 <Kospiema />
               </div>
               <div className="w-full md:w-2/5 p-4">
@@ -175,17 +177,19 @@ function App() {
 
           {/* Vixema 차트 */}
           <div className="w-full p-4">
-            <div className="mb-4">
-              <h1 className="text-lg font-semibold text-gray-800">시장 변동성 (Market Volatility)</h1>
-              <h3 className="text-lg font-semibold text-gray-800">VIX와 VIX 50일 이동평균선</h3>
+            <div className="mb-4 flex items-center justify-between">
+              <div>
+                <h1 className="text-lg font-semibold text-gray-800">시장 변동성 (Market Volatility)</h1>
+                <h3 className="text-lg font-semibold text-gray-800">VIX와 VIX 50일 이동평균선</h3>
+              </div>
+              {factorStatus && (
+                <div className="px-2 py-1 rounded" style={{ backgroundColor: getStatus(factorStatus.vix_ema_spread_scaled).color }}>
+                  <span className="text-white font-bold">{getStatus(factorStatus.vix_ema_spread_scaled).text}</span>
+                </div>
+              )}
             </div>
             <div className="flex flex-col md:flex-row">
-              <div className="w-full md:w-3/5 border-2 border-gray-200 p-6 bg-gray-50 rounded-lg shadow transition hover:shadow-lg relative">
-                {factorStatus && (
-                  <div className="absolute top-2 right-2 px-2 py-1 rounded" style={{ backgroundColor: getStatus(factorStatus.vix_ema_spread_scaled).color }}>
-                    <span className="text-white font-bold">{getStatus(factorStatus.vix_ema_spread_scaled).text}</span>
-                  </div>
-                )}
+              <div className="w-full md:w-3/5 border-2 border-gray-200 p-6 bg-gray-50 rounded-lg shadow transition hover:shadow-lg">
                 <Vixema />
               </div>
               <div className="w-full md:w-2/5 p-4">
@@ -200,17 +204,19 @@ function App() {
 
           {/* Mccl 차트 */}
           <div className="w-full p-4">
-            <div className="mb-4">
-              <h1 className="text-lg font-semibold text-gray-800">주가 폭 (Stock Price Breadth)</h1>
-              <h3 className="text-lg font-semibold text-gray-800">McClellan Volume Summation Index</h3>
+            <div className="mb-4 flex items-center justify-between">
+              <div>
+                <h1 className="text-lg font-semibold text-gray-800">주가 폭 (Stock Price Breadth)</h1>
+                <h3 className="text-lg font-semibold text-gray-800">McClellan Volume Summation Index</h3>
+              </div>
+              {factorStatus && (
+                <div className="px-2 py-1 rounded" style={{ backgroundColor: getStatus(factorStatus.mcclenllan_scaled).color }}>
+                  <span className="text-white font-bold">{getStatus(factorStatus.mcclenllan_scaled).text}</span>
+                </div>
+              )}
             </div>
             <div className="flex flex-col md:flex-row">
-              <div className="w-full md:w-3/5 border-2 border-gray-200 p-6 bg-gray-50 rounded-lg shadow transition hover:shadow-lg relative">
-                {factorStatus && (
-                  <div className="absolute top-2 right-2 px-2 py-1 rounded" style={{ backgroundColor: getStatus(factorStatus.mcclenllan_scaled).color }}>
-                    <span className="text-white font-bold">{getStatus(factorStatus.mcclenllan_scaled).text}</span>
-                  </div>
-                )}
+              <div className="w-full md:w-3/5 border-2 border-gray-200 p-6 bg-gray-50 rounded-lg shadow transition hover:shadow-lg">
                 <Mccl />
               </div>
               <div className="w-full md:w-2/5 p-4">
@@ -225,17 +231,19 @@ function App() {
 
           {/* Pcema 차트 */}
           <div className="w-full p-4">
-            <div className="mb-4">
-              <h1 className="text-lg font-semibold text-gray-800">풋 & 콜 옵션 (Put & Call Options)</h1>
-              <h3 className="text-lg font-semibold text-gray-800">5일 이동평균선</h3>
+            <div className="mb-4 flex items-center justify-between">
+              <div>
+                <h1 className="text-lg font-semibold text-gray-800">풋 & 콜 옵션 (Put & Call Options)</h1>
+                <h3 className="text-lg font-semibold text-gray-800">5일 이동평균선</h3>
+              </div>
+              {factorStatus && (
+                <div className="px-2 py-1 rounded" style={{ backgroundColor: getStatus(factorStatus.p_c_ema_scaled).color }}>
+                  <span className="text-white font-bold">{getStatus(factorStatus.p_c_ema_scaled).text}</span>
+                </div>
+              )}
             </div>
             <div className="flex flex-col md:flex-row">
-              <div className="w-full md:w-3/5 border-2 border-gray-200 p-6 bg-gray-50 rounded-lg shadow transition hover:shadow-lg relative">
-                {factorStatus && (
-                  <div className="absolute top-2 right-2 px-2 py-1 rounded" style={{ backgroundColor: getStatus(factorStatus.p_c_ema_scaled).color }}>
-                    <span className="text-white font-bold">{getStatus(factorStatus.p_c_ema_scaled).text}</span>
-                  </div>
-                )}
+              <div className="w-full md:w-3/5 border-2 border-gray-200 p-6 bg-gray-50 rounded-lg shadow transition hover:shadow-lg">
                 <Pcema />
               </div>
               <div className="w-full md:w-2/5 p-4">
@@ -250,23 +258,25 @@ function App() {
 
           {/* Safeb 차트 */}
           <div className="w-full p-4">
-            <div className="mb-4">
-              <h1 className="text-lg font-semibold text-gray-800">안전 자산 선호도 (Safe Haven Demand)</h1>
-              <h3 className="text-lg font-semibold text-gray-800">채권 수익률과 주식 수익률의 차이</h3>
+            <div className="mb-4 flex items-center justify-between">
+              <div>
+                <h1 className="text-lg font-semibold text-gray-800">안전 자산 선호도 (Safe Haven Demand)</h1>
+                <h3 className="text-lg font-semibold text-gray-800">채권 수익률과 주식 수익률의 차이</h3>
+              </div>
+              {factorStatus && (
+                <div className="px-2 py-1 rounded" style={{ backgroundColor: getStatus(factorStatus.safe_spread_scaled).color }}>
+                  <span className="text-white font-bold">{getStatus(factorStatus.safe_spread_scaled).text}</span>
+                </div>
+              )}
             </div>
             <div className="flex flex-col md:flex-row">
-              <div className="w-full md:w-3/5 border-2 border-gray-200 p-6 bg-gray-50 rounded-lg shadow transition hover:shadow-lg relative">
-                {factorStatus && (
-                  <div className="absolute top-2 right-2 px-2 py-1 rounded" style={{ backgroundColor: getStatus(factorStatus.safe_spread_scaled).color }}>
-                    <span className="text-white font-bold">{getStatus(factorStatus.safe_spread_scaled).text}</span>
-                  </div>
-                )}
+              <div className="w-full md:w-3/5 border-2 border-gray-200 p-6 bg-gray-50 rounded-lg shadow transition hover:shadow-lg">
                 <Safeb />
               </div>
               <div className="w-full md:w-2/5 p-4">
                 <div className="border-2 border-gray-200 p-4 bg-white rounded-lg shadow text-sm">
                   <p className="mt-2 text-gray-600">
-                    투자자들이 불안할수록 채권 수익률이 상대적으로 높아지며, 공포 & 탐욕 지수는 이를 ‘공포’ 신호로 해석합니다.
+                    투자자들이 불안할수록 채권 수익률이 상대적으로 높아지며, 공포 & 탐욕 지수는 이를 '공포' 신호로 해석합니다.
                   </p>
                 </div>
               </div>
@@ -275,17 +285,19 @@ function App() {
 
           {/* Junks 차트 */}
           <div className="w-full p-4">
-            <div className="mb-4">
-              <h1 className="text-lg font-semibold text-gray-800">정크본드 수요 (Junk Bond Demand)</h1>
-              <h3 className="text-lg font-semibold text-gray-800">정크본드와 투자등급 채권 간의 수익률 차이</h3>
+            <div className="mb-4 flex items-center justify-between">
+              <div>
+                <h1 className="text-lg font-semibold text-gray-800">정크본드 수요 (Junk Bond Demand)</h1>
+                <h3 className="text-lg font-semibold text-gray-800">정크본드와 투자등급 채권 간의 수익률 차이</h3>
+              </div>
+              {factorStatus && (
+                <div className="px-2 py-1 rounded" style={{ backgroundColor: getStatus(factorStatus.junk_spread_scaled).color }}>
+                  <span className="text-white font-bold">{getStatus(factorStatus.junk_spread_scaled).text}</span>
+                </div>
+              )}
             </div>
             <div className="flex flex-col md:flex-row">
-              <div className="w-full md:w-3/5 border-2 border-gray-200 p-6 bg-gray-50 rounded-lg shadow transition hover:shadow-lg relative">
-                {factorStatus && (
-                  <div className="absolute top-2 right-2 px-2 py-1 rounded" style={{ backgroundColor: getStatus(factorStatus.junk_spread_scaled).color }}>
-                    <span className="text-white font-bold">{getStatus(factorStatus.junk_spread_scaled).text}</span>
-                  </div>
-                )}
+              <div className="w-full md:w-3/5 border-2 border-gray-200 p-6 bg-gray-50 rounded-lg shadow transition hover:shadow-lg">
                 <Junks />
               </div>
               <div className="w-full md:w-2/5 p-4">
