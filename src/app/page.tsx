@@ -168,7 +168,7 @@ function App() {
               <div className="w-full md:w-2/5 p-4">
                 <div className="border-2 border-gray-200 p-4 bg-white rounded-lg shadow text-sm">
                   <p className="mt-2 text-gray-600">
-                    코스피가 지난 125거래일의 이동 평균을 상회하면 긍정적인 모멘텀을 의미합니다. 반대로 이동 평균을 하회하면 투자자들이 불안해하고 있다는 신호입니다.
+                  코스피가 지난 125거래일의 이동 평균을 상회하면 긍정적인 모멘텀을 의미합니다. 반대로 이동 평균을 하회하면 투자자들이 불안해하고 있다는 신호입니다. 공포 & 탐욕 지수는 모멘텀이 둔화될 때 &apos;공포&apos; 신호로, 모멘텀이 증가할 때 &apos;탐욕&apos; 신호로 해석합니다.
                   </p>
                 </div>
               </div>
@@ -177,11 +177,11 @@ function App() {
 
           {/* Vixema 차트 */}
           <div className="w-full p-4">
-            <div className="mb-4 flex items-center justify-between">
-              <div>
+            <div className="mb-4">
+
                 <h1 className="text-lg font-semibold text-gray-800">시장 변동성 (Market Volatility)</h1>
                 <h3 className="text-lg text-gray-800">VIX와 VIX 50일 이동평균선</h3>
-              </div>
+
               {factorStatus && (
                 <div className="px-0 py-1 rounded" style={{ backgroundColor: getStatus(factorStatus.vix_ema_spread_scaled).color }}>
                   <span className="text-white font-bold">{getStatus(factorStatus.vix_ema_spread_scaled).text}</span>
@@ -195,7 +195,7 @@ function App() {
               <div className="w-full md:w-2/5 p-4">
                 <div className="border-2 border-gray-200 p-4 bg-white rounded-lg shadow text-sm">
                   <p className="mt-2 text-gray-600">
-                    VIX는 코스피 옵션의 30일간 예상 변동성을 측정하며, 시장이 상승할 때 하락하고, 시장이 급락할 때 급등하는 경향이 있습니다.
+                  가장 잘 알려진 시장 심리 지표는 CBOE 변동성 지수(VIX)입니다. VIX는 코스피 옵션의 30일간 예상 변동성을 측정하며, 시장이 상승할 때 하락하고, 시장이 급락할 때 급등하는 경향이 있습니다. 장기적으로 보면 강세장에서는 낮고, 약세장에서는 높아지는 특징이 있습니다. 공포 & 탐욕 지수는 변동성이 증가할 때 &apos;공포&apos; 신호로 봅니다.
                   </p>
                 </div>
               </div>
@@ -204,11 +204,11 @@ function App() {
 
           {/* Mccl 차트 */}
           <div className="w-full p-4">
-            <div className="mb-4 flex items-center justify-between">
-              <div>
-                <h1 className="text-lg font-semibold text-gray-800">주가 폭 (Stock Price Breadth)</h1>
-                <h3 className="text-lg text-gray-800">McClellan Volume Summation Index</h3>
-              </div>
+            <div className="mb-4">
+
+              <h1 className="text-lg font-semibold text-gray-800">주가 폭 (Stock Price Breadth)</h1>
+              <h3 className="text-lg text-gray-800">McClellan Volume Summation Index</h3>
+
               {factorStatus && (
                 <div className="px-0 py-1 rounded" style={{ backgroundColor: getStatus(factorStatus.mcclenllan_scaled).color }}>
                   <span className="text-white font-bold">{getStatus(factorStatus.mcclenllan_scaled).text}</span>
@@ -222,7 +222,7 @@ function App() {
               <div className="w-full md:w-2/5 p-4">
                 <div className="border-2 border-gray-200 p-4 bg-white rounded-lg shadow text-sm">
                   <p className="mt-2 text-gray-600">
-                    맥클렐런 거래량 합산 지수는 상승하는 주식의 거래량과 하락하는 주식의 거래량을 비교하는 지표입니다.
+                  맥클렐런 거래량 합산 지수(McClellan Volume Summation Index)는 상승하는 주식의 거래량과 하락하는 주식의 거래량을 비교하는 지표입니다. 시장에서 거래되는 주식 수는 수천 개에 달하며, 매일매일 매수와 매도가 이루어집니다. 이 지표가 낮거나 음수이면 약세 신호로 해석됩니다. 공포 & 탐욕 지수는 거래량 감소를 &apos;공포&apos; 신호로 봅니다.
                   </p>
                 </div>
               </div>
@@ -231,11 +231,11 @@ function App() {
 
           {/* Pcema 차트 */}
           <div className="w-full p-4">
-            <div className="mb-4 flex items-center justify-between">
-              <div>
-                <h1 className="text-lg font-semibold text-gray-800">풋 & 콜 옵션 (Put & Call Options)</h1>
-                <h3 className="text-lg text-gray-800">5일 이동평균선</h3>
-              </div>
+            <div className="mb-4">
+
+              <h1 className="text-lg font-semibold text-gray-800">풋 & 콜 옵션 (Put & Call Options)</h1>
+              <h3 className="text-lg text-gray-800">5일 이동평균선</h3>
+
               {factorStatus && (
                 <div className="px-0 py-1 rounded" style={{ backgroundColor: getStatus(factorStatus.p_c_ema_scaled).color }}>
                   <span className="text-white font-bold">{getStatus(factorStatus.p_c_ema_scaled).text}</span>
@@ -249,7 +249,7 @@ function App() {
               <div className="w-full md:w-2/5 p-4">
                 <div className="border-2 border-gray-200 p-4 bg-white rounded-lg shadow text-sm">
                   <p className="mt-2 text-gray-600">
-                    풋옵션과 콜옵션의 비율이 상승하면, 투자자들이 점점 더 불안해하고 있음을 의미합니다.
+                  옵션은 정해진 가격과 날짜에 주식, 지수 또는 기타 금융상품을 매수(콜 옵션)하거나 매도(풋 옵션)할 수 있는 계약입니다. 풋옵션과 콜옵션의 비율이 상승하면, 투자자들이 점점 더 불안해하고 있음을 의미합니다. 일반적으로 이 비율이 1 이상이면 약세 신호로 간주됩니다. 공포 & 탐욕 지수는 풋옵션 비율이 높은 경우 &apos;공포&apos; 신호로 봅니다.
                   </p>
                 </div>
               </div>
@@ -303,7 +303,7 @@ function App() {
               <div className="w-full md:w-2/5 p-4">
                 <div className="border-2 border-gray-200 p-4 bg-white rounded-lg shadow text-sm">
                   <p className="mt-2 text-gray-600">
-                  정크본드는 신용도가 낮아 디폴트(부도) 위험이 높은 채권입니다. 일반적으로 정크본드 가격이 오르면 수익률(금리)이 하락하고, 가격이 하락하면 수익률이 상승합니다. 정크본드와 투자등급 채권 간의 수익률 차이가 좁아질수록 투자자들이 더 많은 위험을 감수하고 있다는 의미이며, 공포 & 탐욕 지수는 이를 ‘탐욕’ 신호로 봅니다.
+                  정크본드는 신용도가 낮아 디폴트(부도) 위험이 높은 채권입니다. 일반적으로 정크본드 가격이 오르면 수익률(금리)이 하락하고, 가격이 하락하면 수익률이 상승합니다. 정크본드와 투자등급 채권 간의 수익률 차이가 좁아질수록 투자자들이 더 많은 위험을 감수하고 있다는 의미이며, 공포 & 탐욕 지수는 이를 &apos;탐욕&apos; 신호로 봅니다.
                   </p>
                 </div>
               </div>
