@@ -100,14 +100,15 @@ const Junks: React.FC = () => {
         <YAxis 
           yAxisId="left" 
           orientation="left"
-          domain={[0.5, 1.5]}
+          domain={[0.7, 1.1]}
           hide={true}
         />
         <YAxis 
           yAxisId="right" 
           orientation="right"
-          domain={[0.6, 1.1]}
-          tickFormatter={(value) => value.toFixed(0)}
+          domain={[0.7, 1.1]}
+          tickCount={5}
+          tickFormatter={(value) => value.toFixed(2)}
         />
         <Tooltip content={customTooltip} />
         <Legend />
