@@ -138,7 +138,7 @@ function App() {
                 )}
                 {activeComponent === 'timeline' && (
                   <div className="w-full p-4">
-                    <div className="border-2 border-gray-200 p-6 bg-gray-50 rounded-lg shadow transition hover:shadow-lg">
+                    <div className="border-2 border-gray-200 p-6 bg-gray-50 rounded-lg shadow transition hover:shadow-lg overflow-x-auto min-w-[300px]">
                       <KospiVsFearGreedIndex />
                     </div>
                   </div>
@@ -270,7 +270,7 @@ function App() {
               )}
             </div>
             <div className="flex flex-col md:flex-row">
-              <div className="w-full md:w-3/5 border-2 border-gray-200 p-6 bg-gray-50 rounded-lg shadow transition hover:shadow-lg">
+              <div className="w-full md:w-3/5 border-2 border-gray-200 p-6 bg-gray-50 rounded-lg shadow transition hover:shadow-lg overflow-x-auto min-w-[300px]">
                 <Safeb />
               </div>
               <div className="w-full md:w-2/5 p-4">
