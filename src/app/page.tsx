@@ -94,14 +94,15 @@ function App() {
             <MarketDataComponent />
           </div>
 
-          <div className="flex flex-col w-full md:flex-row items-start justify-start ${containerStyle}">
-            <div className="flex flex-col w-full ${cardStyle} p-4 relative">
-              <h1 className="text-3xl font-bold tracking-tight sm:text-4xl text-gray-800">코스피 공포 & 탐욕 지수</h1>
-              <p className="mt-4 text-gray-600 md:text-xl">
-                CNN FEAR & GREED INDEX를 코스피 시장에 맞게 재구성하였습니다
-              </p>
-
-              <div className="absolute top-2 right-2 md:top-4 md:right-4">
+          <div className="flex flex-col w-full ${cardStyle} p-4 relative">
+            <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
+              <div>
+                <h1 className="text-3xl font-bold tracking-tight sm:text-4xl text-gray-800">코스피 공포 & 탐욕 지수</h1>
+                <p className="mt-4 text-gray-600 md:text-xl">
+                  CNN FEAR & GREED INDEX를 코스피 시장에 맞게 재구성하였습니다
+                </p>
+              </div>
+              <div className="mt-4 md:mt-0">
                 <div className="flex items-center justify-center bg-[#f0f0f0] rounded-full border border-[#d1d5db] shadow-[0_2px_4px_rgba(0,0,0,0.1)] overflow-hidden">
                   <div
                     className={`px-2 py-1 md:px-4 md:py-2 text-sm md:text-base font-sans cursor-pointer transition-all duration-300 ${
@@ -121,31 +122,31 @@ function App() {
                   </div>
                 </div>
               </div>
+            </div>
 
-              <div className="flex flex-col md:flex-row mt-6">
-                {activeComponent === 'gauge' && (
-                  <>
-                    <div className="w-full md:w-2/3 p-4">
-                      <div className="flex flex-col items-center bg-gray-50 rounded-lg shadow p-4 transition transform hover:scale-105">
-                        <GaugeChart />
-                        <p className="mt-4 text-lg font-semibold text-gray-700">{formattedDate} - 오늘의 코스피 공포탐욕 지수는?</p>
-                      </div>
-                    </div>
-                    <div className="md:w-1/3 hidden md:block p-4">
-                      <PreviousIndexes />
-                    </div>
-                  </>
-                )}
-                {activeComponent === 'timeline' && (
-                  <div className="w-full p-4">
-                    <div className="border-2 border-gray-200 p-6 bg-gray-50 rounded-lg shadow transition hover:shadow-lg overflow-x-auto min-w-[300px]">
-                      <KospiVsFearGreedIndex />
+            <div className="flex flex-col md:flex-row mt-6">
+              {activeComponent === 'gauge' && (
+                <>
+                  <div className="w-full md:w-2/3 p-4">
+                    <div className="flex flex-col items-center bg-gray-50 rounded-lg shadow p-4 transition transform hover:scale-105">
+                      <GaugeChart />
+                      <p className="mt-4 text-lg font-semibold text-gray-700">{formattedDate} - 오늘의 코스피 공포탐욕 지수는?</p>
                     </div>
                   </div>
-                )}
-              </div>
-              <hr className="my-8 border-t border-gray-300" />
+                  <div className="md:w-1/3 hidden md:block p-4">
+                    <PreviousIndexes />
+                  </div>
+                </>
+              )}
+              {activeComponent === 'timeline' && (
+                <div className="w-full p-4">
+                  <div className="border-2 border-gray-200 p-6 bg-gray-50 rounded-lg shadow transition hover:shadow-lg overflow-x-auto min-w-[300px]">
+                    <KospiVsFearGreedIndex />
+                  </div>
+                </div>
+              )}
             </div>
+            <hr className="my-8 border-t border-gray-300" />
           </div>
 
           {/* Kospiema 차트 */}
