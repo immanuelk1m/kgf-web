@@ -103,10 +103,10 @@ const Kospiema: React.FC = () => {
   };
 
   return (
-    <ResponsiveContainer width="100%" height={300} minWidth={280}>
+    <ResponsiveContainer width="100%" height={300} minWidth={400}>
       <LineChart
         data={data}
-        margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+        margin={{ top: 5, right: 40, left: 0, bottom: 5 }}
       >
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis 
