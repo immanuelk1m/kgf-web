@@ -8,13 +8,6 @@ interface MarketData {
     change: number;
 }
 
-const containerStyle = `
-  @apply max-w-[1280px] mx-auto p-2 pt-8;
-  @media (max-width: 1280px) {
-    @apply px-0;
-  }
-`;
-
 const MarketDataComponent = () => {
     const [marketData, setMarketData] = useState<{
         kospi: MarketData;
@@ -61,17 +54,33 @@ const MarketDataComponent = () => {
         return () => clearInterval(interval);
     }, []);
 
+    const getStatusText = (value: number) => {
+        if (value < 25) return '극도의 공포';
+        if (value < 45) return '공포';
+        if (value < 55) return '중립';
+        if (value < 75) return '탐욕';
+        return '극도의 탐욕';
+    };
+
+    const getStatusColor = (value: number) => {
+        if (value < 25) return 'text-red-600 dark:text-red-400';
+        if (value < 45) return 'text-orange-500 dark:text-orange-400';
+        if (value < 55) return 'text-yellow-500 dark:text-yellow-400';
+        if (value < 75) return 'text-green-500 dark:text-green-400';
+        return 'text-emerald-600 dark:text-emerald-400';
+    };
+
     const renderChange = (change: number) => {
         const isPositive = change > 0;
         return (
-            <span className={`flex items-center p-2 ${isPositive ? 'text-red-500' : 'text-blue-500'}`}>
+            <span className={`flex items-center ${isPositive ? 'text-red-600 dark:text-red-400' : 'text-blue-600 dark:text-blue-400'}`}>
                 {change.toFixed(2)}%
                 {isPositive ? (
-                    <svg xmlns="http://www.w3.org/2000/svg" className="ml-1 h-4 w-4 fill-current text-red-500" viewBox="0 0 24 24">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="ml-1 h-4 w-4 fill-current" viewBox="0 0 24 24">
                         <polygon points="12 2 22 22 2 22 12 2" />
                     </svg>
                 ) : (
-                    <svg xmlns="http://www.w3.org/2000/svg" className="ml-1 h-4 w-4 fill-current text-blue-500" viewBox="0 0 24 24">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="ml-1 h-4 w-4 fill-current" viewBox="0 0 24 24">
                         <polygon points="12 22 22 2 2 2 12 22" />
                     </svg>
                 )}
@@ -80,46 +89,78 @@ const MarketDataComponent = () => {
     };
 
     return (
-        <div className={`${containerStyle}`}>
-          <div className="flex flex-col md:flex-row flex-wrap md:flex-nowrap">
-            
-            <div className="markets mb-4 flex flex-col w-full md:w-1/3 p-2 md:border-r md:border-gray-300">
-              <h3 className="text-xl font-semibold mb-2 font-pretendard">Markets</h3>
-              <table className="min-w-full bg-white rounded-md">
-                <tbody>
-                  <tr className="border-b">
-                    <td className="p-2">코스피</td>
-                    <td className="p-2">{marketData.kospi.value.toFixed(2)}</td>
-                    <td className="p-2">{renderChange(marketData.kospi.change)}</td>
-                  </tr>
-                  <tr className="border-b">
-                    <td className="p-2">코스닥</td>
-                    <td className="p-2">{marketData.kosdaq.value.toFixed(2)}</td>
-                    <td className="p-2">{renderChange(marketData.kosdaq.change)}</td>
-                  </tr>
-                  <tr>
-                    <td className="p-2">원/달러</td>
-                    <td className="p-2">{marketData.wond.value.toFixed(2)}</td>
-                    <td className="p-2">{renderChange(marketData.wond.change)}</td>
-                  </tr>
-                </tbody>
-              </table>
+        <div className="p-4">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                {/* 마켓 데이터 카드 */}
+                <div className="bg-white dark:bg-gray-700 rounded-xl overflow-hidden shadow-sm">
+                    <div className="bg-gradient-to-r from-blue-500 to-indigo-600 p-4">
+                        <h3 className="text-xl font-bold text-white">마켓 데이터</h3>
+                    </div>
+                    <div className="p-4">
+                        <div className="divide-y divide-gray-200 dark:divide-gray-600">
+                            <div className="py-3 flex justify-between items-center">
+                                <div className="flex items-center">
+                                    <span className="text-gray-800 dark:text-gray-200 font-medium">코스피</span>
+                                </div>
+                                <div className="flex items-center gap-4">
+                                    <span className="text-gray-800 dark:text-gray-200 font-bold">{marketData.kospi.value.toFixed(2)}</span>
+                                    {renderChange(marketData.kospi.change)}
+                                </div>
+                            </div>
+                            <div className="py-3 flex justify-between items-center">
+                                <div className="flex items-center">
+                                    <span className="text-gray-800 dark:text-gray-200 font-medium">코스닥</span>
+                                </div>
+                                <div className="flex items-center gap-4">
+                                    <span className="text-gray-800 dark:text-gray-200 font-bold">{marketData.kosdaq.value.toFixed(2)}</span>
+                                    {renderChange(marketData.kosdaq.change)}
+                                </div>
+                            </div>
+                            <div className="py-3 flex justify-between items-center">
+                                <div className="flex items-center">
+                                    <span className="text-gray-800 dark:text-gray-200 font-medium">원/달러</span>
+                                </div>
+                                <div className="flex items-center gap-4">
+                                    <span className="text-gray-800 dark:text-gray-200 font-bold">{marketData.wond.value.toFixed(2)}</span>
+                                    {renderChange(marketData.wond.change)}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                {/* 공포 탐욕 지수 카드 */}
+                <div className="bg-white dark:bg-gray-700 rounded-xl overflow-hidden shadow-sm">
+                    <div className="bg-gradient-to-r from-purple-500 to-pink-600 p-4">
+                        <h3 className="text-xl font-bold text-white">공포 & 탐욕 지수</h3>
+                    </div>
+                    <div className="p-6 flex flex-col items-center justify-center">
+                        {fearGreedIndex !== null ? (
+                            <>
+                                <div className="text-6xl font-bold mb-2 mt-2 transition-all duration-300 ease-in-out transform hover:scale-110 select-none">
+                                    <span className={getStatusColor(fearGreedIndex)}>{fearGreedIndex.toFixed(1)}</span>
+                                </div>
+                                <div className={`text-center mt-2 font-medium ${getStatusColor(fearGreedIndex)}`}>
+                                    {getStatusText(fearGreedIndex)}
+                                </div>
+                                <p className="text-center mt-4 text-sm text-gray-600 dark:text-gray-300">현재 코스피 시장 심리 지수</p>
+                            </>
+                        ) : (
+                            <div className="text-gray-500 dark:text-gray-400 animate-pulse">로딩 중...</div>
+                        )}
+                    </div>
+                </div>
+                
+                {/* 커피 카드 */}
+                <div className="bg-white dark:bg-gray-700 rounded-xl overflow-hidden shadow-sm">
+                    <div className="bg-gradient-to-r from-amber-500 to-yellow-400 p-4">
+                        <h3 className="text-xl font-bold text-white">커피 한 잔 사주기</h3>
+                    </div>
+                    <div className="p-4 flex items-center justify-center">
+                        <BuyCoffee />
+                    </div>
+                </div>
             </div>
-            
-            <div className="fear-greed-index flex flex-col w-full md:w-1/3 p-2 hidden md:flex md:border-r md:border-gray-300">
-              <h3 className="text-xl font-semibold mb-2 font-pretendard">Fear & Greed Index</h3>
-              <div className="index flex justify-center items-center h-full">
-                <span className="text-6xl font-bold">{fearGreedIndex !== null ? fearGreedIndex : 'Loading...'}</span>
-              </div>
-              <div className="text-center mt-4 font-pretendard">Neutral sentiment is driving the KOSPI market</div>
-            </div>
-        
-            <div className="flex flex-col w-full md:w-1/3 p-2">
-              <div className="rounded-lg p-4 flex items-center justify-center min-h-[100px]">
-                <BuyCoffee/>
-              </div>
-            </div>
-          </div>
         </div>
     );
 };

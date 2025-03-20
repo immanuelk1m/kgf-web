@@ -31,12 +31,12 @@ const getStatusText = (status: string) => {
 
 const getStatusColor = (status: string) => {
   switch (status) {
-    case '1': return 'text-red-600';
-    case '2': return 'text-orange-500';
-    case '3': return 'text-gray-500';
-    case '4': return 'text-green-500';
-    case '5': return 'text-green-600';
-    default: return 'text-gray-800';
+    case '1': return 'bg-red-600 text-white';
+    case '2': return 'bg-orange-500 text-white';
+    case '3': return 'bg-yellow-400 text-gray-800';
+    case '4': return 'bg-green-500 text-white';
+    case '5': return 'bg-green-600 text-white';
+    default: return 'bg-gray-400 text-white';
   }
 };
 
@@ -66,15 +66,21 @@ const PreviousIndexes: React.FC = () => {
   }, []);
 
   return (
-    <div className="mt-4 bg-white p-4 shadow-md rounded-lg">
-      <ul>
+    <div className="bg-white dark:bg-gray-700 rounded-xl shadow-md h-full overflow-hidden">
+      <div className="p-4 bg-blue-500 dark:bg-blue-600">
+        <h3 className="text-lg font-bold text-white">이전 지수 기록</h3>
+      </div>
+      <ul className="divide-y divide-gray-200 dark:divide-gray-600">
         {indexHistory.map((data, index) => (
-          <li key={index} className="py-2 border-b last:border-b-0">
-            <div className="flex justify-between">
-              <span>{data.time}</span>
-              <span className={`font-bold ${getStatusColor(data.status)}`}>
-                {data.value.toFixed(1)} - {getStatusText(data.status)}
-              </span>
+          <li key={index} className="p-4 hover:bg-gray-50 dark:hover:bg-gray-600 transition duration-150">
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+              <span className="font-medium text-gray-700 dark:text-gray-200">{data.time}</span>
+              <div className="flex flex-col items-end gap-1">
+                <span className="font-bold text-gray-800 dark:text-gray-100">{data.value.toFixed(1)}</span>
+                <span className={`text-xs px-2 py-1 rounded-full ${getStatusColor(data.status)}`}>
+                  {getStatusText(data.status)}
+                </span>
+              </div>
             </div>
           </li>
         ))}
