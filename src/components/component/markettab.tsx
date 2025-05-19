@@ -1,6 +1,5 @@
 'use client';
 
-import BuyCoffee from '@/components/component/buycoff';
 import React, { useState, useEffect } from 'react';
 
 interface MarketData {
@@ -89,39 +88,39 @@ const MarketDataComponent = () => {
     };
 
     return (
-        <div className="p-4">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="container mx-auto py-8 px-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {/* 마켓 데이터 카드 */}
-                <div className="bg-white dark:bg-gray-700 rounded-xl overflow-hidden shadow-sm">
-                    <div className="bg-gradient-to-r from-blue-500 to-indigo-600 p-4">
-                        <h3 className="text-xl font-bold text-white">마켓 데이터</h3>
+                <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden">
+                    <div className="bg-gray-100 dark:bg-gray-700 p-4 border-b border-gray-200 dark:border-gray-600">
+                        <h3 className="text-lg font-semibold text-gray-900 dark:text-white">마켓 데이터</h3>
                     </div>
                     <div className="p-4">
-                        <div className="divide-y divide-gray-200 dark:divide-gray-600">
+                        <div className="divide-y divide-gray-200 dark:divide-gray-700">
                             <div className="py-3 flex justify-between items-center">
                                 <div className="flex items-center">
-                                    <span className="text-gray-800 dark:text-gray-200 font-medium">코스피</span>
+                                    <span className="text-gray-700 dark:text-gray-300 font-medium">코스피</span>
                                 </div>
-                                <div className="flex items-center gap-4">
-                                    <span className="text-gray-800 dark:text-gray-200 font-bold">{marketData.kospi.value.toFixed(2)}</span>
+                                <div className="flex items-center gap-2">
+                                    <span className="text-gray-900 dark:text-white font-bold">{marketData.kospi.value.toFixed(2)}</span>
                                     {renderChange(marketData.kospi.change)}
                                 </div>
                             </div>
                             <div className="py-3 flex justify-between items-center">
                                 <div className="flex items-center">
-                                    <span className="text-gray-800 dark:text-gray-200 font-medium">코스닥</span>
+                                    <span className="text-gray-700 dark:text-gray-300 font-medium">코스닥</span>
                                 </div>
-                                <div className="flex items-center gap-4">
-                                    <span className="text-gray-800 dark:text-gray-200 font-bold">{marketData.kosdaq.value.toFixed(2)}</span>
+                                <div className="flex items-center gap-2">
+                                    <span className="text-gray-900 dark:text-white font-bold">{marketData.kosdaq.value.toFixed(2)}</span>
                                     {renderChange(marketData.kosdaq.change)}
                                 </div>
                             </div>
                             <div className="py-3 flex justify-between items-center">
                                 <div className="flex items-center">
-                                    <span className="text-gray-800 dark:text-gray-200 font-medium">원/달러</span>
+                                    <span className="text-gray-700 dark:text-gray-300 font-medium">원/달러</span>
                                 </div>
-                                <div className="flex items-center gap-4">
-                                    <span className="text-gray-800 dark:text-gray-200 font-bold">{marketData.wond.value.toFixed(2)}</span>
+                                <div className="flex items-center gap-2">
+                                    <span className="text-gray-900 dark:text-white font-bold">{marketData.wond.value.toFixed(2)}</span>
                                     {renderChange(marketData.wond.change)}
                                 </div>
                             </div>
@@ -130,20 +129,20 @@ const MarketDataComponent = () => {
                 </div>
                 
                 {/* 공포 탐욕 지수 카드 */}
-                <div className="bg-white dark:bg-gray-700 rounded-xl overflow-hidden shadow-sm">
-                    <div className="bg-gradient-to-r from-purple-500 to-pink-600 p-4">
-                        <h3 className="text-xl font-bold text-white">공포 & 탐욕 지수</h3>
+                <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden">
+                    <div className="bg-gray-100 dark:bg-gray-700 p-4 border-b border-gray-200 dark:border-gray-600">
+                        <h3 className="text-lg font-semibold text-gray-900 dark:text-white">공포 & 탐욕 지수</h3>
                     </div>
                     <div className="p-6 flex flex-col items-center justify-center">
                         {fearGreedIndex !== null ? (
                             <>
-                                <div className="text-6xl font-bold mb-2 mt-2 transition-all duration-300 ease-in-out transform hover:scale-110 select-none">
+                                <div className="text-5xl font-bold mb-2 transition-all duration-300 ease-in-out transform hover:scale-105 select-none">
                                     <span className={getStatusColor(fearGreedIndex)}>{fearGreedIndex.toFixed(1)}</span>
                                 </div>
-                                <div className={`text-center mt-2 font-medium ${getStatusColor(fearGreedIndex)}`}>
+                                <div className={`text-center mt-2 text-lg font-medium ${getStatusColor(fearGreedIndex)}`}>
                                     {getStatusText(fearGreedIndex)}
                                 </div>
-                                <p className="text-center mt-4 text-sm text-gray-600 dark:text-gray-300">현재 코스피 시장 심리 지수</p>
+                                <p className="text-center mt-4 text-sm text-gray-600 dark:text-gray-400">현재 코스피 시장 심리 지수</p>
                             </>
                         ) : (
                             <div className="text-gray-500 dark:text-gray-400 animate-pulse">로딩 중...</div>
@@ -151,15 +150,6 @@ const MarketDataComponent = () => {
                     </div>
                 </div>
                 
-                {/* 커피 카드 */}
-                <div className="bg-white dark:bg-gray-700 rounded-xl overflow-hidden shadow-sm">
-                    <div className="bg-gradient-to-r from-amber-500 to-yellow-400 p-4">
-                        <h3 className="text-xl font-bold text-white">커피 한 잔 사주기</h3>
-                    </div>
-                    <div className="p-4 flex items-center justify-center">
-                        <BuyCoffee />
-                    </div>
-                </div>
             </div>
         </div>
     );

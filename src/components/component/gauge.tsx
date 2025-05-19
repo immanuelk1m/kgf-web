@@ -221,6 +221,7 @@ const GaugeChart: React.FC = () => {
         minHeight: '280px',
         maxHeight: '450px',
       }}
+      className="w-full h-[40vh] min-h-[280px] max-h-[450px]"
     />
   );
 };

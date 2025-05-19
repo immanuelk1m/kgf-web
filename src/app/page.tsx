@@ -58,55 +58,54 @@ function App() {
   // 상태와 색상 결정 함수
   const getStatus = (value: number) => {
     if (value < 0.2) {
-      return { text: '매우 나쁨', color: '#ee1f25' };
+      return { text: '매우 나쁨', color: '#ee1f25', contribution: '극도의 공포 기여' };
     } else if (value < 0.4) {
-      return { text: '나쁨', color: '#fdae19' };
+      return { text: '나쁨', color: '#fdae19', contribution: '공포 기여' };
     } else if (value < 0.6) {
-      return { text: '보통', color: '#f3eb0c' };
+      return { text: '보통', color: '#f3eb0c', contribution: '중립 기여' };
     } else if (value < 0.8) {
-      return { text: '좋음', color: '#b0d136' };
+      return { text: '좋음', color: '#b0d136', contribution: '탐욕 기여' };
     } else {
-      return { text: '매우 좋음', color: '#0f9747' };
+      return { text: '매우 좋음', color: '#0f9747', contribution: '극도의 탐욕 기여' };
     }
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800">
-      <div className="flex w-full max-w-[1600px] mx-auto">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+      <Header />
+      <div className="container mx-auto px-4 py-8 grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-[1600px]">
         {/* 왼쪽 사이드바 광고 */}
-        <div className="hidden xl:block w-64 lg:w-72 sticky top-0 h-screen pt-8">
+        <div className="hidden lg:block lg:col-span-1 sticky top-8 h-screen">
           <div className="h-full flex flex-col items-center">
-            <div className="w-full p-4">
+            <div className="w-full">
               <AdsenseSide />
             </div>
           </div>
         </div>
 
         {/* 메인 콘텐츠 */}
-        <div className="flex-1 w-full max-w-[1280px] mx-auto px-4 py-6">
-          <Header />
-          
+        <div className="lg:col-span-2 space-y-8">
           {/* 마켓 데이터 */}
-          <div className="mt-6 bg-white dark:bg-gray-800 shadow-lg rounded-xl overflow-hidden border border-gray-200 dark:border-gray-700 transition-all hover:shadow-xl">
+          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden border border-gray-200 dark:border-gray-700">
             <MarketDataComponent />
           </div>
           
           {/* 메인 섹션 - 공포 탐욕 지수 */}
-          <div className="mt-8 bg-white dark:bg-gray-800 shadow-lg rounded-xl overflow-hidden border border-gray-200 dark:border-gray-700">
+          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden border border-gray-200 dark:border-gray-700">
             <div className="p-6">
-              <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+              <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
                 <div>
-                  <h1 className="text-3xl font-bold text-gray-800 dark:text-gray-100">코스피 공포 & 탐욕 지수</h1>
-                  <p className="mt-2 text-gray-600 dark:text-gray-300 md:text-lg">
+                  <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">코스피 공포 & 탐욕 지수</h1>
+                  <p className="mt-1 text-gray-600 dark:text-gray-400 text-sm">
                     CNN FEAR & GREED INDEX를 코스피 시장에 맞게 재구성하였습니다
                   </p>
                 </div>
                 
-                <div className="flex items-center justify-center bg-gray-100 dark:bg-gray-700 rounded-full p-1 shadow-sm">
+                <div className="flex items-center justify-center bg-gray-100 dark:bg-gray-700 rounded-full p-1 shadow-inner">
                   <button
                     className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
-                      activeComponent === 'gauge' 
-                        ? 'bg-blue-500 text-white' 
+                      activeComponent === 'gauge'
+                        ? 'bg-blue-600 text-white shadow-sm font-bold'
                         : 'text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
                     }`}
                     onClick={() => setActiveComponent('gauge')}
@@ -115,8 +114,8 @@ function App() {
                   </button>
                   <button
                     className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
-                      activeComponent === 'timeline' 
-                        ? 'bg-blue-500 text-white' 
+                      activeComponent === 'timeline'
+                        ? 'bg-blue-600 text-white shadow-sm font-bold'
                         : 'text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
                     }`}
                     onClick={() => setActiveComponent('timeline')}
@@ -126,21 +125,21 @@ function App() {
                 </div>
               </div>
 
-              <div className="mt-8">
+              <div className="mt-6">
                 {activeComponent === 'gauge' && (
                   <div className="grid md:grid-cols-3 gap-6">
-                    <div className="md:col-span-2 bg-gray-50 dark:bg-gray-700 rounded-xl p-6 shadow-sm">
+                    <div className="md:col-span-2 bg-gray-100 dark:bg-gray-700 rounded-lg p-6 shadow-inner">
                       <GaugeChart />
-                      <p className="mt-4 text-center text-lg font-medium text-gray-700 dark:text-gray-200">{formattedDate} - 오늘의 코스피 공포탐욕 지수는?</p>
+                      <p className="mt-4 text-center text-base font-medium text-gray-700 dark:text-gray-300">{formattedDate} - 오늘의 코스피 공포탐욕 지수는?</p>
                     </div>
-                    <div className="hidden md:block">
+                    <div className="hidden md:block bg-gray-100 dark:bg-gray-700 rounded-lg p-6 shadow-inner">
                       <PreviousIndexes />
                     </div>
                   </div>
                 )}
                 
                 {activeComponent === 'timeline' && (
-                  <div className="bg-gray-50 dark:bg-gray-700 rounded-xl p-6 shadow-sm">
+                  <div className="bg-gray-100 dark:bg-gray-700 rounded-lg p-6 shadow-inner">
                     <KospiVsFearGreedIndex />
                   </div>
                 )}
@@ -149,12 +148,12 @@ function App() {
           </div>
 
           {/* 모바일 전용 광고 */}
-          <div className="md:hidden my-6 bg-white dark:bg-gray-800 shadow-lg rounded-xl overflow-hidden">
+          <div className="lg:hidden bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden border border-gray-200 dark:border-gray-700">
             <AdsenseSide />
           </div>
           
           {/* 차트 섹션들 */}
-          <div className="mt-8 space-y-8">
+          <div className="space-y-8">
             {/* 시장 모멘텀 차트 */}
             <MarketMomentumSection factorStatus={factorStatus} getStatus={getStatus} />
 
@@ -178,7 +177,7 @@ function App() {
           </div>
           
           {/* 하단 광고 배너 */}
-          <div className="mt-10 bg-white dark:bg-gray-800 shadow-lg rounded-xl overflow-hidden border border-gray-200 dark:border-gray-700">
+          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden border border-gray-200 dark:border-gray-700">
             <div className="p-4 min-h-[250px]">
               <AdsenseOnfooter />
             </div>
@@ -186,9 +185,9 @@ function App() {
         </div>
         
         {/* 오른쪽 사이드바 광고 */}
-        <div className="hidden xl:block w-64 lg:w-72 sticky top-0 h-screen pt-8">
+        <div className="hidden lg:block lg:col-span-1 sticky top-8 h-screen">
           <div className="h-full flex flex-col items-center">
-            <div className="w-full p-4">
+            <div className="w-full">
               <AdsenseSide />
             </div>
           </div>

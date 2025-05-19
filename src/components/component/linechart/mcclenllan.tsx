@@ -125,7 +125,8 @@ const Mccl: React.FC = () => {
           yAxisId="right" 
           orientation="right"
           domain={yDomain}
-          tickFormatter={(value) => value.toFixed(0)} 
+          tickFormatter={(value) => value.toFixed(0)}
+          style={{ fontSize: '12px' }} // Y축 레이블 크기 조정
         />
         <Tooltip content={customTooltip} />
         <Legend />
