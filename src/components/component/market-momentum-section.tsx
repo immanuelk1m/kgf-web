@@ -39,7 +39,7 @@ const MarketMomentumSection: React.FC<MarketMomentumSectionProps> = ({ factorSta
           </div>
           <div className="md:col-span-2 bg-gray-50 dark:bg-gray-700 rounded-lg p-4 pr-6 shadow-inner"> {/* 오른쪽 패딩 추가 */}
             <p className="text-gray-700 dark:text-gray-300 text-sm leading-relaxed">
-              코스피가 지난 <span title="과거 125일 동안의 종가 평균입니다. 추세 파악에 사용됩니다.">125거래일의 이동 평균</span>을 상회하면 긍정적인 모멘텀을 의미합니다. 반대로 이동 평균을 하회하면 투자자들이 불안해하고 있다는 신호입니다. 공포 & 탐욕 지수는 모멘텀이 둔화될 때 '공포' 신호로, 모멘텀이 증가할 때 '탐욕' 신호로 해석합니다.
+              코스피가 지난 <span title="과거 125일 동안의 종가 평균입니다. 추세 파악에 사용됩니다.">125거래일의 이동 평균</span>을 상회하면 긍정적인 모멘텀을 의미합니다. 반대로 이동 평균을 하회하면 투자자들이 불안해하고 있다는 신호입니다. 공포 & 탐욕 지수는 모멘텀이 둔화될 때 &apos;공포&apos; 신호로, 모멘텀이 증가할 때 &apos;탐욕&apos; 신호로 해석합니다.
             </p>
           </div>
         </div>

@@ -39,7 +39,7 @@ const StockPriceBreadthSection: React.FC<StockPriceBreadthSectionProps> = ({ fac
           </div>
           <div className="md:col-span-2 bg-gray-50 dark:bg-gray-700 rounded-lg p-4 pr-6 shadow-inner"> {/* 오른쪽 패딩 추가 */}
             <p className="text-gray-700 dark:text-gray-300 text-sm leading-relaxed">
-              <span title="상승하는 주식의 거래량과 하락하는 주식의 거래량을 비교하여 시장의 전반적인 매수/매도 압력을 측정하는 지표입니다.">맥클렐런 거래량 합산 지수(McClellan Volume Summation Index)</span>는 상승하는 주식의 거래량과 하락하는 주식의 거래량을 비교하는 지표입니다. 시장에서 거래되는 주식 수는 수천 개에 달하며, 매일매일 매수와 매도가 이루어집니다. 이 지표가 낮거나 음수이면 약세 신호로 해석됩니다. 공포 & 탐욕 지수는 거래량 감소를 '공포' 신호로 봅니다.
+              <span title="상승하는 주식의 거래량과 하락하는 주식의 거래량을 비교하여 시장의 전반적인 매수/매도 압력을 측정하는 지표입니다.">맥클렐런 거래량 합산 지수(McClellan Volume Summation Index)</span>는 상승하는 주식의 거래량과 하락하는 주식의 거래량을 비교하는 지표입니다. 시장에서 거래되는 주식 수는 수천 개에 달하며, 매일매일 매수와 매도가 이루어집니다. 이 지표가 낮거나 음수이면 약세 신호로 해석됩니다. 공포 & 탐욕 지수는 거래량 감소를 &apos;공포&apos; 신호로 봅니다.
             </p>
           </div>
         </div>

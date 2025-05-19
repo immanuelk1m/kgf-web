@@ -39,7 +39,7 @@ const SafeHavenDemandSection: React.FC<SafeHavenDemandSectionProps> = ({ factorS
           </div>
           <div className="md:col-span-2 bg-gray-50 dark:bg-gray-700 rounded-lg p-4 pr-6 shadow-inner"> {/* 오른쪽 패딩 추가 */}
             <p className="text-gray-700 dark:text-gray-300 text-sm leading-relaxed">
-              주식은 채권보다 위험하지만, 장기적으로 높은 수익을 기대할 수 있습니다. 하지만 단기적으로는 채권이 주식을 능가할 수도 있습니다. 안전 자산 선호도 지표는 최근 20거래일 동안의 <span title="안전 자산인 국채와 위험 자산인 주식 간의 수익률 차이를 통해 투자자들이 얼마나 안전한 자산을 선호하는지 나타내는 지표입니다.">국채와 주식의 수익률 차이</span>를 측정합니다. 투자자들이 불안할수록 채권 수익률이 상대적으로 높아지며, 공포 & 탐욕 지수는 이러한 현상을 '공포'  신호로 해석합니다.
+              주식은 채권보다 위험하지만, 장기적으로 높은 수익을 기대할 수 있습니다. 하지만 단기적으로는 채권이 주식을 능가할 수도 있습니다. 안전 자산 선호도 지표는 최근 20거래일 동안의 <span title="안전 자산인 국채와 위험 자산인 주식 간의 수익률 차이를 통해 투자자들이 얼마나 안전한 자산을 선호하는지 나타내는 지표입니다.">국채와 주식의 수익률 차이</span>를 측정합니다. 투자자들이 불안할수록 채권 수익률이 상대적으로 높아지며, 공포 & 탐욕 지수는 이러한 현상을 &apos;공포&apos;  신호로 해석합니다.
             </p>
           </div>
         </div>
