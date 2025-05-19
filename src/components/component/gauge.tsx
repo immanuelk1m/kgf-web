@@ -123,7 +123,9 @@ const GaugeChart: React.FC = () => {
       range.label.location = 0.5;
       range.label.verticalCenter = 'middle';
       range.label.fontSize = emojiSize;
-      range.label.paddingBottom = isSmallScreen ? -5 : -30;
+      // 이모티콘이 너무 위로 올라가 잘리는 현상을 수정하기 위해 paddingBottom 값을 조정합니다.
+      // 기존 값보다 음수의 절대값을 줄여서 덜 올라가도록 합니다.
+      range.label.paddingBottom = isSmallScreen ? -2 : -12; // 예: 작은 화면에서는 -2, 큰 화면에서는 -12
     }
 
     const matchingGrade = lookUpGrade(data.score, data.gradingData);
