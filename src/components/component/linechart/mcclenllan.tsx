@@ -125,7 +125,7 @@ const Mccl: React.FC = () => {
           yAxisId="right" 
           orientation="right"
           domain={yDomain}
-          tickFormatter={(value) => value.toFixed(0)}
+          tickFormatter={(value) => (value / 100).toFixed(2)} // 값을 100으로 나누고 소수점 둘째 자리까지 표시
           style={{ fontSize: '12px' }} // Y축 레이블 크기 조정
         />
         <Tooltip content={customTooltip} />
