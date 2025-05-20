@@ -5,7 +5,7 @@
 @layer base {
   :root {
     --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    --foreground: 222.2 84% 4.9%; /* 기본 텍스트 색상 (거의 검정) */
     --card: 0 0% 100%;
     --card-foreground: 222.2 84% 4.9%;
     --popover: 0 0% 100%;
@@ -15,7 +15,7 @@
     --secondary: 210 40% 96.1%;
     --secondary-foreground: 222.2 47.4% 11.2%;
     --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted-foreground: 215.4 16.3% 46.9%; /* 부드러운 텍스트 색상 */
     --accent: 210 40% 96.1%;
     --accent-foreground: 222.2 47.4% 11.2%;
     --destructive: 0 84.2% 60.2%;
@@ -29,11 +29,23 @@
     --chart-3: 197 37% 24%;
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
+
+    /* P1 작업: 새로운 색상 시스템 CSS 변수 (라이트 모드) */
+    --positive: 150 70% 80.2%; /* #A7F3D0 */
+    --positive-foreground: 160 93% 24.1%; /* #047857 */
+    --negative: 0 93.3% 89%; /* #FECACA */
+    --negative-foreground: 0 74.2% 42.2%; /* #B91C1C */
+    --neutral: 220 13.6% 90.2%; /* #E5E7EB */
+    --neutral-foreground: 215 14.7% 34.1%; /* #4B5563 */
+    --positive-gradient-from: 150 70% 80.2%; /* #A7F3D0 */
+    --positive-gradient-to: 150 69.9% 67.3%; /* #6EE7B7 */
+    --negative-gradient-from: 0 93.3% 89%; /* #FECACA */
+    --negative-gradient-to: 0 90.5% 82.2%; /* #FCA5A5 */
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
+    --background: 222.2 84% 4.9%; /* 다크모드 배경 */
+    --foreground: 210 40% 98%;   /* 다크모드 기본 텍스트 (거의 흰색) */
     --card: 222.2 84% 4.9%;
     --card-foreground: 210 40% 98%;
     --popover: 222.2 84% 4.9%;
@@ -43,7 +55,7 @@
     --secondary: 217.2 32.6% 17.5%;
     --secondary-foreground: 210 40% 98%;
     --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
+    --muted-foreground: 215 20.2% 65.1%; /* 다크모드 부드러운 텍스트 */
     --accent: 217.2 32.6% 17.5%;
     --accent-foreground: 210 40% 98%;
     --destructive: 0 62.8% 30.6%;
@@ -56,6 +68,18 @@
     --chart-3: 30 80% 55%;
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
+
+    /* P1 작업: 새로운 색상 시스템 CSS 변수 (다크 모드) */
+    --positive: 150 60% 25%;
+    --positive-foreground: 150 70% 75%;
+    --negative: 0 50% 30%;
+    --negative-foreground: 0 70% 80%;
+    --neutral: 220 10% 25%;
+    --neutral-foreground: 220 10% 75%;
+    --positive-gradient-from: 150 60% 25%;
+    --positive-gradient-to: 150 60% 20%;
+    --negative-gradient-from: 0 50% 30%;
+    --negative-gradient-to: 0 50% 25%;
   }
 }
 
@@ -65,5 +89,84 @@
   }
   body {
     @apply bg-background text-foreground;
+    font-family: 'Pretendard', sans-serif;
+    font-weight: 400; /* Pretendard-Regular */
+    line-height: 1.65; /* 가독성을 위한 줄간격 조정 */
+    letter-spacing: -0.01em; /* 가독성을 위한 자간 미세 조정 */
+    -webkit-font-smoothing: antialiased; /* macOS/iOS 폰트 부드럽게 */
+    -moz-osx-font-smoothing: grayscale; /* Firefox 폰트 부드럽게 */
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-semibold text-foreground; /* 기본 헤딩 폰트 굵기 및 색상 */
+    letter-spacing: -0.025em; /* 헤딩 자간 살짝 좁게 */
+  }
+
+  h1 {
+    @apply text-3xl md:text-4xl mb-4; /* h1 기본 크기 및 하단 여백 */
+  }
+
+  h2 {
+    @apply text-2xl md:text-3xl mb-3; /* h2 기본 크기 및 하단 여백 */
+  }
+
+  h3 {
+    @apply text-xl md:text-2xl mb-2; /* h3 기본 크기 및 하단 여백 */
+  }
+  
+  p {
+    @apply mb-4 text-base; /* 문단 기본 하단 여백 및 폰트 크기 */
+  }
+
+  a {
+    @apply text-primary hover:underline; /* 링크 기본 색상 및 호버 효과 */
+  }
+}
+
+@layer components {
+  .btn-interactive {
+    @apply transition-all duration-200 ease-in-out;
+  }
+  .btn-interactive:hover {
+    @apply opacity-80 transform scale-105;
+  }
+  .btn-interactive:active {
+    @apply opacity-60 transform scale-95;
+  }
+
+  .link-interactive {
+    @apply transition-colors duration-200 ease-in-out;
+  }
+  .link-interactive:hover {
+    @apply text-primary-foreground; /* 다크모드 고려하여 primary-foreground 사용 */
+  }
+
+  .fade-in-up {
+    animation: fadeInUp 0.5s ease-out forwards;
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .skeleton {
+    @apply bg-gray-200 dark:bg-gray-700 rounded;
+    animation: pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: .5;
+    }
   }
 }

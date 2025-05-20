@@ -52,6 +52,24 @@ const config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        // P1 작업: 새로운 색상 시스템 추가
+        positive: {
+          DEFAULT: "hsl(var(--positive))",
+          foreground: "hsl(var(--positive-foreground))",
+        },
+        negative: {
+          DEFAULT: "hsl(var(--negative))",
+          foreground: "hsl(var(--negative-foreground))",
+        },
+        neutral: {
+          DEFAULT: "hsl(var(--neutral))",
+          foreground: "hsl(var(--neutral-foreground))",
+        },
+        // 그라데이션을 위한 색상 (필요시 활용)
+        'positive-gradient-from': "hsl(var(--positive-gradient-from))",
+        'positive-gradient-to': "hsl(var(--positive-gradient-to))",
+        'negative-gradient-from': "hsl(var(--negative-gradient-from))",
+        'negative-gradient-to': "hsl(var(--negative-gradient-to))",
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -59,7 +77,7 @@ const config = {
         sm: "calc(var(--radius) - 4px)",
       },
       fontFamily: {
-        'pretendard': ['Pretendard-Regular', 'sans-serif'],
+        'pretendard': ['Pretendard', 'sans-serif'], // 'Pretendard-Regular'에서 'Pretendard'로 변경
       },
       keyframes: {
         "accordion-down": {

@@ -88,14 +88,22 @@ const Kospiema: React.FC = () => {
   const customTooltip = ({ active, payload, label }: any) => {
     if (active && payload && payload.length) {
       return (
-        <div className="custom-tooltip bg-white p-2 border border-gray-300 rounded shadow">
-          <p className="font-semibold">{payload[0]?.payload.date}</p>
-          <p className="text-[#667BC6]">
-            코스피: {payload[0]?.value.toFixed(2)}
-          </p>
-          <p className="text-[#F4A261]">
-            코스피 125일 이동평균: {payload[1]?.value.toFixed(0)}
-          </p>
+        <div className="rounded-lg border bg-background p-2.5 shadow-xl"> {/* ChartTooltipContent 스타일 적용 */}
+          <p className="mb-1.5 text-sm font-medium text-foreground">{payload[0]?.payload.date}</p> {/* 날짜 스타일 개선 */}
+          {payload.map((pld: any, index: number) => (
+            <div key={index} className="flex items-center gap-1.5">
+              <span
+                className="h-2.5 w-2.5 shrink-0 rounded-[2px]"
+                style={{ backgroundColor: pld.color }} // 시리즈 색상으로 인디케이터 표시
+              />
+              <div className="flex flex-1 justify-between leading-none">
+                <span className="text-xs text-muted-foreground">{pld.name}:</span> {/* 레이블 스타일 */}
+                <span className="ml-2 font-mono text-xs font-medium tabular-nums text-foreground"> {/* 값 스타일 */}
+                  {pld.name === "KOSPI" ? pld.value.toFixed(2) : pld.value.toFixed(0)}
+                </span>
+              </div>
+            </div>
+          ))}
         </div>
       );
     }
