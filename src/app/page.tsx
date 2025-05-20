@@ -87,20 +87,11 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+    <div className="w-full min-h-screen bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
       <Header />
-      <div className="container mx-auto px-4 py-8 grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-[1600px]">
-        {/* 왼쪽 사이드바 광고 */}
-        <div className="hidden lg:block lg:col-span-1 sticky top-8 h-screen">
-          <div className="h-full flex flex-col items-center">
-            <div className="w-full">
-              {/* <AdsenseSide /> */}
-            </div>
-          </div>
-        </div>
-
+      <div className="container mx-auto px-4 py-8 grid grid-cols-1 gap-8 max-w-[1600px]">
         {/* 메인 콘텐츠 */}
-        <div className="lg:col-span-2 space-y-8 fade-in-up">
+        <div className="space-y-8 fade-in-up">
           {/* 마켓 데이터 */}
           <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden border border-gray-200 dark:border-gray-700">
             <MarketDataComponent />
@@ -143,8 +134,8 @@ function App() {
 
               <div className="mt-6">
                 {activeComponent === 'gauge' && (
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div className="md:col-span-2 bg-gray-100 dark:bg-gray-700 rounded-lg p-6 shadow-inner flex flex-col items-center">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="md:col-span-1 bg-gray-100 dark:bg-gray-700 rounded-lg p-6 shadow-inner flex flex-col items-center">
                       <div className="text-center mb-4">
                         <p className="text-lg font-semibold text-gray-800 dark:text-gray-200">{formattedDate}</p>
                         <p className="text-xl font-bold text-gray-900 dark:text-gray-100">오늘의 코스피 공포 & 탐욕 지수</p>
@@ -301,14 +292,6 @@ function App() {
           </div>
         </div>
         
-        {/* 오른쪽 사이드바 광고 */}
-        <div className="hidden lg:block lg:col-span-1 sticky top-8 h-screen">
-          <div className="h-full flex flex-col items-center">
-            <div className="w-full">
-              {/* <AdsenseSide /> */}
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   );

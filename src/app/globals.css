@@ -88,7 +88,7 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground flex flex-col items-center;
     font-family: 'Pretendard', sans-serif;
     font-weight: 400; /* Pretendard-Regular */
     line-height: 1.65; /* 가독성을 위한 줄간격 조정 */
