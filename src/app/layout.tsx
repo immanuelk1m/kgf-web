@@ -1,80 +1,9 @@
-import { Inter } from "next/font/google";
-import Script from 'next/script'
-import "./globals.css";
-
-const inter = Inter({ subsets: ["latin"] });
-
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
-  return (
-    <html lang="ko">
-      <head>
-        {/* Meta 태그들 직접 삽입 */}
-        <title>코스피 공포 탐욕 지수 - 코스피 공포 탐욕 지수</title>
-        <meta name="description" content="코스피 공포 탐욕 지수" />
-        <meta name="robots" content="max-image-preview:large" />
-        <meta name="generator" content="All in One SEO (AIOSEO) 4.6.7.1" />
-        
-        {/* Open Graph 태그 */}
-        <meta property="og:locale" content="ko_KR" />
-        <meta property="og:site_name" content="코스피 공포 탐욕 지수 - 코스피 공포 탐욕 지수" />
-        <meta property="og:type" content="website" />
-        <meta property="og:title" content="코스피 공포 탐욕 지수 - 코스피 공포 탐욕 지수" />
-        <meta property="og:description" content="코스피 공포 탐욕 지수" />
-        <meta property="og:url" content="https://kospi-fear-greed-index.co.kr/" />
-        <meta property="og:image" content="https://raw.githubusercontent.com/immanuelk1m/kgf-web/master/public/ogimage.jpg" />
-        <meta property="og:image:alt" content="코스피 공포 탐욕 지수" />
-        <meta property="og:logo" content="https://raw.githubusercontent.com/immanuelk1m/kgf-web/master/public/ogimage.jpg" />
-        
-        {/* Twitter 태그 */}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="코스피 공포 탐욕 지수 - 코스피 공포 탐욕 지수" />
-        <meta name="twitter:description" content="코스피 공포 탐욕 지수" />
-        <meta name="twitter:image" content="https://raw.githubusercontent.com/immanuelk1m/kgf-web/master/public/ogimage.jpg" />
-        
-        {/* 이미지 프리로드 */}
-        <link 
-          rel="preload" 
-          as="image" 
-          href="https://raw.githubusercontent.com/immanuelk1m/kgf-web/master/public/ogimage.jpg" 
-        />
-
-        {/* Google 스크립트 */}
-        <Script
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7656508177587264"
-          crossOrigin="anonymous"
-          strategy="afterInteractive"
-        />
-        <Script
-          src="https://www.googletagmanager.com/gtag/js?id=G-WY310Z2L55"
-          strategy="afterInteractive"
-        />
-        <Script id="google-analytics" strategy="afterInteractive">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-
-            gtag('config', 'G-WY310Z2L55');
-          `}
-        </Script>
-      </head>
-      <body className={inter.className}>{children}</body>
-    </html>
-  );
-}
-
-{/*
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+// import { Inter } from "next/font/google";
 import Script from 'next/script'
 import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"] });
+// const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "코스피 공포 탐욕 지수 - 코스피 공포 탐욕 지수",
@@ -114,12 +43,14 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <head>
-        <link 
-          rel="preload" 
-          as="image" 
-          href="https://raw.githubusercontent.com/immanuelk1m/kgf-web/master/public/ogimage.jpg" 
+        {/* 이미지 프리로드 */}
+        <link
+          rel="preload"
+          as="image"
+          href="https://raw.githubusercontent.com/immanuelk1m/kgf-web/master/public/ogimage.jpg"
         />
 
+        {/* Google 스크립트 */}
         <Script
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7656508177587264"
@@ -140,7 +71,7 @@ export default function RootLayout({
           `}
         </Script>
       </head>
-      <body className={inter.className}>{children}</body>
+      <body>{children}</body>
     </html>
   );
-}*/}
+}

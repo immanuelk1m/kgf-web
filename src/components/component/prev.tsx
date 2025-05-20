@@ -77,7 +77,7 @@ const PreviousIndexes: React.FC = () => {
               <span className="font-medium text-gray-700 dark:text-gray-200">{data.time}</span>
               <div className="flex flex-col items-end gap-1">
                 <span className="font-bold text-gray-800 dark:text-gray-100">{data.value.toFixed(1)}</span>
-                <span className={`text-xs px-2 py-1 rounded-full ${getStatusColor(data.status)}`}>
+                <span className={`text-sm px-2 py-1 rounded-full ${getStatusColor(data.status)}`}>
                   {getStatusText(data.status)}
                 </span>
               </div>

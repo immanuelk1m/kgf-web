@@ -1,5 +1,6 @@
 // src/components/component/market-momentum-section.tsx
 import React from 'react';
+import { Info } from 'lucide-react'; // Info 아이콘 import 추가
 import Kospiema from "@/components/component/linechart/kospiema";
 
 interface FactorStatus {
@@ -9,7 +10,7 @@ interface FactorStatus {
 
 interface MarketMomentumSectionProps {
   factorStatus: FactorStatus | null;
-  getStatus: (value: number) => { text: string; color: string; contribution: string; };
+  getStatus: (value: number) => { text: string; color: string; contribution: string; className: string; };
 }
 
 const MarketMomentumSection: React.FC<MarketMomentumSectionProps> = ({ factorStatus, getStatus }) => {
@@ -33,20 +34,14 @@ const MarketMomentumSection: React.FC<MarketMomentumSectionProps> = ({ factorSta
             <h2 className="text-xl font-semibold text-gray-800 dark:text-gray-100">시장 모멘텀 (Market Momentum)</h2>
             <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">KOSPI 지수와 125일 이동평균선을 비교하여 시장의 추세 강도를 측정합니다.</p>
             {momentumInterpretation && (
-              <p className="text-xs text-gray-600 dark:text-gray-300 mt-2 italic">
-                {/* 아이콘 고려: 정보 아이콘 */}
+              <p className="text-sm text-gray-600 dark:text-gray-300 mt-2 italic flex items-center"> {/* flex와 items-center 추가 */}
+                <Info className="w-4 h-4 mr-2 text-muted-foreground" /> {/* 아이콘 추가 및 스타일링 */}
                 {momentumInterpretation}
               </p>
             )}
           </div>
           {currentStatus && (
-            <div className={`px-3 py-1.5 rounded-full text-xs font-bold whitespace-nowrap ${ // py-1, text-sm에서 py-1.5, text-xs로 변경, whitespace-nowrap 추가
-              currentStatus.text === '매우 나쁨' ? 'bg-red-100 text-red-700 dark:bg-red-700/30 dark:text-red-300' :
-              currentStatus.text === '나쁨' ? 'bg-orange-100 text-orange-700 dark:bg-orange-700/30 dark:text-orange-300' :
-              currentStatus.text === '보통' ? 'bg-yellow-100 text-yellow-700 dark:bg-yellow-700/30 dark:text-yellow-300' :
-              currentStatus.text === '좋음' ? 'bg-lime-100 text-lime-700 dark:bg-lime-700/30 dark:text-lime-300' : // green에서 lime으로 변경
-              'bg-green-100 text-green-700 dark:bg-green-700/30 dark:text-green-300' // 매우 좋음, emerald에서 green으로 변경
-            }`}>
+            <div className={`px-3 py-1.5 rounded-full text-sm font-bold whitespace-nowrap ${currentStatus.className}`}>
               {`${currentStatus.text} (${currentStatus.contribution})`}
             </div>
           )}
@@ -57,7 +52,7 @@ const MarketMomentumSection: React.FC<MarketMomentumSectionProps> = ({ factorSta
           </div>
           <div className="md:col-span-2 bg-gray-50 dark:bg-gray-700/50 rounded-lg p-4 pr-6 shadow-inner"> {/* 오른쪽 패딩 추가, bg-gray-700에서 700/50으로 변경 */}
             <h3 className="text-base font-semibold text-gray-700 dark:text-gray-200 mb-2">지표 해석</h3>
-            <p className="text-gray-600 dark:text-gray-400 text-xs leading-relaxed"> {/* text-sm에서 text-xs로 변경 */}
+            <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
               코스피가 지난 <span className="font-semibold" title="과거 125일 동안의 종가 평균입니다. 추세 파악에 사용됩니다.">125거래일 이동평균선</span>을 상회하면 긍정적인 모멘텀을, 하회하면 부정적인 모멘텀을 의미합니다. 
               이 지표는 시장의 추세 지속성 및 전환 가능성을 평가하는 데 도움을 줍니다. 
               공포 & 탐욕 지수는 모멘텀이 둔화될 때 '공포'로, 모멘텀이 증가할 때 '탐욕'으로 해석하여 시장 심리를 반영합니다.

@@ -9,7 +9,7 @@ interface FactorStatus {
 
 interface PutCallOptionsSectionProps {
   factorStatus: FactorStatus | null;
-  getStatus: (value: number) => { text: string; color: string; contribution: string; };
+  getStatus: (value: number) => { text: string; color: string; contribution: string; className: string; };
 }
 
 const PutCallOptionsSection: React.FC<PutCallOptionsSectionProps> = ({ factorStatus, getStatus }) => {
@@ -33,20 +33,14 @@ const PutCallOptionsSection: React.FC<PutCallOptionsSectionProps> = ({ factorSta
             <h2 className="text-xl font-semibold text-gray-800 dark:text-gray-100">풋 & 콜 옵션 (Put & Call Options)</h2>
             <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">풋/콜 비율의 5일 이동평균선을 통해 시장 참여자들의 위험 회피 심리를 분석합니다.</p>
             {optionsInterpretation && (
-              <p className="text-xs text-gray-600 dark:text-gray-300 mt-2 italic">
+              <p className="text-sm text-gray-600 dark:text-gray-300 mt-2 italic">
                 {/* 아이콘 고려: 정보 아이콘 */}
                 {optionsInterpretation}
               </p>
             )}
           </div>
           {currentStatus && (
-            <div className={`px-3 py-1.5 rounded-full text-xs font-bold whitespace-nowrap ${
-              currentStatus.text === '매우 나쁨' ? 'bg-red-100 text-red-700 dark:bg-red-700/30 dark:text-red-300' :
-              currentStatus.text === '나쁨' ? 'bg-orange-100 text-orange-700 dark:bg-orange-700/30 dark:text-orange-300' :
-              currentStatus.text === '보통' ? 'bg-yellow-100 text-yellow-700 dark:bg-yellow-700/30 dark:text-yellow-300' :
-              currentStatus.text === '좋음' ? 'bg-lime-100 text-lime-700 dark:bg-lime-700/30 dark:text-lime-300' :
-              'bg-green-100 text-green-700 dark:bg-green-700/30 dark:text-green-300'
-            }`}>
+            <div className={`px-3 py-1.5 rounded-full text-sm font-bold whitespace-nowrap ${currentStatus.className}`}>
               {`${currentStatus.text} (${currentStatus.contribution})`}
             </div>
           )}
@@ -57,7 +51,7 @@ const PutCallOptionsSection: React.FC<PutCallOptionsSectionProps> = ({ factorSta
           </div>
           <div className="md:col-span-2 bg-gray-50 dark:bg-gray-700/50 rounded-lg p-4 pr-6 shadow-inner">
             <h3 className="text-base font-semibold text-gray-700 dark:text-gray-200 mb-2">지표 해석</h3>
-            <p className="text-gray-600 dark:text-gray-400 text-xs leading-relaxed">
+            <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
               풋/콜 비율은 특정 기간 동안 거래된 풋옵션의 총량을 콜옵션의 총량으로 나눈 값입니다. 
               풋옵션은 주가 하락에, 콜옵션은 주가 상승에 베팅하는 계약이므로, 이 비율이 높을수록 시장 참여자들이 하락을 예상하고 위험 회피(헷지) 성향이 강해짐을 의미합니다. 
               일반적으로 풋/콜 비율이 1을 초과하면 약세 심리가 우세하다고 보며, 극단적으로 높은 값은 시장의 공포가 극에 달했음을 시사할 수 있습니다. (본 지표는 5일 이동평균선을 사용합니다.)

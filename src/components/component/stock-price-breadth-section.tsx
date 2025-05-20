@@ -9,7 +9,7 @@ interface FactorStatus {
 
 interface StockPriceBreadthSectionProps {
   factorStatus: FactorStatus | null;
-  getStatus: (value: number) => { text: string; color: string; contribution: string; };
+  getStatus: (value: number) => { text: string; color: string; contribution: string; className: string; };
 }
 
 const StockPriceBreadthSection: React.FC<StockPriceBreadthSectionProps> = ({ factorStatus, getStatus }) => {
@@ -33,20 +33,14 @@ const StockPriceBreadthSection: React.FC<StockPriceBreadthSectionProps> = ({ fac
             <h2 className="text-xl font-semibold text-gray-800 dark:text-gray-100">주가 폭 (Stock Price Breadth)</h2>
             <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">맥클렐런 거래량 합산 지수(McClellan Volume Summation Index)를 통해 시장의 매수/매도 강도를 분석합니다.</p>
             {breadthInterpretation && (
-              <p className="text-xs text-gray-600 dark:text-gray-300 mt-2 italic">
+              <p className="text-sm text-gray-600 dark:text-gray-300 mt-2 italic">
                 {/* 아이콘 고려: 정보 아이콘 */}
                 {breadthInterpretation}
               </p>
             )}
           </div>
           {currentStatus && (
-            <div className={`px-3 py-1.5 rounded-full text-xs font-bold whitespace-nowrap ${
-              currentStatus.text === '매우 나쁨' ? 'bg-red-100 text-red-700 dark:bg-red-700/30 dark:text-red-300' :
-              currentStatus.text === '나쁨' ? 'bg-orange-100 text-orange-700 dark:bg-orange-700/30 dark:text-orange-300' :
-              currentStatus.text === '보통' ? 'bg-yellow-100 text-yellow-700 dark:bg-yellow-700/30 dark:text-yellow-300' :
-              currentStatus.text === '좋음' ? 'bg-lime-100 text-lime-700 dark:bg-lime-700/30 dark:text-lime-300' :
-              'bg-green-100 text-green-700 dark:bg-green-700/30 dark:text-green-300'
-            }`}>
+            <div className={`px-3 py-1.5 rounded-full text-sm font-bold whitespace-nowrap ${currentStatus.className}`}>
               {`${currentStatus.text} (${currentStatus.contribution})`}
             </div>
           )}
@@ -57,7 +51,7 @@ const StockPriceBreadthSection: React.FC<StockPriceBreadthSectionProps> = ({ fac
           </div>
           <div className="md:col-span-2 bg-gray-50 dark:bg-gray-700/50 rounded-lg p-4 pr-6 shadow-inner">
             <h3 className="text-base font-semibold text-gray-700 dark:text-gray-200 mb-2">지표 해석</h3>
-            <p className="text-gray-600 dark:text-gray-400 text-xs leading-relaxed">
+            <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
               맥클렐런 거래량 합산 지수는 상승 종목의 거래량과 하락 종목의 거래량 차이를 누적하여 시장의 전반적인 매수 또는 매도 압력을 측정합니다. 
               이 지수가 상승하면 매수세가 강하고 시장이 강세임을, 하락하면 매도세가 강하고 시장이 약세임을 나타냅니다. 
               지수의 극단적인 값은 시장의 과매수 또는 과매도 상태를 나타낼 수 있으며, 추세 전환의 신호로 해석되기도 합니다.

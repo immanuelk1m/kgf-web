@@ -9,7 +9,7 @@ interface FactorStatus {
 
 interface StockStrengthSectionProps {
   factorStatus: FactorStatus | null;
-  getStatus: (value: number) => { text: string; color: string; contribution: string; };
+  getStatus: (value: number) => { text: string; color: string; contribution: string; className: string; };
 }
 
 const StockStrengthSection: React.FC<StockStrengthSectionProps> = ({ factorStatus, getStatus }) => {
@@ -33,20 +33,14 @@ const StockStrengthSection: React.FC<StockStrengthSectionProps> = ({ factorStatu
             <h2 className="text-xl font-semibold text-gray-800 dark:text-gray-100">주식 강도 (Stock Strength)</h2>
             <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">52주 신고가와 신저가를 기록하는 주식 수를 비교하여 시장의 내재적인 힘을 측정합니다.</p>
             {strengthInterpretation && (
-              <p className="text-xs text-gray-600 dark:text-gray-300 mt-2 italic">
+              <p className="text-sm text-gray-600 dark:text-gray-300 mt-2 italic">
                 {/* 아이콘 고려: 정보 아이콘 */}
                 {strengthInterpretation}
               </p>
             )}
           </div>
           {currentStatus && (
-            <div className={`px-3 py-1.5 rounded-full text-xs font-bold whitespace-nowrap ${
-              currentStatus.text === '매우 나쁨' ? 'bg-red-100 text-red-700 dark:bg-red-700/30 dark:text-red-300' :
-              currentStatus.text === '나쁨' ? 'bg-orange-100 text-orange-700 dark:bg-orange-700/30 dark:text-orange-300' :
-              currentStatus.text === '보통' ? 'bg-yellow-100 text-yellow-700 dark:bg-yellow-700/30 dark:text-yellow-300' :
-              currentStatus.text === '좋음' ? 'bg-lime-100 text-lime-700 dark:bg-lime-700/30 dark:text-lime-300' :
-              'bg-green-100 text-green-700 dark:bg-green-700/30 dark:text-green-300'
-            }`}>
+            <div className={`px-3 py-1.5 rounded-full text-sm font-bold whitespace-nowrap ${currentStatus.className}`}>
               {`${currentStatus.text} (${currentStatus.contribution})`} {/* 기여도 텍스트 추가 */}
             </div>
           )}
@@ -57,7 +51,7 @@ const StockStrengthSection: React.FC<StockStrengthSectionProps> = ({ factorStatu
           </div>
           <div className="md:col-span-2 bg-gray-50 dark:bg-gray-700/50 rounded-lg p-4 pr-6 shadow-inner">
             <h3 className="text-base font-semibold text-gray-700 dark:text-gray-200 mb-2">지표 해석</h3>
-            <p className="text-gray-600 dark:text-gray-400 text-xs leading-relaxed">
+            <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
               주식 강도는 시장에서 52주 신고가를 기록하는 주식 수와 52주 신저가를 기록하는 주식 수의 차이를 통해 시장의 내재적인 힘을 측정합니다. 
               신고가 종목이 많을수록 시장 에너지가 강하고 투자자들의 심리가 긍정적임을, 신저가 종목이 많을수록 그 반대를 의미합니다. 
               이 지표는 시장의 전반적인 건강 상태와 추세 전환 가능성을 파악하는 데 사용됩니다.

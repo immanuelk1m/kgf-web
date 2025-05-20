@@ -9,7 +9,7 @@ interface FactorStatus {
 
 interface JunkBondDemandSectionProps {
   factorStatus: FactorStatus | null;
-  getStatus: (value: number) => { text: string; color: string; contribution: string; };
+  getStatus: (value: number) => { text: string; color: string; contribution: string; className: string; };
 }
 
 const JunkBondDemandSection: React.FC<JunkBondDemandSectionProps> = ({ factorStatus, getStatus }) => {
@@ -33,20 +33,14 @@ const JunkBondDemandSection: React.FC<JunkBondDemandSectionProps> = ({ factorSta
             <h2 className="text-xl font-semibold text-gray-800 dark:text-gray-100">정크본드 수요 (Junk Bond Demand)</h2>
             <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">정크본드와 투자등급 채권 간의 수익률 스프레드를 통해 시장의 위험 선호도를 평가합니다.</p>
             {junkBondInterpretation && (
-              <p className="text-xs text-gray-600 dark:text-gray-300 mt-2 italic">
+              <p className="text-sm text-gray-600 dark:text-gray-300 mt-2 italic">
                 {/* 아이콘 고려: 정보 아이콘 */}
                 {junkBondInterpretation}
               </p>
             )}
           </div>
           {currentStatus && (
-            <div className={`px-3 py-1.5 rounded-full text-xs font-bold whitespace-nowrap ${
-              currentStatus.text === '매우 나쁨' ? 'bg-red-100 text-red-700 dark:bg-red-700/30 dark:text-red-300' :
-              currentStatus.text === '나쁨' ? 'bg-orange-100 text-orange-700 dark:bg-orange-700/30 dark:text-orange-300' :
-              currentStatus.text === '보통' ? 'bg-yellow-100 text-yellow-700 dark:bg-yellow-700/30 dark:text-yellow-300' :
-              currentStatus.text === '좋음' ? 'bg-lime-100 text-lime-700 dark:bg-lime-700/30 dark:text-lime-300' :
-              'bg-green-100 text-green-700 dark:bg-green-700/30 dark:text-green-300'
-            }`}>
+            <div className={`px-3 py-1.5 rounded-full text-sm font-bold whitespace-nowrap ${currentStatus.className}`}>
               {`${currentStatus.text} (${currentStatus.contribution})`}
             </div>
           )}
@@ -57,7 +51,7 @@ const JunkBondDemandSection: React.FC<JunkBondDemandSectionProps> = ({ factorSta
           </div>
           <div className="md:col-span-2 bg-gray-50 dark:bg-gray-700/50 rounded-lg p-4 pr-6 shadow-inner">
             <h3 className="text-base font-semibold text-gray-700 dark:text-gray-200 mb-2">지표 해석</h3>
-            <p className="text-gray-600 dark:text-gray-400 text-xs leading-relaxed">
+            <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
               정크본드는 투자 부적격 등급 채권으로, 신용도가 낮아 부도 위험이 높은 대신 높은 수익률을 제공합니다. 
               정크본드와 투자등급 채권 간의 수익률 차이(스프레드)는 시장의 위험 선호도를 나타내는 중요한 지표입니다. 
               스프레드가 확대되면 투자자들이 위험을 회피하려는 성향이 강해졌음을 의미하며(정크본드 가격 하락, 수익률 상승), 이는 시장의 공포 심리를 반영합니다. 

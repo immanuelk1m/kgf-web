@@ -9,7 +9,7 @@ interface FactorStatus {
 
 interface MarketVolatilitySectionProps {
   factorStatus: FactorStatus | null;
-  getStatus: (value: number) => { text: string; color: string; contribution: string; };
+  getStatus: (value: number) => { text: string; color: string; contribution: string; className: string; };
 }
 
 const MarketVolatilitySection: React.FC<MarketVolatilitySectionProps> = ({ factorStatus, getStatus }) => {
@@ -33,20 +33,14 @@ const MarketVolatilitySection: React.FC<MarketVolatilitySectionProps> = ({ facto
             <h2 className="text-xl font-semibold text-gray-800 dark:text-gray-100">시장 변동성 (Market Volatility)</h2>
             <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">VIX 지수와 50일 이동평균선을 통해 시장의 위험 수준과 투자자 심리를 파악합니다.</p>
             {volatilityInterpretation && (
-              <p className="text-xs text-gray-600 dark:text-gray-300 mt-2 italic">
+              <p className="text-sm text-gray-600 dark:text-gray-300 mt-2 italic">
                 {/* 아이콘 고려: 정보 아이콘 */}
                 {volatilityInterpretation}
               </p>
             )}
           </div>
           {currentStatus && (
-            <div className={`px-3 py-1.5 rounded-full text-xs font-bold whitespace-nowrap ${
-              currentStatus.text === '매우 나쁨' ? 'bg-red-100 text-red-700 dark:bg-red-700/30 dark:text-red-300' :
-              currentStatus.text === '나쁨' ? 'bg-orange-100 text-orange-700 dark:bg-orange-700/30 dark:text-orange-300' :
-              currentStatus.text === '보통' ? 'bg-yellow-100 text-yellow-700 dark:bg-yellow-700/30 dark:text-yellow-300' :
-              currentStatus.text === '좋음' ? 'bg-lime-100 text-lime-700 dark:bg-lime-700/30 dark:text-lime-300' :
-              'bg-green-100 text-green-700 dark:bg-green-700/30 dark:text-green-300'
-            }`}>
+            <div className={`px-3 py-1.5 rounded-full text-sm font-bold whitespace-nowrap ${currentStatus.className}`}>
               {`${currentStatus.text} (${currentStatus.contribution})`}
             </div>
           )}
@@ -57,7 +51,7 @@ const MarketVolatilitySection: React.FC<MarketVolatilitySectionProps> = ({ facto
           </div>
           <div className="md:col-span-2 bg-gray-50 dark:bg-gray-700/50 rounded-lg p-4 pr-6 shadow-inner">
             <h3 className="text-base font-semibold text-gray-700 dark:text-gray-200 mb-2">지표 해석</h3>
-            <p className="text-gray-600 dark:text-gray-400 text-xs leading-relaxed">
+            <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
               CBOE 변동성 지수(VIX)는 시장의 '공포 지수'로도 불리며, 향후 30일간 S&P 500 지수 옵션의 예상 변동성을 나타냅니다. (본 지표는 코스피 시장에 맞게 조정된 VIX를 사용합니다.)
               일반적으로 VIX 지수가 상승하면 시장의 불확실성과 위험이 커지고 투자자들의 공포 심리가 확산됨을 의미하며, 하락하면 시장이 안정되고 투자 심리가 낙관적임을 나타냅니다.
               공포 & 탐욕 지수는 VIX 지수가 상승(변동성 증가)할 때 '공포'로, 하락(변동성 감소)할 때 '탐욕'으로 해석하여 시장 심리를 반영합니다.

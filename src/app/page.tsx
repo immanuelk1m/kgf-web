@@ -1,10 +1,12 @@
 "use client";
 
 import React, { useEffect, useState } from 'react';
+import { HelpCircle } from 'lucide-react'; // HelpCircle 아이콘 import 추가
 import Header from '@/components/component/header';
 import GaugeChart from '@/components/component/gauge';
 import PreviousIndexes from "@/components/component/prev";
 import MarketDataComponent from "@/components/component/markettab";
+import { Button } from "@/components/ui/button"; // Button 컴포넌트 import 추가
 // import AdsenseSide from '@/components/component/adsenseside';
 
 import KospiVsFearGreedIndex from "@/components/component/linechart/kospivsindex";
@@ -109,26 +111,22 @@ function App() {
                 </div>
                 
                 <div className="flex items-center justify-center bg-gray-100 dark:bg-gray-700 rounded-full p-1 shadow-inner">
-                  <button
-                    className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
-                      activeComponent === 'gauge'
-                        ? 'bg-blue-600 text-white shadow-sm font-bold'
-                        : 'text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
-                    }`}
+                  <Button
+                    variant={activeComponent === 'gauge' ? 'default' : 'ghost'}
+                    size="sm"
+                    className="rounded-full"
                     onClick={() => setActiveComponent('gauge')}
                   >
                     지수 게이지
-                  </button>
-                  <button
-                    className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
-                      activeComponent === 'timeline'
-                        ? 'bg-blue-600 text-white shadow-sm font-bold'
-                        : 'text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
-                    }`}
+                  </Button>
+                  <Button
+                    variant={activeComponent === 'timeline' ? 'default' : 'ghost'}
+                    size="sm"
+                    className="rounded-full"
                     onClick={() => setActiveComponent('timeline')}
                   >
                     타임라인
-                  </button>
+                  </Button>
                 </div>
               </div>
 
@@ -143,8 +141,8 @@ function App() {
                       <GaugeChart />
                       {/* 지수 설명 섹션 시작 */}
                       <div className="mt-4 p-4 bg-gray-50 dark:bg-gray-700/50 rounded-lg border border-gray-200 dark:border-gray-600">
-                        <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-2">
-                          {/* 아이콘 추가 고려: 정보 아이콘 등 */}
+                        <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-2 flex items-center"> {/* flex와 items-center 추가 */}
+                          <HelpCircle className="w-5 h-5 mr-2 text-muted-foreground" /> {/* 아이콘 추가 및 스타일링 */}
                           코스피 공포 & 탐욕 지수란?
                         </h3>
                         <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">
@@ -198,39 +196,42 @@ function App() {
           {/* 차트 섹션들 - 탭 인터페이스 적용 */}
           <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden border border-gray-200 dark:border-gray-700">
             <div className="p-6">
-              <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-4">세부 지표 분석</h2>
+              <h2 className="mb-4">세부 지표 분석</h2>
               <div className="mb-6 border-b border-gray-200 dark:border-gray-700">
                 <nav className="-mb-px flex space-x-2 sm:space-x-4 overflow-x-auto" aria-label="Tabs">
-                  <button
+                  <Button
+                    variant="link"
                     onClick={() => setActiveChartTab('sentiment')}
-                    className={`whitespace-nowrap py-3 px-2 sm:px-1 border-b-2 font-medium text-sm transition-colors
+                    className={`whitespace-nowrap py-3 px-2 sm:px-1 border-b-2 font-medium text-sm transition-colors rounded-none
                       ${activeChartTab === 'sentiment'
-                        ? 'border-blue-600 text-blue-600 dark:border-blue-400 dark:text-blue-400'
-                        : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-200 dark:hover:border-gray-500'
+                        ? 'border-primary text-primary dark:border-primary dark:text-primary'
+                        : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-200 dark:hover:border-gray-500 hover:no-underline'
                       }`}
                   >
                     시장 심리
-                  </button>
-                  <button
+                  </Button>
+                  <Button
+                    variant="link"
                     onClick={() => setActiveChartTab('behavior')}
-                    className={`whitespace-nowrap py-3 px-2 sm:px-1 border-b-2 font-medium text-sm transition-colors
+                    className={`whitespace-nowrap py-3 px-2 sm:px-1 border-b-2 font-medium text-sm transition-colors rounded-none
                       ${activeChartTab === 'behavior'
-                        ? 'border-blue-600 text-blue-600 dark:border-blue-400 dark:text-blue-400'
-                        : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-200 dark:hover:border-gray-500'
+                        ? 'border-primary text-primary dark:border-primary dark:text-primary'
+                        : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-200 dark:hover:border-gray-500 hover:no-underline'
                       }`}
                   >
                     투자자 행동
-                  </button>
-                  <button
+                  </Button>
+                  <Button
+                    variant="link"
                     onClick={() => setActiveChartTab('internals')}
-                    className={`whitespace-nowrap py-3 px-2 sm:px-1 border-b-2 font-medium text-sm transition-colors
+                    className={`whitespace-nowrap py-3 px-2 sm:px-1 border-b-2 font-medium text-sm transition-colors rounded-none
                       ${activeChartTab === 'internals'
-                        ? 'border-blue-600 text-blue-600 dark:border-blue-400 dark:text-blue-400'
-                        : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-200 dark:hover:border-gray-500'
+                        ? 'border-primary text-primary dark:border-primary dark:text-primary'
+                        : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-200 dark:hover:border-gray-500 hover:no-underline'
                       }`}
                   >
                     시장 내부 지표
-                  </button>
+                  </Button>
                 </nav>
               </div>
 
