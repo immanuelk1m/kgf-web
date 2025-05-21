@@ -282,11 +282,7 @@ function App() {
             </div>
           </div>
           
-          {/* 하단 광고 배너 */}
-          <div className="bg-card dark:bg-card rounded-lg shadow-md overflow-hidden border border-border p-6"> {/* card, border 스타일 적용 */}
-            <div className="p-4 min-h-[250px]">
-            </div>
-          </div>
+          
         </div>
         
       </div>

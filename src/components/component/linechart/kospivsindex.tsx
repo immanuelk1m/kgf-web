@@ -4,8 +4,8 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Responsi
 
 interface DataItem {
   x: string;
-  y: number;
-  z: number;
+  y: number; // KOSPI
+  z: number; // Fear & Greed Index
 }
 
 interface FormattedDataItem {
@@ -13,13 +13,26 @@ interface FormattedDataItem {
   kospi: number;
   fgi: number;
   month: string;
-  isMonthStart: boolean; // 월의 첫 데이터인지 표시
+  isMonthStart: boolean;
 }
 
 const KospiVsFearGreedIndex: React.FC = () => {
   const [data, setData] = useState<FormattedDataItem[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [yDomain, setYDomain] = useState<[number, number]>([0, 0]); // Y축 도메인 (KOSPI)
+  const [yDomainFgi, setYDomainFgi] = useState<[number, number]>([0, 100]); // Y축 도메인 (FGI)
+  const [kospiColor, setKospiColor] = useState('hsl(var(--chart-1))');
+  const [fgiColor, setFgiColor] = useState('hsl(var(--chart-2))');
 
   useEffect(() => {
+    setLoading(true);
+    if (typeof window !== 'undefined') {
+      const kospiStrokeColor = getComputedStyle(document.documentElement).getPropertyValue('--chart-1').trim();
+      const fgiStrokeColor = getComputedStyle(document.documentElement).getPropertyValue('--chart-2').trim();
+      if (kospiStrokeColor) setKospiColor(`hsl(${kospiStrokeColor})`);
+      if (fgiStrokeColor) setFgiColor(`hsl(${fgiStrokeColor})`);
+    }
+
     fetch('https://raw.githubusercontent.com/immanuelk1m/kospi-feargreedindex/main/assets/js/json/index.json')
       .then(response => response.json())
       .then((jsonData) => {
@@ -27,20 +40,14 @@ const KospiVsFearGreedIndex: React.FC = () => {
 
         if (Array.isArray(dataArray)) {
           let currentMonth = '';
-          
-          const formattedData: FormattedDataItem[] = dataArray.map((item: DataItem, index: number) => {
-            // 날짜 파싱
+          const formattedData: FormattedDataItem[] = dataArray.map((item: DataItem) => {
             let monthStr = '';
             let isMonthStart = false;
-            
             try {
-              // YYYY-MM-DD 형식 가정
               const parts = item.x.split('-');
               if (parts.length >= 2) {
                 const yearMonth = `${parts[0]}-${parts[1]}`;
                 monthStr = `${parts[1]}월`;
-                
-                // 월이 바뀌면 표시
                 if (yearMonth !== currentMonth) {
                   currentMonth = yearMonth;
                   isMonthStart = true;
@@ -50,104 +57,162 @@ const KospiVsFearGreedIndex: React.FC = () => {
               console.error('날짜 파싱 오류:', item.x, e);
               monthStr = item.x;
             }
-
             return {
               date: item.x,
               kospi: item.y,
               fgi: item.z,
               month: monthStr,
-              isMonthStart: isMonthStart
+              isMonthStart: isMonthStart,
             };
           });
 
-          // 최근 50개 데이터 포인트 가져오기
           const recentData = formattedData.slice(-50);
+
+          if (recentData.length > 0) {
+            const kospiValues = recentData.map(item => item.kospi);
+            const fgiValues = recentData.map(item => item.fgi);
+
+            const minKospi = Math.floor(Math.min(...kospiValues) * 0.99);
+            const maxKospi = Math.ceil(Math.max(...kospiValues) * 1.01);
+            setYDomain([minKospi, maxKospi]);
+
+            // FGI는 일반적으로 0-100 범위이지만, 데이터에 따라 유동적으로 조정 가능
+            // 여기서는 다른 차트와의 일관성을 위해 데이터 기반으로 설정하되, 최소/최대 범위를 고려
+            const minFgi = Math.floor(Math.min(...fgiValues) * 0.9);
+            const maxFgi = Math.ceil(Math.max(...fgiValues) * 1.1);
+            // FGI의 일반적인 범위(0-100)를 벗어나지 않도록 조정
+            setYDomainFgi([Math.max(0, minFgi), Math.min(100, maxFgi)]);
+          }
+
           setData(recentData);
+          setLoading(false);
         } else {
           console.error('가져온 데이터가 배열이 아니거나 배열을 포함하지 않습니다:', jsonData);
+          setLoading(false);
         }
       })
-      .catch(error => console.error('데이터 가져오기 오류:', error));
+      .catch(error => {
+        console.error('데이터 가져오기 오류:', error);
+        setLoading(false);
+      });
   }, []);
 
-  // 호버 시 전체 날짜를 표시하는 사용자 정의 툴팁
   const customTooltip = ({ active, payload, label }: any) => {
     if (active && payload && payload.length) {
       return (
-        <div className="custom-tooltip bg-white p-2 border border-gray-300 rounded shadow">
-          <p className="font-semibold">{payload[0]?.payload.date}</p>
-          <p className="text-[#667BC6]">
-            코스피: {payload[0]?.value.toFixed(2)}
-          </p>
-          <p className="text-[#F4A261]">
-            공포&탐욕지수: {payload[1]?.value.toFixed(0)}
-          </p>
+        <div className="rounded-lg border bg-background p-2.5 shadow-xl">
+          <p className="mb-1.5 text-sm font-medium text-foreground">{payload[0]?.payload.date}</p>
+          {payload.map((pld: any, index: number) => (
+            <div key={index} className="flex items-center gap-1.5">
+              <span
+                className="h-2.5 w-2.5 shrink-0 rounded-[2px]"
+                style={{ backgroundColor: pld.color }}
+              />
+              <div className="flex flex-1 justify-between leading-none">
+                <span className="text-sm text-muted-foreground">{pld.name}:</span>
+                <span className="ml-2 font-mono text-sm font-medium tabular-nums text-foreground">
+                  {pld.name === "KOSPI" ? pld.value.toFixed(2) : pld.value.toFixed(0)}
+                </span>
+              </div>
+            </div>
+          ))}
         </div>
       );
     }
     return null;
   };
 
-  // X축 틱 포매터 - 월이 바뀌는 지점에만 레이블 표시
-  const xAxisTickFormatter = (value: string, index: number) => {
-    const item = data[index];
-    if (item && item.isMonthStart) {
-      return item.month;
-    }
-    return '';
-  };
+  if (loading) {
+    return (
+      <div
+        style={{
+          width: '100%',
+          height: 300,
+          minWidth: 400,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          backgroundColor: 'var(--skeleton-bg, #f0f0f0)',
+          borderRadius: 'var(--radius, 0.5rem)'
+        }}
+        className="skeleton"
+      >
+        <p style={{ color: 'var(--muted-foreground, #71717a)' }}>데이터 로딩 중...</p>
+      </div>
+    );
+  }
 
   return (
     <ResponsiveContainer width="100%" height={300} minWidth={400}>
       <LineChart
         data={data}
-        margin={{ top: 5, right: 40, left: 0, bottom: 5 }}
+        margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
       >
-        <CartesianGrid strokeDasharray="3 3" />
-        <XAxis 
+        <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
+        <XAxis
           dataKey="date"
-          tickFormatter={(value, index) => {
-            // 각 데이터 포인트의 인덱스에 해당하는 항목 찾기
+          tickFormatter={(value) => {
             const dataPoint = data.find(item => item.date === value);
-            
-            // 월의 시작인 경우에만 레이블 표시
             if (dataPoint?.isMonthStart) {
               return dataPoint.month;
             }
             return '';
           }}
           interval={0}
+          stroke="hsl(var(--muted-foreground))"
+          tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 12 }}
         />
-        <YAxis 
-          yAxisId="left" 
-          domain={[2300, 2800]} 
-          tickFormatter={(value) => value.toFixed(0)} 
+        <YAxis
+          yAxisId="left"
+          orientation="left"
+          domain={yDomain}
+          tickCount={5}
+          tickFormatter={(value) => value.toFixed(0)}
+          width={40}
+          stroke="hsl(var(--muted-foreground))"
+          tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 12 }}
         />
-        <YAxis 
-          yAxisId="right" 
-          orientation="right" 
-          domain={[30, 90]} 
-          tickFormatter={(value) => value.toFixed(0)} 
+        <YAxis
+          yAxisId="right"
+          orientation="right"
+          domain={yDomainFgi} // FGI Y축 도메인 사용
+          tickFormatter={(value) => `${value.toFixed(0)}`} // FGI는 단위 없이 표시
+          tickCount={5}
+          width={50}
+          tickMargin={5}
+          stroke="hsl(var(--muted-foreground))"
+          tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 12 }}
         />
-        <Tooltip content={customTooltip} />
-        <Legend />
-        <Line 
-          yAxisId="left" 
-          type="monotone" 
-          dataKey="kospi" 
-          name="KOSPI" 
-          stroke="#667BC6" 
-          strokeWidth={3} 
-          dot={false} 
+        <Tooltip
+          content={customTooltip}
+          cursor={{ stroke: 'hsl(var(--muted-foreground))', strokeWidth: 1, strokeDasharray: '3 3' }}
         />
-        <Line 
-          yAxisId="right" 
-          type="monotone" 
-          dataKey="fgi" 
-          name="Fear & Greed Index" 
-          stroke="#F4A261" 
-          strokeWidth={3} 
-          dot={false} 
+        <Legend
+          verticalAlign="top"
+          align="right"
+          wrapperStyle={{ top: -10, right: 0, fontSize: '13px' }}
+          iconSize={10}
+          formatter={(value) => (
+            <span style={{ color: 'hsl(var(--foreground))', marginRight: '10px' }}>{value}</span>
+          )}
+        />
+        <Line
+          yAxisId="left"
+          type="monotone"
+          dataKey="kospi"
+          name="KOSPI"
+          stroke={kospiColor}
+          strokeWidth={3}
+          dot={false}
+        />
+        <Line
+          yAxisId="right"
+          type="monotone"
+          dataKey="fgi"
+          name="Fear & Greed Index"
+          stroke={fgiColor}
+          strokeWidth={3}
+          dot={false}
         />
       </LineChart>
     </ResponsiveContainer>
