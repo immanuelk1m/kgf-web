@@ -1,6 +1,6 @@
 'use client';
 import React, { useState, useEffect } from 'react';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, Label } from 'recharts'; // Label 추가
 
 interface DataItem {
   x: string;
@@ -14,7 +14,7 @@ interface FormattedDataItem {
   isMonthStart: boolean; // 월의 첫 데이터인지 표시
 }
 
-const Junks: React.FC = () => {
+const Junk: React.FC = () => { // 컴포넌트 이름 변경 (Junks -> Junk)
   const [data, setData] = useState<FormattedDataItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [yDomain, setYDomain] = useState<[number, number]>([0, 0]); // Y축 도메인 동적 설정 예정
@@ -24,8 +24,8 @@ const Junks: React.FC = () => {
     setLoading(true);
     // CSS 변수에서 차트 색상 가져오기
     if (typeof window !== 'undefined') {
-      const chartColor = getComputedStyle(document.documentElement).getPropertyValue('--chart-5').trim(); // 다른 CSS 변수 사용 가능
-      if (chartColor) setLineColor(chartColor);
+      const chartColor = getComputedStyle(document.documentElement).getPropertyValue('--chart-2').trim(); // kospiema의 두번째 선과 유사한 색상 변수 사용
+      if (chartColor) setLineColor(`hsl(${chartColor})`); // HSL 값 주위에 hsl() 래퍼 추가
     }
 
     fetch('https://raw.githubusercontent.com/immanuelk1m/kospi-feargreedindex/main/assets/js/json/junk_spread.json')
@@ -145,14 +145,17 @@ const Junks: React.FC = () => {
           tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 12 }}
         />
         <YAxis
+          yAxisId="left" // yAxisId 추가
           orientation="left"
           domain={yDomain}
+          hide={false} // Y축 표시 (kospiema.tsx와 일관성)
           tickCount={5}
           tickFormatter={(value) => value.toFixed(2)} // Y축 눈금 소수점 둘째 자리
           width={45}
           stroke="hsl(var(--muted-foreground))"
           tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 12 }}
         />
+        {/* <YAxis yAxisId="right" orientation="right" domain={yDomain} hide={true} /> */} {/* 단일 라인이므로 오른쪽 Y축은 숨김 또는 불필요 */}
         <Tooltip
           content={customTooltip}
           cursor={{ stroke: 'hsl(var(--muted-foreground))', strokeWidth: 1, strokeDasharray: '3 3' }}
@@ -167,9 +170,10 @@ const Junks: React.FC = () => {
           )}
         />
         <Line
+          yAxisId="left" // yAxisId 추가
           type="monotone"
           dataKey="junk"
-          name="정크본드 스프레드" // 이름 변경
+          name="정크본드 스프레드"
           stroke={lineColor}
           strokeWidth={3}
           dot={false}
@@ -179,4 +183,4 @@ const Junks: React.FC = () => {
   );
 };
 
-export default Junks;
+export default Junk; // 컴포넌트 이름 변경 (Junks -> Junk)

@@ -1,6 +1,6 @@
 'use client';
 import React, { useState, useEffect } from 'react';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, Label } from 'recharts'; // Label 추가
 
 interface DataItem {
   x: string;
@@ -31,8 +31,8 @@ const Vixema: React.FC = () => {
       const chart2Color = getComputedStyle(document.documentElement).getPropertyValue('--chart-2').trim();
       // VIX 차트에서는 색상 순서를 반대로 적용하거나, 별도의 CSS 변수를 사용할 수 있습니다.
       // 여기서는 chart-1을 VIX, chart-2를 EMA로 가정합니다.
-      if (chart1Color) setVixColor(chart1Color);
-      if (chart2Color) setEmaColor(chart2Color);
+      if (chart1Color) setVixColor(`hsl(${chart1Color})`); // HSL 값 주위에 hsl() 래퍼 추가
+      if (chart2Color) setEmaColor(`hsl(${chart2Color})`); // HSL 값 주위에 hsl() 래퍼 추가
     }
 
     fetch('https://raw.githubusercontent.com/immanuelk1m/kospi-feargreedindex/main/assets/js/json/vix_close.json')
@@ -170,16 +170,29 @@ const Vixema: React.FC = () => {
           tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 12 }}
         />
         <YAxis
-          // yAxisId="left" // 단일 Y축 사용 시 ID 불필요
+          yAxisId="left"
           orientation="left"
           domain={yDomain}
-          tickCount={5}
+          hide={false} // 왼쪽 Y축 표시
+          tickCount={5} // Y축 틱 개수 설정
           tickFormatter={(value) => value.toFixed(1)} // VIX는 소수점 한 자리까지 표시
-          width={40}
-          stroke="hsl(var(--muted-foreground))"
-          tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 12 }}
+          width={40} // 왼쪽 Y축 너비 확보
+          stroke="hsl(var(--muted-foreground))" // 테마 색상 적용
+          tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 12 }} // 틱 스타일
         />
-        {/* <YAxis yAxisId="right" hide={true} /> */} {/* 오른쪽 Y축 숨김 */}
+        <YAxis
+          yAxisId="right"
+          orientation="right"
+          domain={yDomain}
+          tickFormatter={(value) => value.toFixed(1)} // VIX는 소수점 한 자리까지 표시
+          tickCount={5} // Y축 틱 개수 설정
+          width={50} // 오른쪽 Y축 너비 확보
+          tickMargin={5} // 틱과 레이블 사이 간격
+          stroke="hsl(var(--muted-foreground))" // 테마 색상 적용
+          tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 12 }} // 틱 스타일
+        >
+          {/* <Label value="Point" angle={-90} position="insideRight" offset={15} style={{ textAnchor: 'middle' }} /> */}
+        </YAxis>
         <Tooltip
           content={customTooltip}
           cursor={{ stroke: 'hsl(var(--muted-foreground))', strokeWidth: 1, strokeDasharray: '3 3' }}
@@ -194,7 +207,7 @@ const Vixema: React.FC = () => {
           )}
         />
         <Line
-          // yAxisId="left" // 단일 Y축 사용 시 ID 불필요
+          yAxisId="left"
           type="monotone"
           dataKey="kospi" // 데이터 키는 유지 (실제로는 VIX 값)
           name="VIX" // 이름 변경
@@ -203,7 +216,7 @@ const Vixema: React.FC = () => {
           dot={false}
         />
         <Line
-          // yAxisId="left" // 단일 Y축 사용 시 ID 불필요
+          yAxisId="right" // 오른쪽 Y축 사용 명시
           type="monotone"
           dataKey="fgi" // 데이터 키는 유지 (실제로는 VIX EMA 값)
           name="VIX 50EMA" // 이름 변경
