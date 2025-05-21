@@ -131,7 +131,7 @@ const MarketDataComponent = () => {
                         {fearGreedIndex !== null ? (
                             <>
                                 <div className="text-5xl font-bold mb-2 transition-all duration-300 ease-in-out transform hover:scale-105 select-none">
-                                    <span className={getStatusColor(fearGreedIndex)}>{fearGreedIndex.toFixed(1)}</span>
+                                    <span className="text-gray-900">{fearGreedIndex.toFixed(1)}</span>
                                 </div>
                                 <div className={`text-center mt-2 text-lg font-medium ${getStatusColor(fearGreedIndex)}`}>
                                     {getStatusText(fearGreedIndex)}
