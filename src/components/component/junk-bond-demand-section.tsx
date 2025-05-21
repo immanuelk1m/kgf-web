@@ -63,7 +63,7 @@ const JunkBondDemandSection: React.FC<JunkBondDemandSectionProps> = ({ factorSta
                 <span>{junkBondInterpretation}</span>
               </p>
               <p className="text-xs text-muted-foreground/80 mt-3 leading-relaxed"> {/* dark:text-muted-foreground/80 일관성 */}
-                정크본드(고위험 채권)와 투자등급 채권의 수익률 차이(스프레드)로 위험 선호도를 측정합니다. 스프레드 확대는 '공포', 축소는 '탐욕'을 의미합니다.
+                정크본드(고위험 채권)와 투자등급 채권의 수익률 차이(스프레드)로 위험 선호도를 측정합니다. 스프레드 확대는 &amp;apos;공포&amp;apos;, 축소는 &amp;apos;탐욕&amp;apos;을 의미합니다.
               </p>
             </div>
           </div>

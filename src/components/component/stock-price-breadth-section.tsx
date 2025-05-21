@@ -62,7 +62,7 @@ const StockPriceBreadthSection: React.FC<StockPriceBreadthSectionProps> = ({ fac
                 <span>{breadthInterpretation}</span>
               </p>
               <p className="text-xs text-muted-foreground/80 mt-3 leading-relaxed"> {/* dark:text-muted-foreground/80 일관성 */}
-                맥클렐런 거래량 합산 지수는 상승/하락 종목 거래량 차이를 누적하여 매수/매도 압력을 측정합니다. 지수 상승은 '탐욕', 하락은 '공포'를 의미합니다.
+                맥클렐런 거래량 합산 지수는 상승/하락 종목 거래량 차이를 누적하여 매수/매도 압력을 측정합니다. 지수 상승은 &apos;탐욕&apos;, 하락은 &apos;공포&apos;를 의미합니다.
               </p>
             </div>
           </div>

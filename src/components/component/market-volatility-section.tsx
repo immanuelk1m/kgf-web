@@ -73,7 +73,7 @@ const MarketVolatilitySection: React.FC<MarketVolatilitySectionProps> = ({ facto
                 <span>{volatilityInterpretation}</span>
               </p>
               <p className="text-xs text-muted-foreground/80 mt-3 leading-relaxed"> {/* dark:text-muted-foreground/80 일관성 */}
-                VIX(변동성 지수)는 시장의 '공포 지수'로, 상승 시 불확실성 증가(공포 기여), 하락 시 안정(탐욕 기여)을 의미합니다. (코스피 조정 VIX 사용)
+                VIX(변동성 지수)는 시장의 &apos;공포 지수&apos;로, 상승 시 불확실성 증가(공포 기여), 하락 시 안정(탐욕 기여)을 의미합니다. (코스피 조정 VIX 사용)
               </p>
             </div>
           </div>

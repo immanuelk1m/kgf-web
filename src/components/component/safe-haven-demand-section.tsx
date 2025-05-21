@@ -63,7 +63,7 @@ const SafeHavenDemandSection: React.FC<SafeHavenDemandSectionProps> = ({ factorS
                 <span>{safeHavenInterpretation}</span>
               </p>
               <p className="text-xs text-muted-foreground/80 mt-3 leading-relaxed"> {/* dark:text-muted-foreground/80 일관성 */}
-                주식 대비 채권 수익률 차이로 안전 자산 선호도를 측정합니다. 채권 선호 시 '공포', 주식 선호 시 '탐욕'으로 해석됩니다.
+                주식 대비 채권 수익률 차이로 안전 자산 선호도를 측정합니다. 채권 선호 시 &apos;공포&apos;, 주식 선호 시 &apos;탐욕&apos;으로 해석됩니다.
               </p>
             </div>
           </div>

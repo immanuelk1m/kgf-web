@@ -62,7 +62,7 @@ const StockStrengthSection: React.FC<StockStrengthSectionProps> = ({ factorStatu
                 <span>{strengthInterpretation}</span>
               </p>
               <p className="text-xs text-muted-foreground/80 mt-3 leading-relaxed"> {/* dark:text-muted-foreground/80 일관성 */}
-                52주 신고가와 신저가 종목 수 차이로 시장의 내재적 힘을 측정합니다. 신고가 우세는 '탐욕', 신저가 우세는 '공포'를 의미합니다.
+                52주 신고가와 신저가 종목 수 차이로 시장의 내재적 힘을 측정합니다. 신고가 우세는 &apos;탐욕&apos;, 신저가 우세는 &apos;공포&apos;를 의미합니다.
               </p>
             </div>
           </div>
