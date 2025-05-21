@@ -16,15 +16,22 @@ const GaugeChart: React.FC = () => {
 
     // 색상 변수 (globals.css 참조)
     const colors = {
-      negative: isDarkMode ? "hsl(0, 70%, 80%)" : "hsl(0, 74.2%, 42.2%)", // #B91C1C (light), lighter red (dark)
-      negative_light: isDarkMode ? "hsl(0, 60%, 70%)" : "hsl(0, 80%, 70%)", // 주황색 계열 or 밝은 빨강
-      neutral: isDarkMode ? "hsl(220, 10%, 75%)" : "hsl(48, 85%, 55%)", // 노란색 계열 (light), 밝은 회색 (dark)
-      positive_light: isDarkMode ? "hsl(150, 60%, 65%)" : "hsl(130, 60%, 55%)", // 연두색 계열
-      positive: isDarkMode ? "hsl(150, 70%, 75%)" : "hsl(160, 93%, 24.1%)", // #047857 (light), lighter green (dark)
+      // 극도의 공포 (0-20) - 강한 빨강
+      extremeFear: isDarkMode ? "hsl(0, 75%, 75%)" : "hsl(0, 80%, 50%)",
+      // 공포 (20-40) - 주황색 계열
+      fear: isDarkMode ? "hsl(30, 70%, 70%)" : "hsl(30, 85%, 55%)",
+      // 중립 (40-60) - 노란색 계열
+      neutral: isDarkMode ? "hsl(60, 65%, 70%)" : "hsl(50, 90%, 55%)",
+      // 탐욕 (60-80) - 연두색 계열
+      greed: isDarkMode ? "hsl(90, 60%, 65%)" : "hsl(100, 75%, 50%)",
+      // 극도의 탐욕 (80-100) - 강한 초록
+      extremeGreed: isDarkMode ? "hsl(120, 70%, 70%)" : "hsl(130, 80%, 40%)",
+
+      // 기존 색상 (필요시 유지 또는 제거)
       foreground: isDarkMode ? "hsl(210, 40%, 98%)" : "hsl(222.2, 84%, 4.9%)",
       mutedForeground: isDarkMode ? "hsl(215, 20.2%, 65.1%)" : "hsl(215.4, 16.3%, 46.9%)",
-      axisStroke: isDarkMode ? "hsl(217.2, 32.6%, 37.5%)" : "hsl(214.3, 31.8%, 81.4%)", // 어두운 테마의 border 또는 밝은 테마의 연한 border
-      handFill: isDarkMode ? "hsl(210, 40%, 88%)" : "hsl(222.2, 47.4%, 21.2%)", // primary-foreground (light), primary (dark) 유사
+      axisStroke: isDarkMode ? "hsl(217.2, 32.6%, 37.5%)" : "hsl(214.3, 31.8%, 81.4%)",
+      handFill: isDarkMode ? "hsl(210, 40%, 88%)" : "hsl(222.2, 47.4%, 21.2%)",
       pinFill: isDarkMode ? "hsl(210, 40%, 98%)" : "hsl(222.2, 84%, 4.9%)",
     };
 
@@ -44,11 +51,11 @@ const GaugeChart: React.FC = () => {
     const data = {
       score: 50, // 이 값은 API에서 가져온 값으로 업데이트 됩니다.
       gradingData: [
-        { title: '😱', color: colors.negative, lowScore: 0, highScore: 20 },
-        { title: '😨', color: colors.negative_light, lowScore: 20, highScore: 40 },
-        { title: '😐', color: colors.neutral, lowScore: 40, highScore: 60 },
-        { title: '😀', color: colors.positive_light, lowScore: 60, highScore: 80 },
-        { title: '🤑', color: colors.positive, lowScore: 80, highScore: 100 },
+        { title: '😱', color: '#D32F2F', lowScore: 0, highScore: 20 }, // 극도의 공포
+        { title: '😨', color: '#F57C00', lowScore: 20, highScore: 40 }, // 공포
+        { title: '😐', color: '#FFEE58', lowScore: 40, highScore: 60 }, // 중립
+        { title: '😀', color: '#66BB6A', lowScore: 60, highScore: 80 }, // 탐욕
+        { title: '🤑', color: '#388E3C', lowScore: 80, highScore: 100 }, // 극도의 탐욕
       ],
     };
 
