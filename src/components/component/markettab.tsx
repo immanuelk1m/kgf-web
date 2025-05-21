@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { ArrowUpRight, ArrowDownRight } from 'lucide-react'; // 아이콘 추가
 
 interface MarketData {
     value: number;
@@ -62,27 +63,20 @@ const MarketDataComponent = () => {
     };
 
     const getStatusColor = (value: number) => {
-        if (value < 25) return 'text-red-600 dark:text-red-400';
-        if (value < 45) return 'text-orange-500 dark:text-orange-400';
-        if (value < 55) return 'text-yellow-500 dark:text-yellow-400';
-        if (value < 75) return 'text-green-500 dark:text-green-400';
-        return 'text-emerald-600 dark:text-emerald-400';
+        if (value < 25) return 'text-negative'; // 극도의 공포
+        if (value < 45) return 'text-negative/80'; // 공포 (negative보다 약간 연하게)
+        if (value < 55) return 'text-neutral-foreground'; // 중립
+        if (value < 75) return 'text-positive/80'; // 탐욕 (positive보다 약간 연하게)
+        return 'text-positive'; // 극도의 탐욕
     };
 
     const renderChange = (change: number) => {
         const isPositive = change > 0;
+        // 지침에 따라 상승은 positive(녹색 계열), 하락은 negative(적색 계열) 사용
         return (
-            <span className={`flex items-center ${isPositive ? 'text-red-600 dark:text-red-400' : 'text-blue-600 dark:text-blue-400'}`}>
-                {change.toFixed(2)}%
-                {isPositive ? (
-                    <svg xmlns="http://www.w3.org/2000/svg" className="ml-1 h-4 w-4 fill-current" viewBox="0 0 24 24">
-                        <polygon points="12 2 22 22 2 22 12 2" />
-                    </svg>
-                ) : (
-                    <svg xmlns="http://www.w3.org/2000/svg" className="ml-1 h-4 w-4 fill-current" viewBox="0 0 24 24">
-                        <polygon points="12 22 22 2 2 2 12 22" />
-                    </svg>
-                )}
+            <span className={`flex items-center text-sm ${isPositive ? 'text-positive' : 'text-negative'}`}>
+                {isPositive ? <ArrowUpRight className="mr-0.5 h-4 w-4" /> : <ArrowDownRight className="mr-0.5 h-4 w-4" />}
+                {Math.abs(change).toFixed(2)}%
             </span>
         );
     };
@@ -91,36 +85,36 @@ const MarketDataComponent = () => {
         <div className="container mx-auto py-8 px-4">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {/* 마켓 데이터 카드 */}
-                <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden">
-                    <div className="bg-gray-100 dark:bg-gray-700 p-4 border-b border-gray-200 dark:border-gray-600">
-                        <h3 className="text-lg font-semibold text-gray-900 dark:text-white">마켓 데이터</h3>
+                <div className="bg-card dark:bg-card rounded-lg shadow-md overflow-hidden border border-border"> {/* bg-card, border-border 적용 */}
+                    <div className="bg-accent dark:bg-accent p-4 border-b border-border"> {/* bg-accent, border-border 적용 */}
+                        <h3 className="text-lg font-semibold text-accent-foreground">마켓 데이터</h3> {/* text-accent-foreground 적용 */}
                     </div>
                     <div className="p-4">
-                        <div className="divide-y divide-gray-200 dark:divide-gray-700">
+                        <div className="divide-y divide-border"> {/* divide-border 적용 */}
                             <div className="py-3 flex justify-between items-center">
                                 <div className="flex items-center">
-                                    <span className="text-gray-700 dark:text-gray-300 font-medium">코스피</span>
+                                    <span className="text-muted-foreground font-medium">코스피</span> {/* text-muted-foreground 적용 */}
                                 </div>
                                 <div className="flex items-center gap-2">
-                                    <span className="text-gray-900 dark:text-white font-bold">{marketData.kospi.value.toFixed(2)}</span>
+                                    <span className="text-foreground font-bold">{marketData.kospi.value.toFixed(2)}</span> {/* text-foreground 적용 */}
                                     {renderChange(marketData.kospi.change)}
                                 </div>
                             </div>
                             <div className="py-3 flex justify-between items-center">
                                 <div className="flex items-center">
-                                    <span className="text-gray-700 dark:text-gray-300 font-medium">코스닥</span>
+                                    <span className="text-muted-foreground font-medium">코스닥</span> {/* text-muted-foreground 적용 */}
                                 </div>
                                 <div className="flex items-center gap-2">
-                                    <span className="text-gray-900 dark:text-white font-bold">{marketData.kosdaq.value.toFixed(2)}</span>
+                                    <span className="text-foreground font-bold">{marketData.kosdaq.value.toFixed(2)}</span> {/* text-foreground 적용 */}
                                     {renderChange(marketData.kosdaq.change)}
                                 </div>
                             </div>
                             <div className="py-3 flex justify-between items-center">
                                 <div className="flex items-center">
-                                    <span className="text-gray-700 dark:text-gray-300 font-medium">원/달러</span>
+                                    <span className="text-muted-foreground font-medium">원/달러</span> {/* text-muted-foreground 적용 */}
                                 </div>
                                 <div className="flex items-center gap-2">
-                                    <span className="text-gray-900 dark:text-white font-bold">{marketData.wond.value.toFixed(2)}</span>
+                                    <span className="text-foreground font-bold">{marketData.wond.value.toFixed(2)}</span> {/* text-foreground 적용 */}
                                     {renderChange(marketData.wond.change)}
                                 </div>
                             </div>
@@ -129,9 +123,9 @@ const MarketDataComponent = () => {
                 </div>
                 
                 {/* 공포 탐욕 지수 카드 */}
-                <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden">
-                    <div className="bg-gray-100 dark:bg-gray-700 p-4 border-b border-gray-200 dark:border-gray-600">
-                        <h3 className="text-lg font-semibold text-gray-900 dark:text-white">공포 & 탐욕 지수</h3>
+                <div className="bg-card dark:bg-card rounded-lg shadow-md overflow-hidden border border-border"> {/* bg-card, border-border 적용 */}
+                    <div className="bg-accent dark:bg-accent p-4 border-b border-border"> {/* bg-accent, border-border 적용 */}
+                        <h3 className="text-lg font-semibold text-accent-foreground">공포 & 탐욕 지수</h3> {/* text-accent-foreground 적용 */}
                     </div>
                     <div className="p-6 flex flex-col items-center justify-center">
                         {fearGreedIndex !== null ? (
@@ -142,11 +136,12 @@ const MarketDataComponent = () => {
                                 <div className={`text-center mt-2 text-lg font-medium ${getStatusColor(fearGreedIndex)}`}>
                                     {getStatusText(fearGreedIndex)}
                                 </div>
-                                <p className="text-center mt-4 text-sm text-gray-600 dark:text-gray-400">현재 코스피 시장 심리 지수</p>
+                                <p className="text-center mt-4 text-sm text-muted-foreground">현재 코스피 시장 심리 지수</p> {/* text-muted-foreground 적용 */}
                             </>
                         ) : (
-                            <div className="text-gray-500 dark:text-gray-400 animate-pulse">로딩 중...</div>
-                        )}
+                            <div className="text-muted-foreground animate-pulse">로딩 중...</div> /* text-muted-foreground 적용 */
+                        )
+                        }
                     </div>
                 </div>
                 

@@ -9,7 +9,7 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-primary text-primary-foreground hover:bg-primary/90",
+        default: "bg-accent-action text-accent-action-foreground hover:bg-accent-action/90", // primary에서 accent-action으로 변경
         destructive:
           "bg-destructive text-destructive-foreground hover:bg-destructive/90",
         outline:

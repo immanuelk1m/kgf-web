@@ -89,23 +89,23 @@ function App() {
   };
 
   return (
-    <div className="w-full min-h-screen bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+    <div className="w-full min-h-screen bg-background text-foreground"> {/* globals.css 스타일 따르도록 변경 */}
       <Header />
-      <div className="container mx-auto px-4 py-8 grid grid-cols-1 gap-8 max-w-[1600px]">
+      <div className="container mx-auto px-4 py-12 grid grid-cols-1 gap-8 max-w-[1600px]">
         {/* 메인 콘텐츠 */}
         <div className="space-y-8 fade-in-up">
           {/* 마켓 데이터 */}
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden border border-gray-200 dark:border-gray-700">
+          <div className="bg-card dark:bg-card rounded-lg shadow-md overflow-hidden border border-border p-6 mb-8"> {/* card, border 스타일 적용 */}
             <MarketDataComponent />
           </div>
           
           {/* 메인 섹션 - 공포 탐욕 지수 */}
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden border border-gray-200 dark:border-gray-700">
+          <div className="bg-card dark:bg-card rounded-lg shadow-md overflow-hidden border border-border p-6 mb-8"> {/* card, border 스타일 적용 */}
             <div className="p-6">
               <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
                 <div>
-                  <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">코스피 공포 & 탐욕 지수</h1>
-                  <p className="mt-1 text-gray-600 dark:text-gray-400 text-sm">
+                  <h1 className="text-3xl font-bold md:text-4xl text-foreground">코스피 공포 & 탐욕 지수</h1> {/* h1 스타일 적용 */}
+                  <p className="mt-2 text-primary dark:text-primary-foreground font-semibold text-xs bg-primary/10 dark:bg-primary/20 px-2 py-1 rounded-md inline-block">
                     CNN FEAR & GREED INDEX를 코스피 시장에 맞게 재구성하였습니다
                   </p>
                 </div>
@@ -135,36 +135,51 @@ function App() {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="md:col-span-1 bg-gray-100 dark:bg-gray-700 rounded-lg p-6 shadow-inner flex flex-col items-center">
                       <div className="text-center mb-4">
-                        <p className="text-lg font-semibold text-gray-800 dark:text-gray-200">{formattedDate}</p>
-                        <p className="text-xl font-bold text-gray-900 dark:text-gray-100">오늘의 코스피 공포 & 탐욕 지수</p>
+                        <p className="text-lg font-semibold text-foreground">{formattedDate}</p> {/* text-foreground 적용 */}
+                        <h2 className="text-2xl font-semibold md:text-3xl text-foreground">오늘의 코스피 공포 & 탐욕 지수</h2> {/* h2 스타일 적용 */}
                       </div>
                       <GaugeChart />
                       {/* 지수 설명 섹션 시작 */}
                       <div className="mt-4 p-4 bg-gray-50 dark:bg-gray-700/50 rounded-lg border border-gray-200 dark:border-gray-600">
-                        <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-2 flex items-center"> {/* flex와 items-center 추가 */}
+                        <h3 className="text-lg font-medium md:text-xl text-foreground mb-2 flex items-center"> {/* h3 스타일 적용, text-foreground */}
                           <HelpCircle className="w-5 h-5 mr-2 text-muted-foreground" /> {/* 아이콘 추가 및 스타일링 */}
                           코스피 공포 & 탐욕 지수란?
                         </h3>
-                        <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">
+                        <p className="text-sm text-muted-foreground mb-3"> {/* text-muted-foreground 적용 */}
                           시장의 심리를 나타내는 지표로, 투자자들이 현재 시장에 대해 얼마나 공포를 느끼는지 또는 얼마나 탐욕적인지를 보여줍니다.
                           CNN의 Fear & Greed Index를 기반으로 코스피 시장의 특성을 반영하여 재구성되었습니다.
                         </p>
-                        <div className="space-y-1">
-                          <p className="text-xs text-gray-500 dark:text-gray-400">
-                            <span className="font-semibold text-negative-foreground">0-20 (극도의 공포):</span> 주가가 과도하게 하락하여 매수 기회일 수 있습니다.
-                          </p>
-                          <p className="text-xs text-gray-500 dark:text-gray-400">
-                            <span className="font-semibold text-negative-foreground/70">20-40 (공포):</span> 투자 심리가 위축된 상태입니다.
-                          </p>
-                          <p className="text-xs text-gray-500 dark:text-gray-400">
-                            <span className="font-semibold text-neutral-foreground">40-60 (중립):</span> 시장이 균형을 이루고 있는 상태입니다.
-                          </p>
-                          <p className="text-xs text-gray-500 dark:text-gray-400">
-                            <span className="font-semibold text-positive-foreground/70">60-80 (탐욕):</span> 투자 열기가 높은 상태입니다.
-                          </p>
-                          <p className="text-xs text-gray-500 dark:text-gray-400">
-                            <span className="font-semibold text-positive-foreground">80-100 (극도의 탐욕):</span> 주가가 과열되어 조정 가능성이 있습니다.
-                          </p>
+                        <div className="space-y-2.5 mt-3"> {/* space-y 증가 및 mt 추가 */}
+                          <div className="flex items-start">
+                            <span className="mr-2 mt-0.5 flex-shrink-0 w-3 h-3 rounded-full bg-negative"></span>
+                            <p className="text-xs text-muted-foreground leading-relaxed tracking-wide"> {/* text-muted-foreground 적용 */}
+                              <span className="font-bold text-negative-foreground">0-20 (극도의 공포):</span> 주가가 과도하게 하락하여 매수 기회일 수 있습니다.
+                            </p>
+                          </div>
+                          <div className="flex items-start">
+                            <span className="mr-2 mt-0.5 flex-shrink-0 w-3 h-3 rounded-full bg-negative/70"></span>
+                            <p className="text-xs text-muted-foreground leading-relaxed tracking-wide">
+                              <span className="font-bold text-negative-foreground/80">20-40 (공포):</span> 투자 심리가 위축된 상태입니다.
+                            </p>
+                          </div>
+                          <div className="flex items-start">
+                            <span className="mr-2 mt-0.5 flex-shrink-0 w-3 h-3 rounded-full bg-neutral"></span>
+                            <p className="text-xs text-muted-foreground leading-relaxed tracking-wide">
+                              <span className="font-bold text-neutral-foreground">40-60 (중립):</span> 시장이 균형을 이루고 있는 상태입니다.
+                            </p>
+                          </div>
+                          <div className="flex items-start">
+                            <span className="mr-2 mt-0.5 flex-shrink-0 w-3 h-3 rounded-full bg-positive/70"></span>
+                            <p className="text-xs text-muted-foreground leading-relaxed tracking-wide">
+                              <span className="font-bold text-positive-foreground/80">60-80 (탐욕):</span> 투자 열기가 높은 상태입니다.
+                            </p>
+                          </div>
+                          <div className="flex items-start">
+                            <span className="mr-2 mt-0.5 flex-shrink-0 w-3 h-3 rounded-full bg-positive"></span>
+                            <p className="text-xs text-muted-foreground leading-relaxed tracking-wide">
+                              <span className="font-bold text-positive-foreground">80-100 (극도의 탐욕):</span> 주가가 과열되어 조정 가능성이 있습니다.
+                            </p>
+                          </div>
                         </div>
                       </div>
                       {/* 지수 설명 섹션 끝 */}
@@ -185,7 +200,7 @@ function App() {
           </div>
 
           {/* 모바일 전용 광고 */}
-          <div className="lg:hidden my-8 bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden border border-gray-200 dark:border-gray-700">
+          <div className="lg:hidden my-8 bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden border border-gray-200 dark:border-gray-700 p-6 mb-8">
             {/* <AdsenseSide /> */}
             {/* P1 작업: 모바일 광고 슬롯. 실제 광고 삽입 시, 이 영역이 콘텐츠를 가리지 않도록 내부 광고 컴포넌트의 크기와 반응성을 고려해야 합니다. */}
             <div className="p-4 min-h-[100px] flex items-center justify-center text-sm text-gray-400">
@@ -194,44 +209,25 @@ function App() {
           </div>
           
           {/* 차트 섹션들 - 탭 인터페이스 적용 */}
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden border border-gray-200 dark:border-gray-700">
+          <div className="bg-card dark:bg-card rounded-lg shadow-md overflow-hidden border border-border p-6 mb-8"> {/* card, border 스타일 적용 */}
             <div className="p-6">
-              <h2 className="mb-4">세부 지표 분석</h2>
-              <div className="mb-6 border-b border-gray-200 dark:border-gray-700">
-                <nav className="-mb-px flex space-x-2 sm:space-x-4 overflow-x-auto" aria-label="Tabs">
-                  <Button
-                    variant="link"
-                    onClick={() => setActiveChartTab('sentiment')}
-                    className={`whitespace-nowrap py-3 px-2 sm:px-1 border-b-2 font-medium text-sm transition-colors rounded-none
-                      ${activeChartTab === 'sentiment'
-                        ? 'border-primary text-primary dark:border-primary dark:text-primary'
-                        : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-200 dark:hover:border-gray-500 hover:no-underline'
-                      }`}
-                  >
-                    시장 심리
-                  </Button>
-                  <Button
-                    variant="link"
-                    onClick={() => setActiveChartTab('behavior')}
-                    className={`whitespace-nowrap py-3 px-2 sm:px-1 border-b-2 font-medium text-sm transition-colors rounded-none
-                      ${activeChartTab === 'behavior'
-                        ? 'border-primary text-primary dark:border-primary dark:text-primary'
-                        : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-200 dark:hover:border-gray-500 hover:no-underline'
-                      }`}
-                  >
-                    투자자 행동
-                  </Button>
-                  <Button
-                    variant="link"
-                    onClick={() => setActiveChartTab('internals')}
-                    className={`whitespace-nowrap py-3 px-2 sm:px-1 border-b-2 font-medium text-sm transition-colors rounded-none
-                      ${activeChartTab === 'internals'
-                        ? 'border-primary text-primary dark:border-primary dark:text-primary'
-                        : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-200 dark:hover:border-gray-500 hover:no-underline'
-                      }`}
-                  >
-                    시장 내부 지표
-                  </Button>
+              <h2 className="text-2xl font-semibold md:text-3xl text-foreground mb-6">세부 지표 분석</h2> {/* h2 스타일 적용 */}
+              <div className="mb-8"> {/* mb 증가 */}
+                <nav className="flex space-x-1 rounded-lg bg-gray-100 dark:bg-gray-700 p-1 shadow-sm" aria-label="Tabs">
+                  {['sentiment', 'behavior', 'internals'].map((tab) => (
+                    <Button
+                      key={tab}
+                      variant="ghost" // 기본 variant를 ghost로 변경
+                      onClick={() => setActiveChartTab(tab)}
+                      className={`flex-1 justify-center whitespace-nowrap py-2.5 px-3 text-sm font-medium rounded-md transition-all duration-200 ease-in-out focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2
+                        ${activeChartTab === tab
+                          ? 'bg-background text-foreground shadow-md dark:bg-gray-800 dark:text-gray-100' // 선택된 탭 스타일 강화
+                          : 'text-muted-foreground hover:bg-gray-200 dark:hover:bg-gray-600 hover:text-foreground dark:hover:text-gray-100'
+                        }`}
+                    >
+                      {tab === 'sentiment' ? '시장 심리' : tab === 'behavior' ? '투자자 행동' : '시장 내부 지표'}
+                    </Button>
+                  ))}
                 </nav>
               </div>
 
@@ -262,23 +258,23 @@ function App() {
                 ) : (
                   <>
                     {activeChartTab === 'sentiment' && (
-                      <>
+                      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                         <MarketMomentumSection factorStatus={factorStatus} getStatus={getStatus} />
                         <MarketVolatilitySection factorStatus={factorStatus} getStatus={getStatus} />
-                      </>
+                      </div>
                     )}
                     {activeChartTab === 'behavior' && (
-                      <>
+                      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                         <PutCallOptionsSection factorStatus={factorStatus} getStatus={getStatus} />
                         <SafeHavenDemandSection factorStatus={factorStatus} getStatus={getStatus} />
                         <JunkBondDemandSection factorStatus={factorStatus} getStatus={getStatus} />
-                      </>
+                      </div>
                     )}
                     {activeChartTab === 'internals' && (
-                      <>
+                      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                         <StockStrengthSection factorStatus={factorStatus} getStatus={getStatus} />
                         <StockPriceBreadthSection factorStatus={factorStatus} getStatus={getStatus} />
-                      </>
+                      </div>
                     )}
                   </>
                 )}
@@ -287,7 +283,7 @@ function App() {
           </div>
           
           {/* 하단 광고 배너 */}
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden border border-gray-200 dark:border-gray-700">
+          <div className="bg-card dark:bg-card rounded-lg shadow-md overflow-hidden border border-border p-6"> {/* card, border 스타일 적용 */}
             <div className="p-4 min-h-[250px]">
             </div>
           </div>

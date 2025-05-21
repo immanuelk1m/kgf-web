@@ -20,8 +20,8 @@ const Kospiema: React.FC = () => {
   const [data, setData] = useState<FormattedDataItem[]>([]);
   const [loading, setLoading] = useState(true); // 로딩 상태 추가
   const [yDomain, setYDomain] = useState<[number, number]>([0, 0]);
-  const [kospiColor, setKospiColor] = useState('#667BC6'); // 기본값 설정
-  const [fgiColor, setFgiColor] = useState('#F4A261'); // 기본값 설정
+  const [kospiColor, setKospiColor] = useState('#1E90FF'); // 기본값 변경 (더 선명한 파란색)
+  const [fgiColor, setFgiColor] = useState('#FF6347'); // 기본값 변경 (더 선명한 주황색/빨간색 계열)
 
   useEffect(() => {
     setLoading(true); // 데이터 가져오기 시작 시 로딩 상태 true
@@ -151,9 +151,9 @@ const Kospiema: React.FC = () => {
     <ResponsiveContainer width="100%" height={300} minWidth={400}>
       <LineChart
         data={data}
-        margin={{ top: 5, right: 50, left: 10, bottom: 5 }} // right, left 마진 조정
+        margin={{ top: 20, right: 30, left: 20, bottom: 5 }} // top 마진 늘려서 범례 공간 확보
       >
-        <CartesianGrid strokeDasharray="3 3" />
+        <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" /> {/* 테마 색상 적용 */}
         <XAxis
           dataKey="date"
           tickFormatter={(value, index) => {
@@ -176,6 +176,8 @@ const Kospiema: React.FC = () => {
           tickCount={5} // Y축 틱 개수 설정
           tickFormatter={(value) => value.toFixed(0)} // KOSPI 지수는 정수로 표시
           width={40} // 왼쪽 Y축 너비 확보
+          stroke="hsl(var(--muted-foreground))" // 테마 색상 적용
+          tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 12 }} // 틱 스타일
         />
         <YAxis
           yAxisId="right"
@@ -185,11 +187,24 @@ const Kospiema: React.FC = () => {
           tickCount={5} // Y축 틱 개수 설정
           width={50} // 오른쪽 Y축 너비 확보
           tickMargin={5} // 틱과 레이블 사이 간격
+          stroke="hsl(var(--muted-foreground))" // 테마 색상 적용
+          tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 12 }} // 틱 스타일
         >
           {/* <Label value="Point" angle={-90} position="insideRight" offset={15} style={{ textAnchor: 'middle' }} /> */}
         </YAxis>
-        <Tooltip content={customTooltip} />
-        <Legend />
+        <Tooltip
+          content={customTooltip}
+          cursor={{ stroke: 'hsl(var(--muted-foreground))', strokeWidth: 1, strokeDasharray: '3 3' }} // 커서 스타일
+        />
+        <Legend
+          verticalAlign="top" // 상단 배치
+          align="right" // 우측 정렬
+          wrapperStyle={{ top: -10, right: 0, fontSize: '13px' }} // 위치 및 폰트 크기 미세 조정
+          iconSize={10} // 아이콘 크기
+          formatter={(value, entry) => (
+            <span style={{ color: 'hsl(var(--foreground))', marginRight: '10px' }}>{value}</span> // 범례 텍스트 스타일
+          )}
+        />
         <Line
           yAxisId="left"
           type="monotone"

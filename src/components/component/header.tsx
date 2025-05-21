@@ -26,12 +26,12 @@ const Header: React.FC = () => {
   };
 
   return (
-    <header className="w-full bg-white dark:bg-gray-800 py-4 shadow-md border-b border-gray-200 dark:border-gray-700 sticky top-0 z-50">
+    <header className="w-full bg-card dark:bg-card py-4 shadow-md border-b border-border sticky top-0 z-50"> {/* bg-card, border-border 적용 */}
       <div className="container mx-auto flex items-center justify-between px-4">
         {/* 로고 또는 서비스명 영역 */}
         <Link href="/" className="flex items-center">
           {/* <img src="/logo.svg" alt="로고" className="h-8 w-auto mr-3" /> */}
-          <span className="text-xl font-semibold text-gray-800 dark:text-white">코스피 공포 & 탐욕 지수</span>
+          <span className="text-xl font-semibold text-foreground">코스피 공포 & 탐욕 지수</span> {/* text-foreground 적용 */}
         </Link>
 
         {/* 데스크탑 네비게이션 */}
@@ -44,8 +44,8 @@ const Header: React.FC = () => {
                 href={item.href}
                 className={`flex items-center px-3 py-2 text-sm font-medium rounded-md transition-colors ${
                   active
-                    ? 'text-primary font-semibold bg-gray-100 dark:bg-gray-700'
-                    : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white'
+                    ? 'text-primary font-semibold bg-accent dark:bg-accent' // bg-accent 적용
+                    : 'text-muted-foreground hover:bg-accent dark:hover:bg-accent hover:text-accent-foreground dark:hover:text-accent-foreground' // muted-foreground, hover:bg-accent, hover:text-accent-foreground 적용
                 }`}
               >
                 {item.icon}
@@ -60,7 +60,7 @@ const Header: React.FC = () => {
         <div className="md:hidden">
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white focus:outline-none"
+            className="text-muted-foreground hover:text-foreground focus:outline-none" // muted-foreground, hover:text-foreground 적용
           >
             {isMobileMenuOpen ? <XIcon className="w-6 h-6" /> : <MenuIcon className="w-6 h-6" />}
           </button>
@@ -70,7 +70,7 @@ const Header: React.FC = () => {
       {/* 모바일 네비게이션 (드롭다운) */}
       <div
         className={`
-          md:hidden bg-white dark:bg-gray-800 shadow-lg border-t border-gray-200 dark:border-gray-700
+          md:hidden bg-card dark:bg-card shadow-lg border-t border-border
           absolute top-full left-0 right-0 z-40
           transition-all duration-300 ease-in-out transform
           ${isMobileMenuOpen ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4 pointer-events-none'}
@@ -85,8 +85,8 @@ const Header: React.FC = () => {
                 href={item.href}
                 className={`flex items-center px-3 py-2 text-sm font-medium rounded-md transition-colors ${
                   active
-                    ? 'text-primary font-semibold bg-gray-100 dark:bg-gray-700'
-                    : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white'
+                    ? 'text-primary font-semibold bg-accent dark:bg-accent' // bg-accent 적용
+                    : 'text-muted-foreground hover:bg-accent dark:hover:bg-accent hover:text-accent-foreground dark:hover:text-accent-foreground' // muted-foreground, hover:bg-accent, hover:text-accent-foreground 적용
                 }`}
                 onClick={() => setIsMobileMenuOpen(false)} // 링크 클릭 시 메뉴 닫기
               >

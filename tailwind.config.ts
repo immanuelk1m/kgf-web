@@ -70,6 +70,10 @@ const config = {
         'positive-gradient-to': "hsl(var(--positive-gradient-to))",
         'negative-gradient-from': "hsl(var(--negative-gradient-from))",
         'negative-gradient-to': "hsl(var(--negative-gradient-to))",
+        'accent-action': {
+          DEFAULT: "hsl(var(--accent-action))",
+          foreground: "hsl(var(--accent-action-foreground))",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",

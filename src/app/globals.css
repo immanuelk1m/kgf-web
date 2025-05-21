@@ -41,6 +41,9 @@
     --positive-gradient-to: 150 69.9% 67.3%; /* #6EE7B7 */
     --negative-gradient-from: 0 93.3% 89%; /* #FECACA */
     --negative-gradient-to: 0 90.5% 82.2%; /* #FCA5A5 */
+    /* 강조 행동 유도 색상 (라이트 모드) */
+    --accent-action: 217 91% 60%; /* 예: 밝은 파란색 */
+    --accent-action-foreground: 210 40% 98%; /* 밝은 파란색 위의 텍스트 */
   }
 
   .dark {
@@ -80,6 +83,9 @@
     --positive-gradient-to: 150 60% 20%;
     --negative-gradient-from: 0 50% 30%;
     --negative-gradient-to: 0 50% 25%;
+    /* 강조 행동 유도 색상 (다크 모드) */
+    --accent-action: 217 91% 70%; /* 예: 다크모드용 밝은 파란색 */
+    --accent-action-foreground: 222.2 47.4% 11.2%; /* 다크모드 밝은 파란색 위의 텍스트 */
   }
 }
 
