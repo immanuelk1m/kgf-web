@@ -258,20 +258,20 @@ function App() {
                 ) : (
                   <>
                     {activeChartTab === 'sentiment' && (
-                      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                      <div className="grid grid-cols-1 gap-8">
                         <MarketMomentumSection factorStatus={factorStatus} getStatus={getStatus} />
                         <MarketVolatilitySection factorStatus={factorStatus} getStatus={getStatus} />
                       </div>
                     )}
                     {activeChartTab === 'behavior' && (
-                      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                      <div className="grid grid-cols-1 gap-8">
                         <PutCallOptionsSection factorStatus={factorStatus} getStatus={getStatus} />
                         <SafeHavenDemandSection factorStatus={factorStatus} getStatus={getStatus} />
                         <JunkBondDemandSection factorStatus={factorStatus} getStatus={getStatus} />
                       </div>
                     )}
                     {activeChartTab === 'internals' && (
-                      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                      <div className="grid grid-cols-1 gap-8">
                         <StockStrengthSection factorStatus={factorStatus} getStatus={getStatus} />
                         <StockPriceBreadthSection factorStatus={factorStatus} getStatus={getStatus} />
                       </div>

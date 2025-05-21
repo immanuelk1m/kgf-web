@@ -29,8 +29,8 @@ const Kospiema: React.FC = () => {
     if (typeof window !== 'undefined') {
       const kospiStrokeColor = getComputedStyle(document.documentElement).getPropertyValue('--chart-1').trim();
       const fgiStrokeColor = getComputedStyle(document.documentElement).getPropertyValue('--chart-2').trim();
-      if (kospiStrokeColor) setKospiColor(kospiStrokeColor);
-      if (fgiStrokeColor) setFgiColor(fgiStrokeColor);
+      if (kospiStrokeColor) setKospiColor(`hsl(${kospiStrokeColor})`);
+      if (fgiStrokeColor) setFgiColor(`hsl(${fgiStrokeColor})`);
     }
 
     fetch('https://raw.githubusercontent.com/immanuelk1m/kospi-feargreedindex/main/assets/js/json/kospi.json')

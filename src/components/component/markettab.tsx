@@ -83,7 +83,7 @@ const MarketDataComponent = () => {
 
     return (
         <div className="container mx-auto py-8 px-4">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 gap-6">
                 {/* 마켓 데이터 카드 */}
                 <div className="bg-card dark:bg-card rounded-lg shadow-md overflow-hidden border border-border"> {/* bg-card, border-border 적용 */}
                     <div className="bg-accent dark:bg-accent p-4 border-b border-border"> {/* bg-accent, border-border 적용 */}

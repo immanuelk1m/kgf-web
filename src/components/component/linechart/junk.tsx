@@ -17,7 +17,7 @@ interface FormattedDataItem {
 const Junk: React.FC = () => { // 컴포넌트 이름 변경 (Junks -> Junk)
   const [data, setData] = useState<FormattedDataItem[]>([]);
   const [loading, setLoading] = useState(true);
-  const [yDomain, setYDomain] = useState<[number, number]>([0, 0]); // Y축 도메인 동적 설정 예정
+  // const [yDomain, setYDomain] = useState<[number, number]>([0, 0]); // Y축 도메인 고정으로 변경
   const [lineColor, setLineColor] = useState('#D2691E'); // 기본값 설정 (Chocolate)
 
   useEffect(() => {
@@ -65,12 +65,12 @@ const Junk: React.FC = () => { // 컴포넌트 이름 변경 (Junks -> Junk)
 
           const recentData = formattedData.slice(-50);
 
-          if (recentData.length > 0) {
-            const junkValues = recentData.map(item => item.junk);
-            const min = Math.floor(Math.min(...junkValues) * 0.99);
-            const max = Math.ceil(Math.max(...junkValues) * 1.01);
-            setYDomain([min, max]);
-          }
+          // if (recentData.length > 0) { // Y축 도메인 고정으로 변경
+          //   const junkValues = recentData.map(item => item.junk);
+          //   const min = Math.floor(Math.min(...junkValues) * 0.99);
+          //   const max = Math.ceil(Math.max(...junkValues) * 1.01);
+          //   setYDomain([min, max]);
+          // }
 
           setData(recentData);
           setLoading(false);
@@ -147,7 +147,7 @@ const Junk: React.FC = () => { // 컴포넌트 이름 변경 (Junks -> Junk)
         <YAxis
           yAxisId="left" // yAxisId 추가
           orientation="left"
-          domain={yDomain}
+          domain={[0.75, 1.1]} // Y축 범위 고정
           hide={false} // Y축 표시 (kospiema.tsx와 일관성)
           tickCount={5}
           tickFormatter={(value) => value.toFixed(2)} // Y축 눈금 소수점 둘째 자리
