@@ -236,7 +236,6 @@ export default function IndicatorCards() {
                 <div className="inline-flex min-w-28 flex-col items-center border border-neutral-900 px-3 py-2 text-neutral-950 md:items-end">
                   <span className="text-[10px] font-black uppercase tracking-[0.16em] text-neutral-400">현재 상태</span>
                   <span className="mt-1 text-sm font-black">{currentStage}</span>
-                  <span className="mt-1 text-2xl font-black leading-none">{score !== null ? score.toFixed(1) : '--'}</span>
                 </div>
               </div>
             </article>
