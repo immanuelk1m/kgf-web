@@ -24,7 +24,7 @@ function App() {
               코스피 공포 & 탐욕 지수
             </h1>
             <p className="mt-4 text-base leading-7 text-neutral-700 md:text-lg">
-              지금 코스피 시장을 움직이는 감정은 무엇인가요?
+              지금 코스피 시장의 상태는?
               <br className="hidden sm:block" />
               <a href="#fng-faq" className="font-bold text-neutral-950 underline decoration-neutral-400 underline-offset-4">
                 지수 산정 방식 보기
