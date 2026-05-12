@@ -307,7 +307,7 @@ function FactorLineChart({
 
       <div className="mt-2 flex flex-wrap items-center justify-between gap-2 text-[10px] font-bold text-neutral-400">
         <span>{firstDate}</span>
-        <span>최근 {series.length}개 거래일</span>
+        <span>최근 {series.length} 거래일</span>
         <span>{lastDate}</span>
       </div>
       <div className="mt-3 flex flex-wrap gap-3 text-[10px] font-black uppercase tracking-[0.12em] text-neutral-500">
