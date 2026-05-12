@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { parseDomesticIndexPage, parseExchangePage } from "../src/lib/market-data.ts";
+import { parseDomesticIndexPage, parseExchangePage, parsePriceHistory } from "../src/lib/market-data.ts";
 
 const kospiFixture = `
   <h2>코스피</h2>
@@ -39,6 +39,30 @@ const usdSplitFixture = `
 `;
 
 const missingFixture = `<h2>코스피</h2><span>로딩중</span>`;
+
+const priceHistoryFixture = {
+  isSuccess: true,
+  result: [
+    {
+      localTradedAt: "2026-05-12",
+      closePrice: "7,643.15",
+      compareToPreviousClosePrice: "-179.09",
+      fluctuationsRatio: "-2.29",
+      openPrice: "7,953.41",
+      highPrice: "7,999.67",
+      lowPrice: "7,421.71",
+    },
+    {
+      localTradedAt: "2026-05-11",
+      closePrice: "7,822.24",
+      compareToPreviousClosePrice: "324.24",
+      fluctuationsRatio: "4.32",
+      openPrice: "7,775.31",
+      highPrice: "7,899.32",
+      lowPrice: "7,713.49",
+    },
+  ],
+};
 
 const kospi = parseDomesticIndexPage(kospiFixture, {
   key: "kospi",
@@ -91,5 +115,12 @@ const missing = parseDomesticIndexPage(missingFixture, {
 assert.equal(missing.value, null);
 assert.equal(missing.direction, "unknown");
 assert.ok(missing.error);
+
+const priceHistory = parsePriceHistory(priceHistoryFixture);
+assert.equal(priceHistory.length, 2);
+assert.equal(priceHistory[0].date, "2026-05-11");
+assert.equal(priceHistory[0].close, 7822.24);
+assert.equal(priceHistory[1].changePercent, -2.29);
+assert.equal(priceHistory[1].high, 7999.67);
 
 console.log("market parser fixtures passed");

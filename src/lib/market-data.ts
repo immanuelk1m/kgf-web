@@ -2,6 +2,17 @@ export type MarketKey = "kospi" | "kosdaq" | "usdkrw";
 
 export type MarketDirection = "up" | "down" | "flat" | "unknown";
 
+export type MarketHistoryPoint = {
+  date: string;
+  close: number;
+  closeText: string;
+  change: number | null;
+  changePercent: number | null;
+  open: number | null;
+  high: number | null;
+  low: number | null;
+};
+
 export type MarketItem = {
   key: MarketKey;
   label: string;
@@ -15,6 +26,7 @@ export type MarketItem = {
   source: "naver-mobile-stock";
   sourceUrl: string;
   timestampText: string | null;
+  history: MarketHistoryPoint[];
   error?: string;
 };
 
@@ -47,6 +59,7 @@ export function createUnavailableItem(config: Pick<ParseConfig, "key" | "label" 
     source: "naver-mobile-stock",
     sourceUrl: config.sourceUrl,
     timestampText: null,
+    history: [],
     error,
   };
 }
@@ -102,6 +115,7 @@ function parseDomesticLines(lines: string[], config: ParseConfig): MarketItem {
     source: "naver-mobile-stock",
     sourceUrl: config.sourceUrl,
     timestampText,
+    history: [],
   };
 }
 
@@ -130,6 +144,49 @@ function parseExchangeLines(lines: string[], config: ParseConfig): MarketItem {
     source: "naver-mobile-stock",
     sourceUrl: config.sourceUrl,
     timestampText,
+    history: [],
+  };
+}
+
+export function parsePriceHistory(data: unknown): MarketHistoryPoint[] {
+  if (!isRecord(data)) {
+    return [];
+  }
+
+  const rawResult = data.result;
+  const result = Array.isArray(rawResult) ? rawResult : [];
+
+  return result
+    .map((item) => parseHistoryPoint(item))
+    .filter((point): point is MarketHistoryPoint => point !== null)
+    .reverse();
+}
+
+function parseHistoryPoint(item: unknown): MarketHistoryPoint | null {
+  if (!isRecord(item)) {
+    return null;
+  }
+
+  const date = typeof item.localTradedAt === "string" ? item.localTradedAt : null;
+  const closeText = typeof item.closePrice === "string" ? item.closePrice : null;
+  const close = toNumber(closeText);
+
+  if (!date || close === null || closeText === null) {
+    return null;
+  }
+
+  const rawChange = typeof item.compareToPreviousClosePrice === "string" ? item.compareToPreviousClosePrice : typeof item.fluctuations === "string" ? item.fluctuations : null;
+  const rawChangePercent = typeof item.fluctuationsRatio === "string" ? item.fluctuationsRatio : null;
+
+  return {
+    date,
+    close,
+    closeText,
+    change: toNumber(rawChange),
+    changePercent: toNumber(rawChangePercent),
+    open: typeof item.openPrice === "string" ? toNumber(item.openPrice) : null,
+    high: typeof item.highPrice === "string" ? toNumber(item.highPrice) : null,
+    low: typeof item.lowPrice === "string" ? toNumber(item.lowPrice) : null,
   };
 }
 
@@ -297,4 +354,8 @@ function decodeHtmlEntities(value: string): string {
     .replace(/&#x2F;/g, "/")
     .replace(/&#39;/g, "'")
     .replace(/&quot;/g, '"');
+}
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === "object" && value !== null;
 }
