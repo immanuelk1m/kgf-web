@@ -75,8 +75,7 @@ const MarketDataComponent = () => {
           </div>
         </article>
       </div>
-      <div className="mx-auto flex max-w-[1440px] items-center justify-between px-4 py-2 text-[11px] text-neutral-500 lg:px-8">
-        <span>시장 데이터: 네이버 모바일 증권 기준 · 30~60초 단위 캐시</span>
+      <div className="mx-auto flex max-w-[1440px] justify-end px-4 py-2 text-[11px] text-neutral-500 lg:px-8">
         <span>{marketState.error ? '일부 데이터 확인 불가' : formatUpdatedAt(marketState.generatedAt)}</span>
       </div>
     </section>
