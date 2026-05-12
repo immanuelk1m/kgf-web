@@ -81,8 +81,7 @@ function parseDomesticLines(lines: string[], config: ParseConfig): MarketItem {
   const valueIndex = findValueIndexAfterLabel(lines, config.label, config.symbol);
   const valueText = valueIndex >= 0 ? extractFirstNumber(lines[valueIndex]) : null;
   const value = toNumber(valueText);
-  const changeLine = findChangeLine(lines, valueIndex + 1);
-  const changeParts = parseChangeLine(changeLine);
+  const changeParts = findChangeParts(lines, valueIndex + 1);
   const signedChange = applyDirectionToChange(changeParts.change, changeParts.direction);
   const timestampText = findTimestampLine(lines, valueIndex + 1, /(장마감|실시간|\d{2}\.\d{2}\.)/);
 
@@ -107,11 +106,10 @@ function parseDomesticLines(lines: string[], config: ParseConfig): MarketItem {
 }
 
 function parseExchangeLines(lines: string[], config: ParseConfig): MarketItem {
-  const valueIndex = lines.findIndex((line) => /KRW\b/.test(line) && new RegExp(NUMBER_PATTERN).test(line));
+  const valueIndex = findExchangeValueIndex(lines);
   const valueText = valueIndex >= 0 ? extractFirstNumber(lines[valueIndex]) : null;
   const value = toNumber(valueText);
-  const changeLine = findChangeLine(lines, valueIndex + 1);
-  const changeParts = parseChangeLine(changeLine);
+  const changeParts = findChangeParts(lines, valueIndex + 1);
   const signedChange = applyDirectionToChange(changeParts.change, changeParts.direction);
   const timestampText = findTimestampLine(lines, valueIndex + 1, /(실시간|고시|\d{2}\.\d{2}\.)/);
 
@@ -158,15 +156,45 @@ function findValueIndexAfterLabel(lines: string[], label: string, symbol?: strin
   return -1;
 }
 
-function findChangeLine(lines: string[], startIndex: number): string | null {
-  const pattern = new RegExp(`(${NUMBER_PATTERN})\\s*([+-]\\d+(?:\\.\\d+)?)%`);
-  for (let index = Math.max(0, startIndex); index < Math.min(lines.length, startIndex + 12); index += 1) {
+function findExchangeValueIndex(lines: string[]): number {
+  const numericLine = new RegExp(`^${NUMBER_PATTERN}$`);
+
+  for (let index = 0; index < lines.length; index += 1) {
     const line = lines[index];
-    if (pattern.test(line)) {
-      return line;
+    if (/KRW\b/.test(line) && new RegExp(NUMBER_PATTERN).test(line)) {
+      return index;
+    }
+
+    if (/미국\s*USD|USD/.test(line)) {
+      for (let nextIndex = index + 1; nextIndex < Math.min(lines.length, index + 5); nextIndex += 1) {
+        if (numericLine.test(lines[nextIndex]) && /KRW\b/.test(lines[nextIndex + 1] ?? "")) {
+          return nextIndex;
+        }
+      }
     }
   }
-  return null;
+
+  return -1;
+}
+
+function findChangeParts(lines: string[], startIndex: number): { change: number | null; changePercent: number | null; direction: MarketDirection } {
+  const combinedPattern = new RegExp(`(${NUMBER_PATTERN})\\s*([+-]?\\d+(?:\\.\\d+)?)\\s*%`);
+  const numericLine = new RegExp(`^${NUMBER_PATTERN}$`);
+  const percentLine = /^[+-]?\d+(?:\.\d+)?$/;
+
+  for (let index = Math.max(0, startIndex); index < Math.min(lines.length, startIndex + 12); index += 1) {
+    const line = lines[index];
+    const combinedMatch = line.match(combinedPattern);
+    if (combinedMatch) {
+      return parseChangeValues(combinedMatch[1], combinedMatch[2]);
+    }
+
+    if (numericLine.test(line) && percentLine.test(lines[index + 1] ?? "") && (lines[index + 2] === "%" || /%/.test(lines[index + 2] ?? ""))) {
+      return parseChangeValues(line, lines[index + 1]);
+    }
+  }
+
+  return { change: null, changePercent: null, direction: "unknown" };
 }
 
 function findTimestampLine(lines: string[], startIndex: number, pattern: RegExp): string | null {
@@ -179,14 +207,7 @@ function findTimestampLine(lines: string[], startIndex: number, pattern: RegExp)
   return null;
 }
 
-function parseChangeLine(line: string | null): { change: number | null; changePercent: number | null; direction: MarketDirection } {
-  if (!line) {
-    return { change: null, changePercent: null, direction: "unknown" };
-  }
-
-  const match = line.match(new RegExp(`(${NUMBER_PATTERN})\\s*([+-]\\d+(?:\\.\\d+)?)%`));
-  const rawChange = match?.[1] ?? null;
-  const rawPercent = match?.[2] ?? null;
+function parseChangeValues(rawChange: string | null, rawPercent: string | null): { change: number | null; changePercent: number | null; direction: MarketDirection } {
   const change = toNumber(rawChange);
   const changePercent = toNumber(rawPercent);
   const direction = directionFromPercent(changePercent);

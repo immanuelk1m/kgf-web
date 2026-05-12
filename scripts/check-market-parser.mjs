@@ -26,6 +26,18 @@ const usdFixture = `
   <time>05.12. 19:44 실시간 하나은행 고시회차 614 회</time>
 `;
 
+const usdSplitFixture = `
+  <span>미국 USD</span>
+  <strong>1,487.50</strong>
+  <span>KRW</span>
+  <span>12.50</span>
+  <span>+0.85</span>
+  <span>%</span>
+  <time>05.12.</time>
+  <span>하나은행</span>
+  <span>고시회차</span>
+`;
+
 const missingFixture = `<h2>코스피</h2><span>로딩중</span>`;
 
 const kospi = parseDomesticIndexPage(kospiFixture, {
@@ -59,6 +71,16 @@ assert.equal(usdkrw.value, 1490.2);
 assert.equal(usdkrw.change, 15.2);
 assert.equal(usdkrw.changePercent, 1.03);
 assert.equal(usdkrw.direction, "up");
+
+const usdkrwSplit = parseExchangePage(usdSplitFixture, {
+  key: "usdkrw",
+  label: "원/달러",
+  sourceUrl: "https://m.stock.naver.com/marketindex/exchange/FX_USDKRW",
+});
+assert.equal(usdkrwSplit.value, 1487.5);
+assert.equal(usdkrwSplit.change, 12.5);
+assert.equal(usdkrwSplit.changePercent, 0.85);
+assert.equal(usdkrwSplit.direction, "up");
 
 const missing = parseDomesticIndexPage(missingFixture, {
   key: "kospi",

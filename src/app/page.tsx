@@ -6,13 +6,18 @@ import PreviousIndexes from '@/components/component/prev';
 import MarketDataComponent from '@/components/component/markettab';
 import IndicatorCards from '@/components/component/indicator-cards';
 import FaqSection from '@/components/component/faq-section';
-import EditorialFooter from '@/components/component/editorial-footer';
+import AdsenseSlot from '@/components/component/adsense-slot';
 
 function App() {
   return (
     <>
       <Header />
       <MarketDataComponent />
+      <section className="border-b border-neutral-200 bg-[#f7f7f7]">
+        <div className="mx-auto max-w-7xl px-4 py-4 lg:px-6">
+          <AdsenseSlot slot="1773657493" className="border border-neutral-200 bg-white px-3 py-3" minHeight={90} />
+        </div>
+      </section>
 
       <main className="bg-[#f7f7f7]">
         <section className="border-b border-neutral-200 bg-white">
@@ -80,7 +85,6 @@ function App() {
 
           <IndicatorCards />
           <FaqSection />
-          <EditorialFooter />
         </div>
       </main>
     </>
