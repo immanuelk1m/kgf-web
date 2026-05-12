@@ -61,9 +61,9 @@ const KospiVsFearGreedIndex: React.FC = () => {
       <LineChart data={data} margin={{ top: 16, right: 24, left: 0, bottom: 8 }}>
         <CartesianGrid strokeDasharray="3 3" stroke="#e5e5e5" />
         <XAxis dataKey="date" tick={{ fontSize: 11 }} />
-        <YAxis yAxisId="left" domain={[2500, 3000]} tick={{ fontSize: 11 }} />
-        <YAxis yAxisId="right" orientation="right" domain={[30, 80]} tick={{ fontSize: 11 }} />
-        <Tooltip />
+        <YAxis yAxisId="left" domain={[2500, 3000]} tick={{ fontSize: 11 }} tickFormatter={formatChartNumber} />
+        <YAxis yAxisId="right" orientation="right" domain={[30, 80]} tick={{ fontSize: 11 }} tickFormatter={formatChartNumber} />
+        <Tooltip formatter={(value) => formatTooltipValue(value)} />
         <Legend />
         <Line yAxisId="left" type="monotone" dataKey="kospi" name="KOSPI" stroke="#111827" strokeWidth={2.5} dot={false} />
         <Line yAxisId="right" type="monotone" dataKey="fgi" name="Fear & Greed Index" stroke="#b91c1c" strokeWidth={2.5} dot={false} />
@@ -71,5 +71,13 @@ const KospiVsFearGreedIndex: React.FC = () => {
     </ResponsiveContainer>
   );
 };
+
+function formatChartNumber(value: number) {
+  return value.toLocaleString('ko-KR', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+}
+
+function formatTooltipValue(value: unknown) {
+  return typeof value === 'number' && Number.isFinite(value) ? formatChartNumber(value) : String(value);
+}
 
 export default KospiVsFearGreedIndex;

@@ -402,15 +402,15 @@ function getFearGreedStage(score: number | null): FearGreedStage {
 
 function formatFactorValue(value: number, format: IndicatorConfig['valueFormat']) {
   if (format === 'percent') {
-    return `${value.toFixed(2)}%`;
+    return `${value.toFixed(1)}%`;
   }
   if (format === 'ratio') {
-    return value.toFixed(2);
+    return value.toFixed(1);
   }
   if (format === 'index') {
-    return value.toLocaleString('ko-KR', { maximumFractionDigits: 2 });
+    return value.toLocaleString('ko-KR', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
   }
-  return value.toLocaleString('ko-KR', { maximumFractionDigits: 2 });
+  return value.toLocaleString('ko-KR', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
 }
 
 function formatShortDate(date: string) {
