@@ -66,7 +66,7 @@ const MarketDataComponent = () => {
           <div className="flex items-center justify-between gap-3">
             <div>
               <div className="text-[11px] font-black uppercase tracking-[0.18em] text-neutral-500">Fear & Greed</div>
-              <div className="mt-1 text-sm font-bold text-neutral-950">코스피 심리</div>
+              <div className="mt-1 text-sm font-bold text-neutral-950">코스피 공포탐욕지수</div>
             </div>
             <div className="text-right">
               <div className="text-2xl font-black text-neutral-950">{fearGreed.current !== null ? fearGreed.current.toFixed(1) : '--'}</div>
