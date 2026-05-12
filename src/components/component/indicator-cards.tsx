@@ -233,8 +233,8 @@ export default function IndicatorCards() {
               </div>
 
               <div className="px-4 md:col-start-2 md:px-5 md:text-right xl:col-start-auto">
-                <div className="inline-flex min-w-28 flex-col items-center border border-neutral-900 px-3 py-2 text-neutral-950 md:items-end">
-                  <span className="text-[10px] font-black uppercase tracking-[0.16em] text-neutral-400">현재 상태</span>
+                <div className={`inline-flex min-w-28 flex-col items-center border px-3 py-2 md:items-end ${getStageClassName(currentStage)}`}>
+                  <span className="text-[10px] font-black uppercase tracking-[0.16em] opacity-70">현재 상태</span>
                   <span className="mt-1 text-sm font-black">{currentStage}</span>
                 </div>
               </div>
@@ -397,6 +397,23 @@ function getFearGreedStage(score: number | null): FearGreedStage {
   if (score < 60) return '중립';
   if (score < 80) return '탐욕';
   return '극단적 탐욕';
+}
+
+function getStageClassName(stage: FearGreedStage) {
+  switch (stage) {
+    case '극단적 공포':
+      return 'border-red-200 bg-red-50 text-red-800';
+    case '공포':
+      return 'border-orange-200 bg-orange-50 text-orange-800';
+    case '중립':
+      return 'border-yellow-200 bg-yellow-50 text-yellow-800';
+    case '탐욕':
+      return 'border-emerald-200 bg-emerald-50 text-emerald-800';
+    case '극단적 탐욕':
+      return 'border-green-200 bg-green-50 text-green-800';
+    default:
+      return 'border-neutral-200 bg-white text-neutral-950';
+  }
 }
 
 function formatFactorValue(value: number, format: IndicatorConfig['valueFormat']) {
