@@ -2,7 +2,6 @@
 
 import React from 'react';
 import {
-  getFearGreedStatusDescription,
   getFearGreedStatusText,
   getFearGreedStatusTone,
   useFearGreedData,
@@ -50,9 +49,11 @@ const GaugeChart: React.FC = () => {
         <span>극단적 탐욕</span>
       </div>
 
-      <p className="mt-5 border-t border-neutral-200 pt-4 text-sm leading-6 text-neutral-600">
-        {fearGreed.error ? '지표 데이터를 일시적으로 불러오지 못했습니다.' : getFearGreedStatusDescription(fearGreed.currentStatus)}
-      </p>
+      {fearGreed.error && (
+        <p className="mt-5 border-t border-neutral-200 pt-4 text-sm leading-6 text-neutral-600">
+          지표 데이터를 일시적으로 불러오지 못했습니다.
+        </p>
+      )}
     </div>
   );
 };
