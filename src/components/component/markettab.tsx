@@ -58,7 +58,7 @@ const MarketDataComponent = () => {
 
   return (
     <section className="border-b border-neutral-200 bg-white">
-      <div className="mx-auto grid max-w-7xl gap-px bg-neutral-200 px-4 py-px sm:grid-cols-2 lg:grid-cols-4 lg:px-6">
+      <div className="mx-auto grid max-w-[1440px] gap-px bg-neutral-200 px-4 py-px sm:grid-cols-2 lg:grid-cols-4 lg:px-8">
         {labels.map((key) => (
           <MarketTile key={key} item={marketState.items?.[key] ?? null} loading={marketState.loading} />
         ))}
@@ -75,7 +75,7 @@ const MarketDataComponent = () => {
           </div>
         </article>
       </div>
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-2 text-[11px] text-neutral-500 lg:px-6">
+      <div className="mx-auto flex max-w-[1440px] items-center justify-between px-4 py-2 text-[11px] text-neutral-500 lg:px-8">
         <span>시장 데이터: 네이버 모바일 증권 기준 · 30~60초 단위 캐시</span>
         <span>{marketState.error ? '일부 데이터 확인 불가' : formatUpdatedAt(marketState.generatedAt)}</span>
       </div>

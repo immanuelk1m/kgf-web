@@ -21,7 +21,7 @@ const faqs = [
 
 export default function FaqSection() {
   return (
-    <section className="border-t border-neutral-900 pt-5">
+    <section id="fng-faq" className="border-t border-neutral-900 pt-5">
       <div className="mb-5">
         <div className="text-xs font-black uppercase tracking-[0.2em] text-red-700">FAQ</div>
         <h2 className="mt-2 text-3xl font-black tracking-tight text-neutral-950">자주 묻는 질문</h2>
