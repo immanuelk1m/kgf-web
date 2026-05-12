@@ -1,61 +1,88 @@
 import React from 'react';
 import Header from '@/components/component/header';
 import GaugeChart from '@/components/component/gauge';
-import KospiVsFearGreedIndex from "@/components/component/kospivsindex";
-import PreviousIndexes from "@/components/component/prev";
-import MarketDataComponent from "@/components/component/markettab";
-
-const containerStyle = `
-  @apply max-w-[1440px] mx-auto p-2;
-  @media (max-width: 1440px) {
-    @apply px-0;
-  }
-`;
+import KospiVsFearGreedIndex from '@/components/component/kospivsindex';
+import PreviousIndexes from '@/components/component/prev';
+import MarketDataComponent from '@/components/component/markettab';
+import IndicatorCards from '@/components/component/indicator-cards';
+import FaqSection from '@/components/component/faq-section';
+import EditorialFooter from '@/components/component/editorial-footer';
 
 function App() {
   return (
     <>
       <Header />
-      
-      <div className="h-10"></div>
+      <MarketDataComponent />
 
-      <div className={`border-2 border-gray-300 ${containerStyle}`}>
-        <MarketDataComponent />
-      </div>
-      
-      <div className={`flex flex-col md:flex-row items-start justify-start min-h-screen ${containerStyle}`}>
-        <div className="flex flex-col w-full md:w-4/5 p-8 border-2 border-gray-300">
-          
-          <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">코스피 공포 & 탐욕 지수</h1>
-          <p className="mt-4 text-muted-foreground md:text-xl">
-          CNN FEAR & GREED INDEX를 코스피 시장에 맞게 재구성하였습니다
-          </p>
-
-          <div className="flex flex-col md:flex-row mt-4">
-            <div className="md:w-2/3 p-4">
-              <GaugeChart />
-              <div className="block md:hidden mt-4">
-                <PreviousIndexes />
+      <main className="bg-[#f7f7f7]">
+        <section className="border-b border-neutral-200 bg-white">
+          <div className="mx-auto grid max-w-7xl gap-8 px-4 py-8 lg:grid-cols-[minmax(0,1fr)_420px] lg:px-6 lg:py-12">
+            <div>
+              <div className="text-xs font-black uppercase tracking-[0.22em] text-red-700">Overview</div>
+              <h1 className="mt-3 max-w-4xl text-5xl font-black leading-[0.95] tracking-[-0.045em] text-neutral-950 md:text-7xl">
+                코스피 공포 & 탐욕 지수
+              </h1>
+              <p className="mt-5 max-w-2xl text-lg leading-8 text-neutral-700">
+                미국 시장의 공포·탐욕 지수 구조를 참고해 코스피 시장 흐름에 맞게 재해석한 투자심리 대시보드입니다.
+              </p>
+              <div className="mt-8">
+                <GaugeChart />
               </div>
             </div>
-            <div className="md:w-1/3 hidden md:block pt-32 md:ml-4 p-4">
-              <PreviousIndexes />
+            <aside className="border-l-0 border-neutral-200 lg:border-l lg:pl-8">
+              <div className="border-t border-neutral-900 pt-4">
+                <div className="text-xs font-black uppercase tracking-[0.2em] text-red-700">How to read</div>
+                <h2 className="mt-3 text-2xl font-black tracking-tight text-neutral-950">지수가 말하는 시장 온도</h2>
+                <p className="mt-4 text-sm leading-6 text-neutral-600">
+                  0에 가까울수록 공포, 100에 가까울수록 탐욕을 뜻합니다. 극단 구간은 방향성 신호가 아니라 리스크를 다시 점검하라는 경고로 해석하는 것이 좋습니다.
+                </p>
+              </div>
+              <div className="mt-8 border-t border-neutral-200 pt-5">
+                <h3 className="text-sm font-black uppercase tracking-[0.16em] text-neutral-500">Scale</h3>
+                <div className="mt-4 grid gap-2 text-sm text-neutral-700">
+                  <div className="flex justify-between border-b border-neutral-100 pb-2"><span>0 - 20</span><strong>극단적 공포</strong></div>
+                  <div className="flex justify-between border-b border-neutral-100 pb-2"><span>20 - 40</span><strong>공포</strong></div>
+                  <div className="flex justify-between border-b border-neutral-100 pb-2"><span>40 - 60</span><strong>중립</strong></div>
+                  <div className="flex justify-between border-b border-neutral-100 pb-2"><span>60 - 80</span><strong>탐욕</strong></div>
+                  <div className="flex justify-between"><span>80 - 100</span><strong>극단적 탐욕</strong></div>
+                </div>
+              </div>
+            </aside>
+          </div>
+        </section>
+
+        <div className="mx-auto flex max-w-7xl flex-col gap-10 px-4 py-10 lg:px-6 lg:py-12">
+          <section>
+            <div className="mb-4 flex items-end justify-between border-t border-neutral-900 pt-5">
+              <div>
+                <div className="text-xs font-black uppercase tracking-[0.2em] text-red-700">Previous readings</div>
+                <h2 className="mt-2 text-3xl font-black tracking-tight text-neutral-950">이전 지수와 심리 변화</h2>
+              </div>
             </div>
-          </div>
-          
-          <hr className="my-4 border-t-2 border-gray-300" />
+            <PreviousIndexes />
+          </section>
 
-          <div className="mt-4 border-2 border-gray-300 p-4">
-            <KospiVsFearGreedIndex />
-          </div>
-        </div>
-        
-        <hr className="my-8 border-t border-gray-300" />
+          <section className="border-t border-neutral-900 pt-5">
+            <div className="mb-5 flex flex-col justify-between gap-3 md:flex-row md:items-end">
+              <div>
+                <div className="text-xs font-black uppercase tracking-[0.2em] text-red-700">Timeline</div>
+                <h2 className="mt-2 text-3xl font-black tracking-tight text-neutral-950">코스피와 공포·탐욕 추이</h2>
+              </div>
+              <div className="flex w-fit border border-neutral-300 bg-white text-xs font-bold uppercase tracking-[0.14em] text-neutral-600">
+                <span className="border-r border-neutral-300 bg-neutral-950 px-3 py-2 text-white">Overview</span>
+                <span className="px-3 py-2">60 days</span>
+              </div>
+            </div>
+            <div className="border border-neutral-200 bg-white p-3 md:p-5">
+              <KospiVsFearGreedIndex />
+            </div>
+          </section>
 
-        <div className="hidden md:block md:w-1/5 bg-white border-2 border-gray-300 p-4 md:ml-4">
-          <div className="mt-4"></div>
+          <IndicatorCards />
+          <FaqSection />
+          <EditorialFooter />
         </div>
-      </div>
+      </main>
     </>
   );
 }

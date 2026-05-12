@@ -1,152 +1,112 @@
 'use client';
 
-import BuyCoffee from '@/components/component/buycoff';
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { getFearGreedStatusText, useFearGreedData } from '@/components/component/useFearGreedData';
+import type { MarketDataResponse, MarketItem } from '@/lib/market-data';
 
-interface MarketData {
-    value: number;
-    change: number;
-}
+type MarketState = {
+  items: MarketDataResponse['items'] | null;
+  loading: boolean;
+  error: string | null;
+  generatedAt: string | null;
+};
 
-const containerStyle = `
-  @apply max-w-[1440px] mx-auto p-2 pt-8;
-  @media (max-width: 1440px) {
-    @apply px-0;
-  }
-`;
+const labels: Array<keyof NonNullable<MarketState['items']>> = ['kospi', 'kosdaq', 'usdkrw'];
 
 const MarketDataComponent = () => {
-    const [marketData, setMarketData] = useState<{
-        kospi: MarketData;
-        kosdaq: MarketData;
-        wond: MarketData;
-    }>({
-        kospi: { value: 0, change: 0 },
-        kosdaq: { value: 0, change: 0 },
-        wond: { value: 0, change: 0 },
-    });
+  const [marketState, setMarketState] = useState<MarketState>({
+    items: null,
+    loading: true,
+    error: null,
+    generatedAt: null,
+  });
+  const fearGreed = useFearGreedData();
 
-    const [fearGreedIndex, setFearGreedIndex] = useState<number | null>(null);
+  useEffect(() => {
+    let cancelled = false;
 
     const fetchData = async () => {
-        try {
-            const [kospiRes, kosdaqRes, wondRes] = await Promise.all([
-                fetch('https://cors-anywhere.herokuapp.com/https://query1.finance.yahoo.com/v8/finance/chart/%5EKS11?range=2d&interval=1d'),
-                fetch('https://cors-anywhere.herokuapp.com/https://query1.finance.yahoo.com/v8/finance/chart/%5EKQ11?range=2d&interval=1d'),
-                fetch('https://cors-anywhere.herokuapp.com/https://query1.finance.yahoo.com/v8/finance/chart/KRW=X?range=2d&interval=1d')
-            ]);
-            
-            const [kospiData, kosdaqData, wondData] = await Promise.all([
-                kospiRes.json(),
-                kosdaqRes.json(),
-                wondRes.json()
-            ]);
-
-            const getLatestData = (data: any): MarketData => {
-                const quote = data.chart.result[0].indicators.quote[0];
-                const latestIndex = quote.close.length - 1;
-                const previousClose = data.chart.result[0].meta.chartPreviousClose;
-                const latestClose = quote.close[latestIndex];
-                const change = ((latestClose - previousClose) / previousClose) * 100;
-
-                return {
-                    value: latestClose,
-                    change: change
-                };
-            };
-
-            setMarketData({
-                kospi: getLatestData(kospiData),
-                kosdaq: getLatestData(kosdaqData),
-                wond: getLatestData(wondData)
-            });
-        } catch (error) {
-            console.error("Error fetching data:", error);
+      setMarketState((previous) => ({ ...previous, loading: previous.items === null, error: null }));
+      try {
+        const response = await fetch('/api/market-data', { cache: 'no-store' });
+        if (!response.ok) {
+          throw new Error(`market API returned ${response.status}`);
         }
-    };
-
-    const fetchFearGreedIndex = async () => {
-        try {
-            const response = await fetch('https://immanuelk1m.github.io/kospi-feargreedindex/assets/js/json/value.json');
-            const data = await response.json();
-            setFearGreedIndex(data.current);
-        } catch (error) {
-            console.error("Error fetching Fear & Greed Index:", error);
+        const data = (await response.json()) as MarketDataResponse;
+        if (!cancelled) {
+          setMarketState({ items: data.items, loading: false, error: null, generatedAt: data.generatedAt });
         }
+      } catch (error) {
+        if (!cancelled) {
+          setMarketState((previous) => ({
+            ...previous,
+            loading: false,
+            error: error instanceof Error ? error.message : '시장 데이터를 불러오지 못했습니다.',
+          }));
+        }
+      }
     };
 
-    useEffect(() => {
-        fetchData();
-        fetchFearGreedIndex();
-        const interval = setInterval(() => {
-            fetchData();
-            fetchFearGreedIndex();
-        }, 60000);
-        return () => clearInterval(interval);
-    }, []);
+    void fetchData();
+    const interval = setInterval(fetchData, 60_000);
 
-    const renderChange = (change: number) => {
-        const isPositive = change > 0;
-        return (
-            <span className={`flex items-center p-2 ${isPositive ? 'text-red-500' : 'text-blue-500'}`}>
-                {change.toFixed(2)}%
-                {isPositive ? (
-                    <svg xmlns="http://www.w3.org/2000/svg" className="ml-1 h-4 w-4 fill-current text-red-500" viewBox="0 0 24 24">
-                        <polygon points="12 2 22 22 2 22 12 2" />
-                    </svg>
-                ) : (
-                    <svg xmlns="http://www.w3.org/2000/svg" className="ml-1 h-4 w-4 fill-current text-blue-500" viewBox="0 0 24 24">
-                        <polygon points="12 22 22 2 2 2 12 22" />
-                    </svg>
-                )}
-            </span>
-        );
+    return () => {
+      cancelled = true;
+      clearInterval(interval);
     };
+  }, []);
 
-    return (
-        <div className={`${containerStyle}`}>
-          <div className="flex flex-col md:flex-row flex-wrap md:flex-nowrap">
-            
-            <div className="markets mb-4 flex flex-col w-full md:w-1/3 p-2 md:border-r md:border-gray-300">
-              <h3 className="text-xl font-semibold mb-2">Markets</h3>
-              <table className="min-w-full bg-white rounded-md">
-                <tbody>
-                  <tr className="border-b">
-                    <td className="p-2">코스피</td>
-                    <td className="p-2">{marketData.kospi.value.toFixed(2)}</td>
-                    <td className="p-2">{renderChange(marketData.kospi.change)}</td>
-                  </tr>
-                  <tr className="border-b">
-                    <td className="p-2">코스닥</td>
-                    <td className="p-2">{marketData.kosdaq.value.toFixed(2)}</td>
-                    <td className="p-2">{renderChange(marketData.kosdaq.change)}</td>
-                  </tr>
-                  <tr>
-                    <td className="p-2">원/달러</td>
-                    <td className="p-2">{marketData.wond.value.toFixed(2)}</td>
-                    <td className="p-2">{renderChange(marketData.wond.change)}</td>
-                  </tr>
-                </tbody>
-              </table>
+  return (
+    <section className="border-b border-neutral-200 bg-white">
+      <div className="mx-auto grid max-w-7xl gap-px bg-neutral-200 px-4 py-px sm:grid-cols-2 lg:grid-cols-4 lg:px-6">
+        {labels.map((key) => (
+          <MarketTile key={key} item={marketState.items?.[key] ?? null} loading={marketState.loading} />
+        ))}
+        <article className="bg-white p-4">
+          <div className="flex items-center justify-between gap-3">
+            <div>
+              <div className="text-[11px] font-black uppercase tracking-[0.18em] text-neutral-500">Fear & Greed</div>
+              <div className="mt-1 text-sm font-bold text-neutral-950">코스피 심리</div>
             </div>
-            
-            <div className="fear-greed-index flex flex-col w-full md:w-1/3 p-2 hidden md:flex md:border-r md:border-gray-300">
-              <h3 className="text-xl font-semibold mb-2">Fear & Greed Index</h3>
-              <div className="index flex justify-center items-center h-full">
-                <span className="text-6xl font-bold">{fearGreedIndex !== null ? fearGreedIndex : 'Loading...'}</span>
-              </div>
-              <div className="text-center mt-4">Neutral sentiment is driving the US market</div>
-            </div>
-        
-            <div className="flex flex-col w-full md:w-1/3 p-2">
-              <h3 className="text-xl font-semibold mb-2">커피 한 잔 후원하기!</h3>
-              <div className="bg-[#FEE500] rounded-lg p-4 flex items-center justify-center min-h-[150px]">
-                <BuyCoffee/>
-              </div>
+            <div className="text-right">
+              <div className="text-2xl font-black text-neutral-950">{fearGreed.current !== null ? fearGreed.current.toFixed(1) : '--'}</div>
+              <div className="text-xs font-semibold text-neutral-500">{getFearGreedStatusText(fearGreed.currentStatus)}</div>
             </div>
           </div>
-        </div>
-    );
+        </article>
+      </div>
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-2 text-[11px] text-neutral-500 lg:px-6">
+        <span>시장 데이터: 네이버 모바일 증권 기준 · 30~60초 단위 캐시</span>
+        <span>{marketState.error ? '일부 데이터 확인 불가' : formatUpdatedAt(marketState.generatedAt)}</span>
+      </div>
+    </section>
+  );
 };
+
+function MarketTile({ item, loading }: { item: MarketItem | null; loading: boolean }) {
+  const directionClass = item?.direction === 'up' ? 'text-red-600' : item?.direction === 'down' ? 'text-blue-600' : 'text-neutral-500';
+  const arrow = item?.direction === 'up' ? '▲' : item?.direction === 'down' ? '▼' : '—';
+
+  return (
+    <article className="bg-white p-4">
+      <div className="text-[11px] font-black uppercase tracking-[0.18em] text-neutral-500">Markets</div>
+      <div className="mt-1 flex items-center justify-between gap-3">
+        <h3 className="text-sm font-bold text-neutral-950">{item?.label ?? '시장 지표'}</h3>
+        <span className="text-[11px] text-neutral-400">{item?.timestampText ?? (loading ? '로딩 중' : '확인 불가')}</span>
+      </div>
+      <div className="mt-3 flex items-end justify-between gap-3">
+        <span className="text-2xl font-black tracking-tight text-neutral-950">{item?.valueText ?? '--'}</span>
+        <span className={`text-sm font-bold ${directionClass}`}>{item?.error ? '확인 불가' : `${arrow} ${item?.changePercentText ?? '--'}`}</span>
+      </div>
+    </article>
+  );
+}
+
+function formatUpdatedAt(value: string | null) {
+  if (!value) {
+    return '업데이트 확인 중';
+  }
+  return `업데이트 ${new Date(value).toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit' })}`;
+}
 
 export default MarketDataComponent;
