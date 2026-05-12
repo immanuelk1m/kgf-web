@@ -44,15 +44,6 @@ function App() {
           </section>
 
           <aside className="hidden w-[300px] shrink-0 flex-col gap-10 lg:flex">
-            <section className="border-t border-neutral-900 pt-4">
-              <h2 className="text-sm font-black uppercase tracking-[0.18em] text-neutral-950">Quote Lookup</h2>
-              <label className="mt-4 flex border border-neutral-300 bg-white">
-                <span className="sr-only">시장 검색</span>
-                <input className="min-w-0 flex-1 px-3 py-3 text-sm outline-none" placeholder="종목 또는 지수 검색" />
-                <span className="flex w-11 items-center justify-center border-l border-neutral-300 text-neutral-500">⌕</span>
-              </label>
-            </section>
-
             <AdsenseSlot slot="1773657493" className="border border-neutral-200 bg-white px-3 py-3" minHeight={250} />
 
             <section className="border-t border-neutral-900 pt-4">
