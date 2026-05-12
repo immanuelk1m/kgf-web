@@ -11,13 +11,13 @@ import AdsenseSlot from '@/components/component/adsense-slot';
 function App() {
   return (
     <>
-      <Header />
-      <MarketDataComponent />
-      <section className="border-b border-neutral-200 bg-[#f7f7f7]">
-        <div className="mx-auto max-w-7xl px-4 py-4 lg:px-6">
+      <section className="border-b border-neutral-200 bg-white">
+        <div className="mx-auto max-w-7xl px-4 py-3 lg:px-6">
           <AdsenseSlot slot="1773657493" className="border border-neutral-200 bg-white px-3 py-3" minHeight={90} />
         </div>
       </section>
+      <Header />
+      <MarketDataComponent />
 
       <main className="bg-[#f7f7f7]">
         <section className="border-b border-neutral-200 bg-white">

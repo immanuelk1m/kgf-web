@@ -19,17 +19,31 @@ export default function IndicatorCards() {
           <h2 className="mt-2 text-3xl font-black tracking-tight text-neutral-950">7가지 공포 & 탐욕 지표</h2>
         </div>
         <p className="max-w-2xl text-sm leading-6 text-neutral-600">
-          각 카드는 코스피 시장 심리를 해석할 때 참고할 수 있는 영역입니다. 실시간 산출값이 아닌 방법론 설명 카드로 제공됩니다.
+          벤치마크 사이트처럼 각 지표를 카드 덩어리보다 선명한 아웃라인 행으로 분리해 읽는 순서와 비교가 바로 보이도록 정리했습니다.
         </p>
       </div>
-      <div className="grid gap-px overflow-hidden border border-neutral-200 bg-neutral-200 md:grid-cols-2 xl:grid-cols-4">
-        {indicators.map((indicator) => (
-          <article key={indicator.title} className="bg-white p-5">
-            <div className="flex items-center justify-between gap-3">
-              <h3 className="text-lg font-black text-neutral-950">{indicator.title}</h3>
-              <span className="border border-neutral-300 px-2 py-1 text-[11px] font-bold text-neutral-600">{indicator.status}</span>
+
+      <div className="border-y border-neutral-900 bg-white">
+        {indicators.map((indicator, index) => (
+          <article
+            key={indicator.title}
+            className="grid gap-4 border-b border-neutral-200 px-0 py-5 last:border-b-0 md:grid-cols-[88px_minmax(0,1fr)_160px] md:items-start"
+          >
+            <div className="flex items-center gap-3 px-4 md:block md:border-r md:border-neutral-200 md:px-5">
+              <span className="text-xs font-black uppercase tracking-[0.18em] text-red-700">{String(index + 1).padStart(2, '0')}</span>
+              <span className="hidden text-[11px] font-bold uppercase tracking-[0.16em] text-neutral-400 md:mt-2 md:block">Indicator</span>
             </div>
-            <p className="mt-5 text-sm leading-6 text-neutral-600">{indicator.body}</p>
+
+            <div className="px-4 md:px-5">
+              <h3 className="text-xl font-black tracking-tight text-neutral-950 md:text-2xl">{indicator.title}</h3>
+              <p className="mt-3 max-w-3xl text-sm leading-6 text-neutral-600">{indicator.body}</p>
+            </div>
+
+            <div className="px-4 md:px-5 md:text-right">
+              <span className="inline-flex min-w-20 justify-center border border-neutral-900 px-3 py-2 text-xs font-black text-neutral-950">
+                {indicator.status}
+              </span>
+            </div>
           </article>
         ))}
       </div>
