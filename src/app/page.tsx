@@ -90,19 +90,6 @@ function App() {
             <AdsenseSlot slot="1773657493" className="border border-neutral-200 bg-white px-3 py-3" minHeight={250} />
 
             <section className="border-t border-neutral-900 pt-4">
-              <h2 className="text-sm font-black uppercase tracking-[0.18em] text-neutral-950">Latest Fear & Greed</h2>
-              <div className="mt-4 grid gap-4">
-                {railItems.map((item) => (
-                  <article key={item.title} className="border-b border-neutral-200 pb-4 last:border-b-0">
-                    <div className="text-[11px] font-black uppercase tracking-[0.16em] text-red-700">{item.eyebrow}</div>
-                    <h3 className="mt-1 text-base font-black leading-6 tracking-tight text-neutral-950">{item.title}</h3>
-                    <p className="mt-2 text-sm leading-6 text-neutral-600">{item.description}</p>
-                  </article>
-                ))}
-              </div>
-            </section>
-
-            <section className="border-t border-neutral-900 pt-4">
               <h2 className="text-sm font-black uppercase tracking-[0.18em] text-neutral-950">Scale</h2>
               <div className="mt-4 grid gap-2 text-sm text-neutral-700">
                 {scaleRows.map((row) => (
@@ -126,24 +113,6 @@ const scaleRows = [
   { range: '40 - 60', label: '중립' },
   { range: '60 - 80', label: '탐욕' },
   { range: '80 - 100', label: '극단적 탐욕' },
-];
-
-const railItems = [
-  {
-    eyebrow: 'Reading',
-    title: '시장 심리는 가격보다 먼저 흔들립니다',
-    description: '단기 지표는 방향성 예측보다 리스크 점검 신호로 읽는 것이 안전합니다.',
-  },
-  {
-    eyebrow: 'Data',
-    title: '네이버 증권 기준 지표를 30~60초 단위로 갱신',
-    description: '코스피·코스닥·원/달러 흐름과 공포·탐욕 점수를 같은 화면에서 확인합니다.',
-  },
-  {
-    eyebrow: 'Method',
-    title: '여러 시장 신호를 0~100 구간으로 정규화',
-    description: '극단 구간은 과열이나 위축 가능성을 함께 점검해야 하는 구간입니다.',
-  },
 ];
 
 export default App;
